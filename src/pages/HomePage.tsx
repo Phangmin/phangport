@@ -85,6 +85,20 @@ const HeroVisual = styled.div`
   justify-items: center;
 `
 
+const MobileHeroVisual = styled(HeroVisual)`
+  @media (min-width: 960px) {
+    display: none;
+  }
+`
+
+const DesktopHeroVisual = styled(HeroVisual)`
+  display: none;
+
+  @media (min-width: 960px) {
+    display: grid;
+  }
+`
+
 const PortraitFrame = styled.div`
   width: min(100%, 420px);
   overflow: hidden;
@@ -324,6 +338,11 @@ function HomePage() {
         <HeroOverlay>
           <HeroCopy>
             <Eyebrow>보이지 않는 비효율을 찾아 서비스의 가치를 만듭니다</Eyebrow>
+            <MobileHeroVisual>
+              <PortraitFrame>
+                <ProfilePicture src={gwangminPicture} alt="Portrait of Gwangmin" />
+              </PortraitFrame>
+            </MobileHeroVisual>
             <HeroTitle>
               Gwangmin&apos;s
               <br />
@@ -345,11 +364,11 @@ function HomePage() {
               </GhostLink>
             </HeroActions>
           </HeroCopy>
-          <HeroVisual>
+          <DesktopHeroVisual>
             <PortraitFrame>
               <ProfilePicture src={gwangminPicture} alt="Portrait of Gwangmin" />
             </PortraitFrame>
-          </HeroVisual>
+          </DesktopHeroVisual>
         </HeroOverlay>
         <HeroScrollButton
           type="button"
