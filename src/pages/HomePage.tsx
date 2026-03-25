@@ -78,6 +78,11 @@ const HeroOverlay = styled.div`
 const HeroCopy = styled.div`
   display: grid;
   gap: 24px;
+
+  @media (max-width: 959px) {
+    justify-items: center;
+    text-align: center;
+  }
 `
 
 const HeroVisual = styled.div`
@@ -140,6 +145,10 @@ const HeroActions = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+
+  @media (max-width: 959px) {
+    justify-content: center;
+  }
 `
 
 const GhostLink = styled.a`
