@@ -1,0 +1,6 @@
+export { default as AboutEducationSection } from './AboutEducationSection'
+export { default as AboutIntroSection } from './AboutIntroSection'
+export { default as AboutProfileCard } from './AboutProfileCard'
+export { default as AboutAwardsSection } from './AboutAwardsSection'
+export { default as AboutProjectsSection } from './AboutProjectsSection'
+export { default as AboutSkillsSection } from './AboutSkillsSection'

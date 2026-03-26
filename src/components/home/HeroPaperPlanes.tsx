@@ -1,168 +1,3 @@
-import styled, { keyframes } from 'styled-components'
-
-const wander = keyframes`
-  0% {
-    transform: translate(8vw, 18vh);
-  }
-
-  14% {
-    transform: translate(26vw, 8vh);
-  }
-
-  28% {
-    transform: translate(58vw, 14vh);
-  }
-
-  42% {
-    transform: translate(74vw, 34vh);
-  }
-
-  58% {
-    transform: translate(68vw, 68vh);
-  }
-
-  74% {
-    transform: translate(34vw, 78vh);
-  }
-
-  88% {
-    transform: translate(10vw, 58vh);
-  }
-
-  100% {
-    transform: translate(8vw, 18vh);
-  }
-`
-
-const turn = keyframes`
-  0% {
-    transform: rotate(332deg);
-  }
-
-  14% {
-    transform: rotate(332deg);
-  }
-
-  28% {
-    transform: rotate(10deg);
-  }
-
-  42% {
-    transform: rotate(40deg);
-  }
-
-  58% {
-    transform: rotate(112deg);
-  }
-
-  74% {
-    transform: rotate(164deg);
-  }
-
-  88% {
-    transform: rotate(220deg);
-  }
-
-  100% {
-    transform: rotate(268deg);
-  }
-`
-
-const Layer = styled.div`
-  position: fixed;
-  top: -18vh;
-  right: 0;
-  bottom: -18vh;
-  left: 0;
-  pointer-events: none;
-  overflow: visible;
-  z-index: 0;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.28s ease;
-
-  &[data-visible='false'] {
-    opacity: 0;
-    visibility: hidden;
-  }
-`
-
-const Plane = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 36px;
-  color: rgba(125, 211, 252, 0.2);
-  opacity: 0.5;
-  animation: ${wander} 28s linear infinite;
-  will-change: transform;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-
-  @media (max-width: 959px) {
-    width: 27px;
-  }
-`
-
-const PlaneBody = styled.div`
-  position: relative;
-  display: grid;
-  place-items: center;
-  transform-origin: 50% 50%;
-  animation: ${turn} 28s linear infinite;
-  will-change: transform;
-
-  svg {
-    position: relative;
-    z-index: 1;
-    display: block;
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 8px 18px rgba(148, 163, 184, 0.14));
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-`
-
-const Trail = styled.div`
-  position: absolute;
-  top: 63%;
-  left: -6px;
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-  transform: translate(-100%, -50%);
-  opacity: 0.92;
-
-  span {
-    display: block;
-    border-radius: 999px;
-    background: rgba(125, 211, 252, 0.98);
-    box-shadow: 0 0 12px rgba(125, 211, 252, 0.4);
-  }
-
-  span:nth-child(1) {
-    width: 2px;
-    height: 2px;
-    opacity: 0.72;
-  }
-
-  span:nth-child(2) {
-    width: 3px;
-    height: 3px;
-    opacity: 0.86;
-  }
-
-  span:nth-child(3) {
-    width: 4px;
-    height: 4px;
-  }
-`
-
 function PlaneIcon() {
   return (
     <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
@@ -192,38 +27,32 @@ function PlaneIcon() {
         d="M21.7 50.6C20.8 50.6 20.1 49.7 20.5 48.9L29.5 35L53.1 12.4C54 11.6 55.3 12.6 54.8 13.7L35 44.8L23.3 50.3C22.8 50.5 22.2 50.6 21.7 50.6Z"
         fill="url(#plane-fold)"
       />
-      <path
-        d="M8.6 31.2L29.4 35"
-        stroke="#60A5FA"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        opacity="0.58"
-      />
-      <path
-        d="M29.5 35L35 44.6"
-        stroke="#DBEAFE"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        opacity="0.76"
-      />
+      <path d="M8.6 31.2L29.4 35" stroke="#60A5FA" strokeWidth="1.8" strokeLinecap="round" opacity="0.58" />
+      <path d="M29.5 35L35 44.6" stroke="#DBEAFE" strokeWidth="1.8" strokeLinecap="round" opacity="0.76" />
     </svg>
   )
 }
 
 function HeroPaperPlanes({ visible = true }) {
   return (
-    <Layer aria-hidden="true" data-visible={visible ? 'true' : 'false'}>
-      <Plane>
-        <PlaneBody>
-          <Trail>
-            <span />
-            <span />
-            <span />
-          </Trail>
-          <PlaneIcon />
-        </PlaneBody>
-      </Plane>
-    </Layer>
+    <div
+      aria-hidden="true"
+      data-visible={visible ? 'true' : 'false'}
+      className="pointer-events-none fixed inset-x-0 -top-[18vh] -bottom-[18vh] z-0 overflow-visible opacity-100 transition-opacity duration-300 data-[visible=false]:invisible data-[visible=false]:opacity-0"
+    >
+      <div className="absolute left-0 top-0 w-9 text-sky-300/20 opacity-50 motion-safe:animate-[plane-wander_28s_linear_infinite] max-[959px]:w-[27px]">
+        <div className="relative grid place-items-center motion-safe:animate-[plane-turn_28s_linear_infinite]">
+          <div className="absolute left-[-6px] top-[63%] inline-flex -translate-x-full -translate-y-1/2 items-center gap-1 opacity-90">
+            <span className="block h-0.5 w-0.5 rounded-full bg-sky-300/95 shadow-[0_0_12px_rgba(125,211,252,0.4)] opacity-70" />
+            <span className="block h-[3px] w-[3px] rounded-full bg-sky-300/95 shadow-[0_0_12px_rgba(125,211,252,0.4)] opacity-85" />
+            <span className="block h-1 w-1 rounded-full bg-sky-300/95 shadow-[0_0_12px_rgba(125,211,252,0.4)]" />
+          </div>
+          <div className="relative z-[1] block h-auto w-full drop-shadow-[0_8px_18px_rgba(148,163,184,0.14)]">
+            <PlaneIcon />
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
