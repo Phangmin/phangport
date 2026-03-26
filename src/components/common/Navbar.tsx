@@ -1,142 +1,192 @@
-import styled from 'styled-components'
+import { useEffect, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import englishIcon from '../../assets/languages/english-icon.png'
+import koreaIcon from '../../assets/languages/korea-icon.png'
 import phangportIcon from '../../assets/phangporticon/phangport-icon.png'
+import phangportTextlogoBlack from '../../assets/phangporticon/phangport-textlogo-black.png'
+import phangportTextlogoWhite from '../../assets/phangporticon/phangport-textlogo-white.png'
 
 const NAV_ITEMS = [
-  { label: '자기소개', targetId: 'about' },
-  { label: '프로젝트', targetId: 'projects' },
-  { label: '수상내역', targetId: 'awards' },
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Experiences', to: '/experiences' },
+  { label: 'Skills', to: '/skills' },
+  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Contact', to: '/contact' },
 ]
 
-const Bar = styled.header`
-  --navbar-text: #0f172a;
-  --navbar-muted: #334155;
-  --navbar-border: rgba(15, 23, 42, 0.1);
-  --navbar-hover-border: rgba(37, 99, 235, 0.25);
-  --navbar-hover-text: #1d4ed8;
-  --navbar-hover-bg: rgba(37, 99, 235, 0.04);
-  position: fixed;
-  top: 24px;
-  left: 50%;
-  z-index: 10;
-  width: min(1126px, calc(100% - 48px));
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transform: translateX(-50%);
-  background: transparent;
+const LANGUAGE_STORAGE_KEY = 'phangport-language'
 
-  &[data-variant='dark'] {
-    --navbar-text: #f8fafc;
-    --navbar-muted: rgba(248, 250, 252, 0.86);
-    --navbar-border: rgba(226, 232, 240, 0.18);
-    --navbar-hover-border: rgba(191, 219, 254, 0.48);
-    --navbar-hover-text: #dbeafe;
-    --navbar-hover-bg: rgba(148, 163, 184, 0.14);
+const LANGUAGE_OPTIONS = [
+  { code: 'ko', label: '한국어', icon: koreaIcon },
+  { code: 'en', label: 'English', icon: englishIcon },
+]
+
+function getThemeMode() {
+  if (typeof window === 'undefined') {
+    return 'light'
   }
 
-  @media (min-width: 768px) {
-    width: min(1126px, calc(100% - 128px));
+  const savedTheme = window.localStorage.getItem('phangport-theme')
+
+  if (savedTheme === 'dark' || savedTheme === 'light') {
+    return savedTheme
   }
 
-  @media (max-width: 767px) {
-    top: 18px;
-    gap: 14px;
-    flex-direction: column;
-  }
-`
-
-const LogoButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-`
-
-const LogoMark = styled.img`
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-`
-
-const LogoText = styled.span`
-  color: var(--navbar-text);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-`
-
-const Menu = styled.nav`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-`
-
-const MenuButton = styled.button`
-  padding: 10px 4px;
-  border: 0;
-  border-bottom: 3px solid transparent;
-  background: transparent;
-  color: var(--navbar-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease,
-    background-color 0.2s ease;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &:focus-visible {
-    border-bottom-color: var(--navbar-hover-border);
-    color: var(--navbar-hover-text);
-    background: transparent;
-    outline: none;
-  }
-`
-
-function scrollToTarget(targetId = '') {
-  const root = document.getElementById('root')
-  const target = document.getElementById(targetId)
-
-  if (!root || !target) {
-    return
-  }
-
-  const rootRect = root.getBoundingClientRect()
-  const targetRect = target.getBoundingClientRect()
-  const offsetTop = targetRect.top - rootRect.top + root.scrollTop
-
-  root.scrollTo({ top: offsetTop, behavior: 'smooth' })
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
 function Navbar({ variant = 'light' }) {
-  return (
-    <Bar data-variant={variant}>
-      <LogoButton type="button" aria-label="Go to home" onClick={() => scrollToTarget('home')}>
-        <LogoMark src={phangportIcon} alt="PHANGPORT logo" />
-        {/* <LogoText>PHANGPORT</LogoText> */}
-      </LogoButton>
+  const [language, setLanguage] = useState(() => {
+    if (typeof window === 'undefined') {
+      return 'ko'
+    }
 
-      <Menu aria-label="Primary">
-        {NAV_ITEMS.map((item) => (
-          <MenuButton
-            key={item.targetId}
+    const savedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY)
+    return savedLanguage === 'en' ? 'en' : 'ko'
+  })
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false)
+  const [themeMode, setThemeMode] = useState(() => getThemeMode())
+
+  useEffect(() => {
+    document.documentElement.lang = language
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language)
+  }, [language])
+
+  useEffect(() => {
+    function handlePointerDown() {
+      const event = arguments[0]
+      const menuNode = document.querySelector('[data-language-menu="true"]')
+
+      if (!(menuNode instanceof HTMLDivElement)) {
+        return
+      }
+
+      if (!(event.target instanceof Node)) {
+        return
+      }
+
+      if (!menuNode.contains(event.target)) {
+        setIsLanguageOpen(false)
+      }
+    }
+
+    function handleThemeChange() {
+      const event = arguments[0]
+      setThemeMode(event.detail === 'dark' ? 'dark' : 'light')
+    }
+
+    window.addEventListener('mousedown', handlePointerDown)
+    window.addEventListener('phangport-theme-change', handleThemeChange)
+
+    return () => {
+      window.removeEventListener('mousedown', handlePointerDown)
+      window.removeEventListener('phangport-theme-change', handleThemeChange)
+    }
+  }, [])
+
+  const isDark = variant === 'dark' || themeMode === 'dark'
+  const textClass = isDark ? 'text-slate-50' : 'text-slate-900'
+  const mutedClass = isDark ? 'text-slate-200/85' : 'text-slate-700'
+  const hoverTextClass = isDark ? 'hover:text-blue-100 focus-visible:text-blue-100' : 'hover:text-blue-700 focus-visible:text-blue-700'
+  const hoverBorderClass = isDark
+    ? 'hover:border-b-blue-200/45 focus-visible:border-b-blue-200/45'
+    : 'hover:border-b-blue-600/25 focus-visible:border-b-blue-600/25'
+  const activeNavClass = isDark ? 'border-b-blue-200/45 text-blue-100' : 'border-b-blue-600/25 text-blue-700'
+  const languageBorderClass = isDark ? 'border-slate-200/20' : 'border-slate-900/12'
+  const languageMenuClass = isDark
+    ? 'border-slate-200/15 bg-slate-900/95 shadow-[0_20px_48px_rgba(2,6,23,0.28)]'
+    : 'border-slate-900/10 bg-white/95 shadow-[0_18px_42px_rgba(15,23,42,0.12)]'
+  const navbarSurfaceClass = isDark
+    ? 'border-slate-200/10 bg-[#2b2f36]/72 shadow-[0_18px_40px_rgba(2,6,23,0.28)]'
+    : 'border-white/55 bg-white/68 shadow-[0_18px_40px_rgba(15,23,42,0.08)]'
+
+  const activeLanguageIcon = language === 'en' ? englishIcon : koreaIcon
+  const activeLanguageLabel = language === 'en' ? 'English' : '한국어'
+  const activeTextLogo = isDark ? phangportTextlogoWhite : phangportTextlogoBlack
+
+  return (
+    <header
+      className={`fixed left-1/2 top-6 z-10 flex w-[min(1126px,calc(100%-48px))] -translate-x-1/2 items-center justify-between rounded-full border px-5 py-3 backdrop-blur-xl max-md:top-[18px] max-md:flex-col max-md:gap-[14px] max-md:rounded-[28px] md:w-[min(1126px,calc(100%-128px))] ${navbarSurfaceClass}`}
+    >
+      <Link to="/" aria-label="Go to home" className="inline-flex items-center gap-[10px] bg-transparent p-0">
+      <img src={phangportIcon} alt="PHANGPORT logo" className="h-11 w-11 object-contain" />
+        <img
+          src={activeTextLogo}
+          alt="PHANGPORT text logo"
+          className="h-5 w-auto object-contain max-md:h-4"
+        />
+      </Link>
+
+      <nav aria-label="Primary" className="flex flex-wrap items-center justify-center gap-[15px]">
+        <div data-language-menu="true" className="relative inline-flex">
+          <button
             type="button"
-            onClick={() => scrollToTarget(item.targetId)}
+            aria-haspopup="menu"
+            aria-expanded={isLanguageOpen}
+            onClick={() => setIsLanguageOpen((open) => !open)}
+            className={`inline-flex min-w-24 items-center justify-center gap-[7px] rounded-full border bg-transparent px-[11px] py-[7px] text-[0.73rem] font-bold leading-none tracking-[0.02em] transition-[color,transform,opacity,border-color] duration-200 hover:-translate-y-px hover:opacity-95 focus-visible:-translate-y-px focus-visible:opacity-95 focus-visible:outline-none ${languageBorderClass} ${textClass} ${hoverTextClass}`}
+          >
+            <img
+              src={activeLanguageIcon}
+              alt=""
+              aria-hidden="true"
+              className="h-[14px] w-[14px] shrink-0 rounded-full object-cover"
+            />
+            <span className="whitespace-nowrap">{activeLanguageLabel}</span>
+          </button>
+
+          {isLanguageOpen ? (
+            <div
+              role="menu"
+              className={`absolute left-1/2 top-[calc(100%+8px)] z-20 grid min-w-[122px] -translate-x-1/2 gap-1 rounded-2xl border p-1.5 backdrop-blur ${languageMenuClass}`}
+            >
+              {LANGUAGE_OPTIONS.map((option) => (
+                <button
+                  key={option.code}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={option.code === language}
+                  onClick={() => {
+                    setLanguage(option.code)
+                    setIsLanguageOpen(false)
+                    window.dispatchEvent(
+                      new CustomEvent('phangport-language-change', { detail: option.code }),
+                    )
+                  }}
+                  className={
+                    option.code === language
+                      ? 'inline-flex w-full items-center gap-2 rounded-xl bg-blue-600/10 px-[10px] py-2 text-left text-[0.74rem] font-semibold text-blue-700 transition-colors duration-200 focus-visible:outline-none dark:text-blue-100'
+                      : `inline-flex w-full items-center gap-2 rounded-xl px-[10px] py-2 text-left text-[0.74rem] font-semibold transition-colors duration-200 hover:bg-blue-600/8 focus-visible:bg-blue-600/8 focus-visible:outline-none ${textClass} ${hoverTextClass}`
+                  }
+                >
+                  <img
+                    src={option.icon}
+                    alt=""
+                    aria-hidden="true"
+                    className="h-[14px] w-[14px] shrink-0 rounded-full object-cover"
+                  />
+                  <span>{option.label}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        {NAV_ITEMS.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.to === '/'}
+            className={({ isActive }) =>
+              `border-b-[3px] border-transparent bg-transparent px-1 py-[10px] text-[0.85rem] font-semibold transition-[border-color,color,background-color] duration-200 focus-visible:outline-none ${mutedClass} ${hoverTextClass} ${hoverBorderClass} ${isActive ? activeNavClass : ''}`
+            }
           >
             {item.label}
-          </MenuButton>
+          </NavLink>
         ))}
-      </Menu>
-    </Bar>
+      </nav>
+    </header>
   )
 }
 

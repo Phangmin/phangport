@@ -1,37 +1,28 @@
 import { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { Navbar } from '../components/common'
+import { Footer } from '../components/common'
 import {
   AboutSection,
+  ExperiencesSection,
+  SkillsSection,
   AwardsSection,
   HeroSection,
   HeroPaperPlanes,
   ProjectsSection,
 } from '../components/home'
 
-const Page = styled.main`
-  --navbar-offset: 104px;
-  color: #0f172a;
-  background: white;
-
-  @media (max-width: 767px) {
-    --navbar-offset: 132px;
-  }
-`
-
 function HomePage() {
   const [activeSection, setActiveSection] = useState('home')
-  const [navbarVariant, setNavbarVariant] = useState('light')
 
   useEffect(() => {
     const root = document.getElementById('root')
-    const sectionIds = ['home', 'about', 'projects', 'awards']
+    const sectionIds = ['home', 'about', 'experiences', 'skills', 'portfolio', 'contact']
 
     if (!root) {
       return undefined
     }
 
     const rootNode = root
+    rootNode.classList.add('home-scroll-snap')
 
     function updateNavbarVariant() {
       const rootRect = rootNode.getBoundingClientRect()
@@ -57,7 +48,6 @@ function HomePage() {
       })
 
       setActiveSection(closestSection)
-      setNavbarVariant(closestSection === 'projects' ? 'dark' : 'light')
     }
 
     updateNavbarVariant()
@@ -65,20 +55,23 @@ function HomePage() {
     window.addEventListener('resize', updateNavbarVariant)
 
     return () => {
+      rootNode.classList.remove('home-scroll-snap')
       rootNode.removeEventListener('scroll', updateNavbarVariant)
       window.removeEventListener('resize', updateNavbarVariant)
     }
   }, [])
 
   return (
-    <Page>
+    <main className="[--navbar-offset:104px] bg-white text-slate-900 max-md:[--navbar-offset:132px]">
       <HeroPaperPlanes visible={activeSection === 'home'} />
-      <Navbar variant={navbarVariant} />
       <HeroSection />
       <AboutSection />
+      <ExperiencesSection />
+      <SkillsSection />
       <ProjectsSection />
       <AwardsSection />
-    </Page>
+      <Footer />
+    </main>
   )
 }
 

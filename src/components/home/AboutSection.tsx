@@ -1,6 +1,3 @@
-import styled from 'styled-components'
-import { SectionTitle } from '../common'
-
 const introParagraphs = [
   '안녕하세요. 저는 사용자에게 자연스럽고 설득력 있게 전달되는 화면을 만드는 프론트엔드 개발자입니다.',
   '기획 의도를 인터페이스로 구체화하는 과정에 강점이 있으며, 보기 좋은 화면을 넘어 실제로 사용하기 편한 경험을 만드는 데 집중합니다.',
@@ -37,204 +34,72 @@ const strengths = [
   },
 ]
 
-const Content = styled.section`
-  width: min(1126px, calc(100% - 48px));
-  margin: 0 auto;
-  display: grid;
-  gap: 36px;
-  height: 100vh;
-  box-sizing: border-box;
-  overflow: hidden;
-  align-content: center;
-  align-items: center;
-  padding: calc(var(--navbar-offset, 104px) + 12px) 0 72px;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-
-  @media (min-width: 768px) {
-    width: min(1126px, calc(100% - 128px));
-  }
-`
-
-const ContentHeader = styled.div`
-  display: grid;
-  gap: 14px;
-  max-width: 720px;
-`
-
-const ContentEyebrow = styled.p`
-  margin: 0;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #2563eb;
-`
-
-const ContentTitle = styled.h2`
-  margin: 0;
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 1.02;
-  letter-spacing: -0.05em;
-  color: #0f172a;
-`
-
-const ContentLead = styled.p`
-  margin: 0;
-  max-width: 640px;
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #64748b;
-`
-
-const ContentGrid = styled.div`
-  width: 100%;
-  display: grid;
-  gap: 24px;
-
-  @media (min-width: 980px) {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    align-items: stretch;
-  }
-`
-
-const AboutPanel = styled.article`
-  display: grid;
-  gap: 28px;
-  padding: 36px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 32%),
-    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
-`
-
-const AboutBody = styled.div`
-  display: grid;
-  gap: 16px;
-`
-
-const AboutText = styled.p`
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.9;
-  color: #475569;
-`
-
-const FactList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-`
-
-const FactChip = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(37, 99, 235, 0.08);
-  color: #1d4ed8;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-`
-
-const StrengthPanel = styled.article`
-  display: grid;
-  gap: 18px;
-`
-
-const StrengthGrid = styled.div`
-  display: grid;
-  gap: 16px;
-
-  @media (min-width: 700px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-`
-
-const StrengthCard = styled.div`
-  display: grid;
-  gap: 14px;
-  min-height: 164px;
-  padding: 24px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 24px;
-  background: white;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
-`
-
-const StrengthIndex = styled.span`
-  display: inline-flex;
-  width: 34px;
-  height: 34px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #eff6ff;
-  color: #2563eb;
-  font-size: 0.82rem;
-  font-weight: 700;
-`
-
-const StrengthTitle = styled.h3`
-  margin: 0;
-  font-size: 1.08rem;
-  color: #0f172a;
-`
-
-const StrengthDescription = styled.p`
-  margin: 0;
-  line-height: 1.75;
-  color: #64748b;
-`
-
 function AboutSection() {
   return (
-    <Content id="about">
-      <ContentHeader>
-        <ContentEyebrow>About Me</ContentEyebrow>
-        <ContentTitle>소개와 강점을 한 번에 읽히는 구조로 정리했습니다.</ContentTitle>
-        <ContentLead>
-          단순한 자기소개가 아니라 어떤 관점으로 화면을 만들고, 어떤 방식으로
-          문제를 해결하는지 한 눈에 보이도록 구성한 섹션입니다.
-        </ContentLead>
-      </ContentHeader>
+    <section
+      id="about"
+      className="mx-auto grid h-screen w-[min(1126px,calc(100%-48px))] content-center items-center gap-9 overflow-hidden px-0 pb-[72px] pt-[calc(var(--navbar-offset,104px)+12px)] md:w-[min(1126px,calc(100%-128px))]"
+    >
+      <div className="grid max-w-[720px] gap-[14px]">
+        <p className="m-0 text-[0.78rem] font-bold uppercase tracking-[0.18em] text-blue-600">
+          About Me
+        </p>
+        <h2 className="m-0 text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] tracking-[-0.05em] text-[var(--text-h)]">
+          소개와 강점을 한 번에 읽히는 구조로 정리했습니다.
+        </h2>
+        <p className="m-0 max-w-[640px] text-base leading-[1.8] text-slate-500">
+          단순한 자기소개가 아니라 어떤 관점으로 화면을 만들고, 어떤 방식으로 문제를 해결하는지
+          한 눈에 보이도록 구성한 섹션입니다.
+        </p>
+      </div>
 
-      <ContentGrid>
-        <AboutPanel>
+      <div className="grid w-full gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+        <article className="grid gap-7 rounded-[28px] border border-slate-900/8 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.08),transparent_32%),linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] p-9 shadow-[0_24px_60px_rgba(15,23,42,0.08)]">
           <div>
-            <SectionTitle>Introduce</SectionTitle>
-            <AboutBody>
+            <h3 className="mb-[30px] text-[28px] text-[var(--text-h)] after:mt-2 after:block after:h-1 after:w-10 after:bg-[#0064DE] after:content-['']">
+              Introduce
+            </h3>
+            <div className="grid gap-4">
               {introParagraphs.map((paragraph) => (
-                <AboutText key={paragraph}>{paragraph}</AboutText>
+                <p key={paragraph} className="m-0 text-[0.98rem] leading-[1.9] text-slate-600">
+                  {paragraph}
+                </p>
               ))}
-            </AboutBody>
+            </div>
           </div>
-          <FactList>
+          <div className="flex flex-wrap gap-2.5">
             {quickFacts.map((fact) => (
-              <FactChip key={fact}>{fact}</FactChip>
+              <span
+                key={fact}
+                className="inline-flex items-center justify-center rounded-full bg-blue-600/8 px-[14px] py-[10px] text-[0.76rem] font-bold uppercase tracking-[0.08em] text-blue-700"
+              >
+                {fact}
+              </span>
             ))}
-          </FactList>
-        </AboutPanel>
+          </div>
+        </article>
 
-        <StrengthPanel>
-          <SectionTitle>Strengths</SectionTitle>
-          <StrengthGrid>
+        <article className="grid gap-[18px]">
+          <h3 className="mb-[30px] text-[28px] text-[var(--text-h)] after:mt-2 after:block after:h-1 after:w-10 after:bg-[#0064DE] after:content-['']">
+            Strengths
+          </h3>
+          <div className="grid gap-4 sm:grid-cols-2">
             {strengths.map((strength, index) => (
-              <StrengthCard key={strength.title}>
-                <StrengthIndex>{String(index + 1).padStart(2, '0')}</StrengthIndex>
-                <StrengthTitle>{strength.title}</StrengthTitle>
-                <StrengthDescription>{strength.description}</StrengthDescription>
-              </StrengthCard>
+              <div
+                key={strength.title}
+                className="grid min-h-[164px] gap-[14px] rounded-[24px] border border-slate-900/8 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)]"
+              >
+                <span className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-full bg-blue-50 text-[0.82rem] font-bold text-blue-600">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <h4 className="m-0 text-[1.08rem] text-[var(--text-h)]">{strength.title}</h4>
+                <p className="m-0 leading-[1.75] text-slate-500">{strength.description}</p>
+              </div>
             ))}
-          </StrengthGrid>
-        </StrengthPanel>
-      </ContentGrid>
-    </Content>
+          </div>
+        </article>
+      </div>
+    </section>
   )
 }
 

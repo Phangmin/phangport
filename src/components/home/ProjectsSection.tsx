@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import { useState } from 'react'
 
 const projects = [
   {
@@ -24,378 +23,60 @@ const projects = [
   },
 ]
 
-const fallbackSlot = {
-  top: '54%',
-  right: '32%',
-  width: 'min(260px, 26vw)',
-  minHeight: '176px',
-  padding: '24px 22px',
-  transform: 'translateY(-50%) scale(1.04)',
-  zIndex: 5,
-  opacity: 1,
-  role: 'focus',
-}
-
-const slots = [
-  {
-    top: '21%',
-    right: '57%',
-    width: 'min(172px, 18vw)',
-    minHeight: '126px',
-    padding: '16px 16px',
-    transform: 'translateY(-50%) rotate(18deg) scale(0.88)',
-    zIndex: 1,
-    opacity: 0.22,
-    role: 'back-far',
-  },
-  {
-    top: '36%',
-    right: '42%',
-    width: 'min(184px, 19vw)',
-    minHeight: '136px',
-    padding: '18px 18px',
-    transform: 'translateY(-50%) rotate(10deg) scale(0.94)',
-    zIndex: 2,
-    opacity: 0.46,
-    role: 'back-near',
-  },
-  {
-    top: '55%',
-    right: '32%',
-    width: 'min(260px, 26vw)',
-    minHeight: '176px',
-    padding: '24px 22px',
-    transform: 'translateY(-50%) scale(1.04)',
-    zIndex: 5,
-    opacity: 1,
-    role: 'focus',
-  },
-  {
-    top: '72%',
-    right: '42%',
-    width: 'min(184px, 19vw)',
-    minHeight: '136px',
-    padding: '18px 18px',
-    transform: 'translateY(-50%) rotate(-10deg) scale(0.94)',
-    zIndex: 2,
-    opacity: 0.46,
-    role: 'front-near',
-  },
-  {
-    top: '87%',
-    right: '57%',
-    width: 'min(172px, 18vw)',
-    minHeight: '126px',
-    padding: '16px 16px',
-    transform: 'translateY(-50%) rotate(-18deg) scale(0.88)',
-    zIndex: 1,
-    opacity: 0.22,
-    role: 'front-far',
-  },
-]
-
-const Section = styled.section`
-  width: 100%;
-  height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(96, 165, 250, 0.16), transparent 32%),
-    linear-gradient(180deg, #081120 0%, #0f172a 46%, #111827 100%);
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-`
-
-const Inner = styled.div`
-  width: min(1126px, calc(100% - 48px));
-  height: 100vh;
-  margin: 0 auto;
-  display: grid;
-  align-content: center;
-  gap: 28px;
-  padding: calc(var(--navbar-offset, 104px) + 12px) 0 72px;
-  box-sizing: border-box;
-
-  @media (min-width: 768px) {
-    width: min(1126px, calc(100% - 128px));
-  }
-
-  @media (min-width: 980px) {
-    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-    align-items: center;
-    gap: 42px;
-  }
-`
-
-const Header = styled.div`
-  display: grid;
-  gap: 12px;
-  justify-items: center;
-  text-align: center;
-
-  @media (min-width: 980px) {
-    justify-items: start;
-    text-align: left;
-  }
-`
-
-const Label = styled.p`
-  margin: 0;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #93c5fd;
-`
-
-const ProjectNumber = styled.span`
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(147, 197, 253, 0.16);
-  color: #bfdbfe;
-  font-size: 0.86rem;
-  font-weight: 700;
-`
-
-const Title = styled.h2`
-  margin: 0;
-  max-width: 720px;
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 0.98;
-  letter-spacing: -0.05em;
-  color: white;
-`
-
-const Lead = styled.p`
-  margin: 0;
-  max-width: 560px;
-  line-height: 1.75;
-  font-size: 0.95rem;
-  color: rgba(226, 232, 240, 0.78);
-`
-
-const DetailButton = styled.button`
-  margin-top: 8px;
-  min-width: 148px;
-  padding: 14px 22px;
-  border: 0;
-  border-radius: 999px;
-  background: white;
-  color: #0f172a;
-  font-size: 0.92rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  cursor: pointer;
-  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.18);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 22px 46px rgba(2, 6, 23, 0.22);
-    background: #f8fafc;
-  }
-`
-
-const ArcStage = styled.div`
-  position: relative;
-  height: 560px;
-
-  @media (max-width: 979px) {
-    height: 460px;
-  }
-`
-
-const ArcList = styled.div`
-  position: relative;
-  height: 560px;
-
-  @media (max-width: 899px) {
-    display: grid;
-    gap: 14px;
-    height: auto;
-  }
-`
-
-const ProjectButton = styled.button`
-  position: absolute;
-  top: var(--card-top);
-  right: var(--card-right);
-  display: grid;
-  gap: 10px;
-  width: var(--card-width);
-  min-height: var(--card-height);
-  padding: var(--card-padding);
-  border: 0;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 24px 56px rgba(2, 6, 23, 0.24);
-  text-align: left;
-  cursor: pointer;
-  opacity: var(--card-opacity);
-  transform: var(--card-transform);
-  z-index: var(--card-z);
-  transform-origin: 50% 50%;
-  transition:
-    top 0.45s ease,
-    right 0.45s ease,
-    width 0.45s ease,
-    min-height 0.45s ease,
-    padding 0.45s ease,
-    transform 0.45s ease,
-    opacity 0.28s ease,
-    box-shadow 0.28s ease,
-    filter 0.28s ease;
-
-  &:hover {
-    box-shadow: 0 28px 62px rgba(2, 6, 23, 0.3);
-  }
-
-  &[data-role='focus'] {
-    box-shadow: 0 30px 70px rgba(2, 6, 23, 0.34);
-  }
-
-  &[data-role='back-far'],
-  &[data-role='back-near'],
-  &[data-role='front-near'],
-  &[data-role='front-far'] {
-    filter: saturate(0.76);
-  }
-
-  @media (max-width: 899px) {
-    position: static;
-    width: 100%;
-    min-height: auto;
-    opacity: 1;
-    transform: none;
-    filter: none;
-    margin-top: 0;
-  }
-`
-
-const CardIndex = styled.span`
-  display: inline-flex;
-  width: 30px;
-  height: 30px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #eff6ff;
-  color: #2563eb;
-  font-size: 0.74rem;
-  font-weight: 700;
-`
-
-const CardContent = styled.div`
-  display: grid;
-  gap: 8px;
-`
-
-const CardTitle = styled.strong`
-  font-size: 0.98rem;
-  line-height: 1.2;
-  color: #0f172a;
-`
-
-const CardText = styled.span`
-  font-size: 0.88rem;
-  line-height: 1.65;
-  color: #64748b;
-`
-
 function ProjectsSection() {
   const [focusedIndex, setFocusedIndex] = useState(2)
-  const wheelLockRef = useRef(false)
-  const activeProject =
-    projects[focusedIndex] || projects[0] || { title: '', description: '' }
-
-  useEffect(() => {
-    const node = document.querySelector('[data-project-wheel-zone="true"]')
-
-    if (!(node instanceof HTMLDivElement)) {
-      return undefined
-    }
-
-    function handleWheel() {
-      const event = arguments[0]
-
-      if (wheelLockRef.current || event.deltaY === 0) {
-        return
-      }
-
-      event.preventDefault()
-      event.stopPropagation()
-
-      wheelLockRef.current = true
-      setFocusedIndex((currentIndex) => {
-        const direction = event.deltaY > 0 ? 1 : -1
-        return (currentIndex + direction + projects.length) % projects.length
-      })
-
-      window.setTimeout(() => {
-        wheelLockRef.current = false
-      }, 280)
-    }
-
-    node.addEventListener('wheel', handleWheel, { passive: false })
-
-    return () => {
-      node.removeEventListener('wheel', handleWheel)
-    }
-  }, [focusedIndex])
+  const activeProject = projects[focusedIndex] || projects[0] || { title: '', description: '' }
 
   return (
-    <Section id="projects">
-      <Inner>
-        <ArcStage>
-          <ArcList data-project-wheel-zone="true">
-            {projects.map((project, index) => {
-              const slotIndex =
-                (index - focusedIndex + 2 + projects.length) % projects.length
-              const slot = slots[slotIndex] || fallbackSlot
+    <section
+      id="portfolio"
+      className="h-screen w-full snap-start snap-always bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.16),transparent_32%),linear-gradient(180deg,#081120_0%,#0f172a_46%,#111827_100%)]"
+    >
+      <div className="mx-auto grid h-screen w-[min(1126px,calc(100%-48px))] content-center gap-7 px-0 pb-[72px] pt-[calc(var(--navbar-offset,104px)+12px)] md:w-[min(1126px,calc(100%-128px))] lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:items-center lg:gap-[42px]">
+        <div className="grid gap-[14px] lg:grid-cols-2 xl:grid-cols-3">
+          {projects.map((project, index) => (
+            <button
+              key={project.title}
+              type="button"
+              aria-pressed={index === focusedIndex}
+              onClick={() => setFocusedIndex(index)}
+              className={`grid gap-[10px] rounded-[24px] border border-white/10 bg-white/95 p-5 text-left shadow-[0_24px_56px_rgba(2,6,23,0.24)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_28px_62px_rgba(2,6,23,0.3)] ${index === focusedIndex ? 'ring-2 ring-blue-500/40' : ''}`}
+            >
+              <span className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-full bg-blue-50 text-[0.74rem] font-bold text-blue-600">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div className="grid gap-2">
+                <strong className="text-[0.98rem] leading-[1.2] text-slate-900">{project.title}</strong>
+                <span className="text-[0.88rem] leading-[1.65] text-slate-500">
+                  {project.description}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
 
-              return (
-                <ProjectButton
-                  key={project.title}
-                  type="button"
-                  data-role={slot.role}
-                  style={{
-                    '--card-top': slot.top,
-                    '--card-right': slot.right,
-                    '--card-width': slot.width,
-                    '--card-height': slot.minHeight,
-                    '--card-padding': slot.padding,
-                    '--card-transform': slot.transform,
-                    '--card-opacity': String(slot.opacity),
-                    '--card-z': String(slot.zIndex),
-                  }}
-                  aria-pressed={slot.role === 'focus'}
-                  onClick={() => setFocusedIndex(index)}
-                >
-                  <CardIndex>{String(index + 1).padStart(2, '0')}</CardIndex>
-                  <CardContent>
-                    <CardTitle>{project.title}</CardTitle>
-                    <CardText>{project.description}</CardText>
-                  </CardContent>
-                </ProjectButton>
-              )
-            })}
-          </ArcList>
-        </ArcStage>
-
-        <Header>
-          <Label>Projects</Label>
-          <ProjectNumber>{String(focusedIndex + 1).padStart(2, '0')}</ProjectNumber>
-          <Title>{activeProject.title}</Title>
-          <Lead>{activeProject.description}</Lead>
-          <DetailButton type="button">자세히 보기</DetailButton>
-        </Header>
-      </Inner>
-    </Section>
+        <div className="grid justify-items-center gap-3 text-center lg:justify-items-start lg:text-left">
+          <p className="m-0 text-[0.78rem] font-bold uppercase tracking-[0.2em] text-blue-200">
+            Projects
+          </p>
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-300/15 text-[0.86rem] font-bold text-blue-200">
+            {String(focusedIndex + 1).padStart(2, '0')}
+          </span>
+          <h2 className="m-0 max-w-[720px] text-[clamp(2rem,4vw,3.4rem)] leading-[0.98] tracking-[-0.05em] text-white">
+            {activeProject.title}
+          </h2>
+          <p className="m-0 max-w-[560px] text-[0.95rem] leading-[1.75] text-slate-200/80">
+            {activeProject.description}
+          </p>
+          <button
+            type="button"
+            className="mt-2 min-w-[148px] rounded-full bg-white px-[22px] py-[14px] text-[0.92rem] font-bold tracking-[-0.01em] text-slate-900 shadow-[0_18px_40px_rgba(2,6,23,0.18)] transition-all duration-200 hover:-translate-y-px hover:bg-slate-50 hover:shadow-[0_22px_46px_rgba(2,6,23,0.22)]"
+          >
+            자세히 보기
+          </button>
+        </div>
+      </div>
+    </section>
   )
 }
 
