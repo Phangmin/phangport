@@ -4,6 +4,29 @@ import cooperationCard from '../../assets/strengthcards/strengthcard-cooperation
 import dataCard from '../../assets/strengthcards/strengthcard-data.png'
 import solvingCard from '../../assets/strengthcards/strengthcard-solving.png'
 
+export const ProfileItems = [
+  {
+    koreanname: '천광민',
+    englishname: 'Cheon Gwangmin',
+    university: '동아대학교',
+    major: '전자공학과',
+    graduation: '2022. 02. 23.',
+    email: 'phangmin03@gmail.com',
+    phone: '+82 10-2025-0041',
+    location: '부산, 대한민국',
+    introductiontitle: '사용자 경험을 끝까지 다듬는 IT 기획·개발자를 지향합니다.',
+    introductiondescription: '화면을 빠르게 만드는 것에서 끝나지 않고, 사용자가 자연스럽게 이해하고 편하게 사용할 수 있는 흐름을 만드는 데 관심이 많습니다. 구조가 명확한 컴포넌트 설계와 안정적인 상태 관리, 그리고 완성도를 높이는 디테일한 UI 조정을 강점으로 삼고 있습니다.',
+    certificate: 'SQLD, 사무자동화산업기사, ERP 정보관리사 인사1급',
+    
+    // urls
+    github_url: 'https://github.com/Phangmin/',
+    instagram_url: 'https://instagram.com/gwang._.min/',
+    linkedin_url: '',
+    tstory_url: 'https://phangmin.tistory.com/',
+    notion_url: 'https://phangmin.notion.site/',
+  }
+]
+
 export const trainingItems = [
   {
     period: '2025. 01. - 2025. 12.',

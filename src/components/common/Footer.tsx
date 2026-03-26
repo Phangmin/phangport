@@ -45,11 +45,22 @@ function TistoryIcon() {
   )
 }
 
+function NotionIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-[22px] w-[22px]">
+      <path
+        d="M7.9 18V6h1.56l5.05 7.18V6h1.5v12h-1.5l-5.11-7.22V18H7.9Z"
+      />
+    </svg>
+  )
+}
+
 const SOCIAL_ITEMS = [
   { label: 'GitHub', Icon: GitHubIcon },
   { label: 'Instagram', Icon: InstagramIcon },
   { label: 'LinkedIn', Icon: LinkedInIcon },
   { label: 'Tistory', Icon: TistoryIcon },
+  { label: 'Notion', Icon: NotionIcon },
 ]
 
 function getThemeMode() {
@@ -86,7 +97,7 @@ function Footer() {
   const iconToneClass = themeMode === 'dark' ? 'text-slate-100' : 'text-slate-700'
 
   return (
-    <footer className="w-full shrink-0 border-t border-slate-900/8 bg-white/90 dark:border-slate-200/10 dark:bg-slate-900/75">
+    <footer className="w-full shrink-0">
       <div className="mx-auto flex w-[min(1126px,calc(100%-48px))] flex-col gap-4 px-0 py-4 text-center md:w-[min(1126px,calc(100%-128px))] md:flex-row md:items-center md:justify-between md:text-left">
         <div className="flex flex-col items-center gap-2 md:flex-row md:items-center md:gap-3">
           <Link to="/" aria-label="Go to home" className="inline-flex items-center bg-transparent p-0">
@@ -101,7 +112,7 @@ function Footer() {
 
         <div
           aria-label="Social platforms"
-          className="flex items-center justify-center gap-2 md:justify-end"
+          className="flex items-center justify-center gap-1.5 md:justify-end"
         >
           {SOCIAL_ITEMS.map((item) => (
             <button

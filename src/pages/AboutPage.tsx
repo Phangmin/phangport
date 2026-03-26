@@ -22,7 +22,7 @@ function AboutPage() {
       className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:132px]"
       style={{
         background:
-          'radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%), linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
+          'radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%), linear-gradient(180deg, #ffffff 0%)',
       }}
     >
       <section className="mx-auto grid min-h-screen w-[min(1126px,calc(100%-48px))] gap-6 px-0 pb-[72px] pt-[calc(var(--navbar-offset)+24px)] md:w-[min(1126px,calc(100%-128px))]">

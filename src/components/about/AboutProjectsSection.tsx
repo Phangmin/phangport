@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useEffect, useRef, useState } from 'react'
+import { RevealOnScroll } from '../common'
 
 function AboutProjectsSection(props) {
   const { items } = props
@@ -115,7 +116,7 @@ function AboutProjectsSection(props) {
 
   return (
     <section className="grid px-1 py-2">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <RevealOnScroll delay={0.1} className="flex flex-wrap items-end justify-between gap-3">
         <div className="grid gap-2 text-left">
           <h2 className="m-0 text-[1.32rem] font-bold text-[var(--text-h)]">프로젝트</h2>
           <p className="m-0 text-xs leading-6 text-slate-500">
@@ -157,9 +158,10 @@ function AboutProjectsSection(props) {
             </svg>
           </button>
         </div>
-      </div>
+      </RevealOnScroll>
 
-      <div
+      <RevealOnScroll
+        delay={0.18}
         className="mt-1"
         onMouseEnter={() => {
           pauseRef.current = true
@@ -229,7 +231,7 @@ function AboutProjectsSection(props) {
                               <strong>|</strong> {item.period}
                             </p>
                             <p className="m-0 text-xs leading-[1.7] text-slate-700 transition-colors duration-300 group-hover:text-[#ebf5ff]/88 group-focus-visible:text-[#ebf5ff]/88">
-                            <strong>|</strong> {item.role}
+                              <strong>|</strong> {item.role}
                             </p>
                           </div>
 
@@ -260,7 +262,7 @@ function AboutProjectsSection(props) {
             })}
           </div>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   )
 }

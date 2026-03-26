@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { RevealOnScroll } from '../common'
 
 function EducationIcon() {
   return (
@@ -56,7 +57,11 @@ function AboutProfileCard(props) {
   const { imageSrc } = props
 
   return (
-    <aside className="grid content-start gap-4 rounded-[30px] border border-slate-900/8 bg-white/95 p-7 shadow-[0_24px_60px_rgba(15,23,42,0.08)]">
+    <RevealOnScroll
+      as="aside"
+      delay={0.04}
+      className="grid content-start gap-4 rounded-[30px] border border-slate-900/8 bg-white/95 p-7 shadow-[0_24px_60px_rgba(15,23,42,0.08)]"
+    >
       <div className="mx-auto aspect-square w-full max-w-[240px] overflow-hidden rounded-full border border-slate-900/8 shadow-[0_20px_48px_rgba(15,23,42,0.12)]">
         <img
           src={imageSrc}
@@ -98,7 +103,7 @@ function AboutProfileCard(props) {
           </div>
         </div>
       </div>
-    </aside>
+    </RevealOnScroll>
   )
 }
 

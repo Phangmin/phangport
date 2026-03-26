@@ -30,6 +30,9 @@ function ThemeToggle() {
 
   const isDark = theme === 'dark'
   const label = isDark ? 'Switch to light mode' : 'Switch to dark mode'
+  const buttonClasses = isDark
+    ? 'inline-flex h-[42px] w-[42px] items-center justify-center rounded-full border border-white/18 bg-transparent p-0 text-slate-100 transition-[border-color,color,transform,opacity] duration-200 hover:-translate-y-px hover:border-[#78bdff]/50 hover:text-[#78bdff] hover:opacity-95 focus-visible:-translate-y-px focus-visible:border-[#78bdff]/50 focus-visible:text-[#78bdff] focus-visible:opacity-95 focus-visible:outline-none'
+    : 'inline-flex h-[42px] w-[42px] items-center justify-center rounded-full border border-slate-500/35 bg-transparent p-0 text-slate-500 transition-[border-color,color,transform,opacity] duration-200 hover:-translate-y-px hover:border-blue-600/40 hover:text-blue-600 hover:opacity-95 focus-visible:-translate-y-px focus-visible:border-blue-600/40 focus-visible:text-blue-600 focus-visible:opacity-95 focus-visible:outline-none'
 
   return (
     <button
@@ -37,7 +40,7 @@ function ThemeToggle() {
       aria-label={label}
       title={label}
       onClick={handleToggle}
-      className="fixed right-6 top-[30px] z-14 inline-flex h-[38px] w-[38px] items-center justify-center rounded-full border border-slate-500/35 bg-transparent p-0 text-slate-500 transition-[border-color,color,transform,opacity] duration-200 hover:-translate-y-px hover:border-blue-600/40 hover:text-blue-600 hover:opacity-95 focus-visible:-translate-y-px focus-visible:border-blue-600/40 focus-visible:text-blue-600 focus-visible:opacity-95 focus-visible:outline-none max-md:right-[18px] max-md:top-6 dark:border-slate-200/20 dark:text-slate-200"
+      className={buttonClasses}
     >
       <span aria-hidden="true" className="inline-flex h-[22px] w-[22px]">
         {isDark ? (
