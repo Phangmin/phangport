@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { label: { ko: '홈', en: 'Home' }, to: '/' },
   { label: { ko: '자기소개', en: 'About' }, to: '/about' },
   { label: { ko: '경험사항', en: 'Experiences' }, to: '/experiences' },
-  { label: { ko: '기술스택', en: 'Skills' }, to: '/skills' },
+  { label: { ko: '프로젝트', en: 'Projects' }, to: '/projects' },
   { label: { ko: '포트폴리오', en: 'Portfolio' }, to: '/portfolio' },
   { label: { ko: '연락처', en: 'Contact' }, to: '/contact' },
 ] as const
@@ -30,6 +30,12 @@ type LanguageCode = 'ko' | 'en'
 function getThemeMode(): ThemeMode {
   if (typeof window === 'undefined') {
     return 'light'
+  }
+
+  const documentTheme = document.documentElement.dataset.theme
+
+  if (documentTheme === 'dark' || documentTheme === 'light') {
+    return documentTheme
   }
 
   const savedTheme = window.localStorage.getItem('phangport-theme')
@@ -71,6 +77,12 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
   }, [location.pathname])
 
   useEffect(() => {
+    const rootElement = document.documentElement
+
+    function syncThemeMode() {
+      setThemeMode(getThemeMode())
+    }
+
     function handlePointerDown(event: MouseEvent) {
       const clickedInsideDesktopLanguageMenu =
         event.target instanceof Node &&
@@ -117,12 +129,17 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
       }
     }
 
+    const observer = new MutationObserver(syncThemeMode)
+
+    syncThemeMode()
+    observer.observe(rootElement, { attributes: true, attributeFilter: ['data-theme'] })
     window.addEventListener('mousedown', handlePointerDown)
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('resize', handleResize)
     window.addEventListener('phangport-theme-change', handleThemeChange)
 
     return () => {
+      observer.disconnect()
       window.removeEventListener('mousedown', handlePointerDown)
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('resize', handleResize)
