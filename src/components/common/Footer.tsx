@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import githubIconAsset from '../../assets/skillsicons/github-icon.png'
 import instagramIconAsset from '../../assets/skillsicons/instagram-icon.png'
 import phangportTextlogoBlack from '../../assets/phangporticon/phangport-textlogo-black.png'
+import phangportTextlogoBlue from '../../assets/phangporticon/phangport-textlogo-blue.png'
 import phangportTextlogoWhite from '../../assets/phangporticon/phangport-textlogo-white.png'
 import linkedinIconAsset from '../../assets/skillsicons/linkedin-icon.png'
 import notionIconAsset from '../../assets/skillsicons/notion-icon.webp'
@@ -58,6 +59,7 @@ function getThemeMode() {
 function Footer() {
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => getThemeMode())
   const [activeIcon, setActiveIcon] = useState<string | null>(null)
+  const [isLogoActive, setIsLogoActive] = useState(false)
 
   useEffect(() => {
     function handleThemeChange() {
@@ -72,14 +74,23 @@ function Footer() {
     }
   }, [])
 
-  const activeTextLogo = themeMode === 'dark' ? phangportTextlogoWhite : phangportTextlogoBlack
+  const defaultTextLogo = themeMode === 'dark' ? phangportTextlogoWhite : phangportTextlogoBlack
+  const activeTextLogo = isLogoActive ? phangportTextlogoBlue : defaultTextLogo
   const iconToneClass = themeMode === 'dark' ? 'text-slate-100' : 'text-slate-700'
 
   return (
     <footer className="w-full shrink-0">
       <div className="mx-auto flex w-[min(1126px,calc(100%-48px))] flex-col gap-4 px-0 py-4 text-center md:w-[min(1126px,calc(100%-128px))] md:flex-row md:items-center md:justify-between md:text-left">
         <div className="flex flex-col items-center gap-2 md:flex-row md:items-center md:gap-3">
-          <Link to="/" aria-label="Go to home" className="inline-flex items-center bg-transparent p-0">
+          <Link
+            to="/"
+            aria-label="Go to home"
+            onMouseEnter={() => setIsLogoActive(true)}
+            onMouseLeave={() => setIsLogoActive(false)}
+            onFocus={() => setIsLogoActive(true)}
+            onBlur={() => setIsLogoActive(false)}
+            className="inline-flex items-center bg-transparent p-0 focus-visible:outline-none"
+          >
             <img
               src={activeTextLogo}
               alt="PHANGPORT"
