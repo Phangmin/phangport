@@ -75,7 +75,7 @@ function ContactPage() {
 
   return (
     <main
-      className="[--navbar-offset:104px] min-h-screen text-slate-900 max-md:[--navbar-offset:132px]"
+      className="[--navbar-offset:104px] min-h-screen text-slate-900 max-md:[--navbar-offset:96px]"
       style={{
         background:
           'radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%), linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',

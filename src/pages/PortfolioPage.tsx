@@ -6,7 +6,7 @@ const NOTION_PORTFOLIO_URL = 'https://phangmin.notion.site/'
 function PortfolioPage() {
   return (
     <main
-      className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:132px]"
+      className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]"
       style={{
         background:
           'radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%), linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',

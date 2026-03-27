@@ -1,67 +1,45 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import githubIconAsset from '../../assets/skillsicons/github-icon.png'
+import instagramIconAsset from '../../assets/skillsicons/instagram-icon.png'
 import phangportTextlogoBlack from '../../assets/phangporticon/phangport-textlogo-black.png'
 import phangportTextlogoWhite from '../../assets/phangporticon/phangport-textlogo-white.png'
+import linkedinIconAsset from '../../assets/skillsicons/linkedin-icon.png'
+import notionIconAsset from '../../assets/skillsicons/notion-icon.webp'
+import tistoryIconAsset from '../../assets/skillsicons/tistory-icon.svg'
 
-function GitHubIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-[22px] w-[22px]">
-      <path d="M12 2.25a9.75 9.75 0 0 0-3.08 19.01c.49.09.67-.21.67-.47v-1.65c-2.73.59-3.31-1.16-3.31-1.16-.45-1.13-1.1-1.43-1.1-1.43-.9-.62.07-.61.07-.61 1 .07 1.52 1.02 1.52 1.02.88 1.52 2.31 1.08 2.87.83.09-.64.35-1.08.63-1.33-2.18-.25-4.47-1.09-4.47-4.84 0-1.07.38-1.95 1.01-2.63-.1-.25-.44-1.28.1-2.66 0 0 .83-.27 2.71 1a9.4 9.4 0 0 1 4.94 0c1.88-1.27 2.71-1 2.71-1 .54 1.38.2 2.41.1 2.66.63.68 1.01 1.56 1.01 2.63 0 3.76-2.29 4.59-4.48 4.83.36.31.67.93.67 1.87v2.77c0 .26.18.56.68.47A9.75 9.75 0 0 0 12 2.25Z" />
-    </svg>
-  )
-}
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[22px] w-[22px]">
-      <rect
-        x="4.25"
-        y="4.25"
-        width="15.5"
-        height="15.5"
-        rx="4.5"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-      <circle cx="12" cy="12" r="3.75" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
-    </svg>
-  )
-}
-
-function LinkedInIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-[22px] w-[22px]">
-      <path d="M6.47 8.36a1.43 1.43 0 1 1 0-2.86 1.43 1.43 0 0 1 0 2.86Zm1.24 1.57H5.23v8.57h2.48V9.93Zm3.95 0H9.2v8.57h2.46v-4.5c0-1.18.22-2.33 1.68-2.33 1.44 0 1.46 1.35 1.46 2.41v4.42h2.48v-4.93c0-2.42-.52-4.28-3.34-4.28-1.35 0-2.25.74-2.62 1.44h-.04V9.93Z" />
-    </svg>
-  )
-}
-
-function TistoryIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-[22px] w-[22px]">
-      <path d="M6 6.25A1.75 1.75 0 0 1 7.75 4.5h8.5A1.75 1.75 0 0 1 18 6.25v1.1h-4.17V18h-3.66V7.35H6v-1.1Z" />
-    </svg>
-  )
-}
-
-function NotionIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-[22px] w-[22px]">
-      <path
-        d="M7.9 18V6h1.56l5.05 7.18V6h1.5v12h-1.5l-5.11-7.22V18H7.9Z"
-      />
-    </svg>
-  )
-}
+type ThemeMode = 'light' | 'dark'
 
 const SOCIAL_ITEMS = [
-  { label: 'GitHub', Icon: GitHubIcon },
-  { label: 'Instagram', Icon: InstagramIcon },
-  { label: 'LinkedIn', Icon: LinkedInIcon },
-  { label: 'Tistory', Icon: TistoryIcon },
-  { label: 'Notion', Icon: NotionIcon },
-]
+  { label: 'GitHub', src: githubIconAsset },
+  { label: 'Instagram', src: instagramIconAsset },
+  { label: 'LinkedIn', src: linkedinIconAsset },
+  { label: 'Tistory', src: tistoryIconAsset },
+  { label: 'Notion', src: notionIconAsset },
+] as const
+
+function getSocialIconFilter(label: string, themeMode: ThemeMode, isActive: boolean) {
+  const lightDefault = 'brightness(0) saturate(100%)'
+  const darkDefault = 'brightness(0) saturate(100%) invert(1)'
+
+  if (label === 'LinkedIn') {
+    if (themeMode === 'dark') {
+      return isActive ? 'none' : 'grayscale(1) brightness(2.8) contrast(1.15)'
+    }
+
+    return isActive ? 'none' : 'grayscale(1) contrast(8) brightness(0.45)'
+  }
+
+  if (themeMode === 'dark') {
+    if (isActive) {
+      return label === 'GitHub' || label === 'Notion' ? darkDefault : 'none'
+    }
+
+    return darkDefault
+  }
+
+  return isActive && label !== 'GitHub' && label !== 'Notion' ? 'none' : lightDefault
+}
 
 function getThemeMode() {
   if (typeof window === 'undefined') {
@@ -78,7 +56,8 @@ function getThemeMode() {
 }
 
 function Footer() {
-  const [themeMode, setThemeMode] = useState(() => getThemeMode())
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => getThemeMode())
+  const [activeIcon, setActiveIcon] = useState<string | null>(null)
 
   useEffect(() => {
     function handleThemeChange() {
@@ -107,7 +86,7 @@ function Footer() {
               className="h-[18px] w-auto object-contain max-md:h-4"
             />
           </Link>
-          <p className="m-0 text-xs text-slate-500">&copy; 2026 Gwang Min Cheon. All rights reserved.</p>
+          <p className="m-0 text-xs text-slate-500">&copy; 2026 Gwangmin Cheon. All rights reserved.</p>
         </div>
 
         <div
@@ -120,9 +99,23 @@ function Footer() {
               type="button"
               aria-label={item.label}
               title={item.label}
-              className={`inline-flex h-10 w-10 items-center justify-center bg-transparent p-0 transition-colors duration-200 hover:-translate-y-px hover:text-blue-600 focus-visible:-translate-y-px focus-visible:text-blue-600 focus-visible:outline-none ${iconToneClass}`}
+              onMouseEnter={() => setActiveIcon(item.label)}
+              onMouseLeave={() => setActiveIcon((currentIcon) => (currentIcon === item.label ? null : currentIcon))}
+              onFocus={() => setActiveIcon(item.label)}
+              onBlur={() => setActiveIcon((currentIcon) => (currentIcon === item.label ? null : currentIcon))}
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-transform duration-200 hover:-translate-y-px focus-visible:-translate-y-px focus-visible:outline-none ${iconToneClass}`}
             >
-              {item.Icon()}
+              <span className="inline-flex h-[22px] w-[22px] items-center justify-center">
+                <img
+                  src={item.src}
+                  alt=""
+                  aria-hidden="true"
+                  className="block h-[18px] w-[18px] object-contain transition-[filter] duration-200"
+                  style={{
+                    filter: getSocialIconFilter(item.label, themeMode, activeIcon === item.label),
+                  }}
+                />
+              </span>
             </button>
           ))}
         </div>

@@ -1,3 +1,5 @@
+import { heroContent } from '../../content/home'
+import useLanguage from '../../hooks/useLanguage'
 import gwangminPicture from '../../assets/profiles/gwangmin-picture.png'
 import { ScrollIndicator } from '../common'
 
@@ -12,68 +14,77 @@ function scrollToNextSection() {
 }
 
 function HeroSection() {
+  const language = useLanguage()
+  const content = heroContent[language]
+
   return (
     <section
       id="home"
       className="relative z-[1] grid h-screen items-center overflow-hidden bg-white snap-start snap-always"
+      data-home-hero-section="true"
     >
-      <div className="relative z-[1] mx-auto grid h-full w-[min(1126px,calc(100%-48px))] gap-8 px-0 pb-[72px] pt-[calc(var(--navbar-offset,104px)+16px)] text-slate-900 md:w-[min(1126px,calc(100%-128px))] lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">
-        <div className="grid gap-6 max-lg:justify-items-center max-lg:text-center">
-          <p className="m-0 text-[0.85rem] font-bold uppercase tracking-[0.18em] text-[#0b5ed7] opacity-0 motion-safe:animate-[rise-in_0.9s_ease-out_0.08s_forwards] motion-reduce:opacity-100">
-            보이지 않는 비효율을 찾아 서비스의 가치를 만듭니다
+      <div className="relative z-[1] mx-auto grid h-full w-[min(1126px,calc(100%-48px))] gap-8 px-0 pb-[72px] pt-[calc(var(--navbar-offset,104px)+16px)] text-[var(--text-h)] max-md:gap-4 max-md:pb-6 max-md:pt-[calc(var(--navbar-offset,96px)+8px)] md:w-[min(1126px,calc(100%-128px))] lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">
+        <div className="grid gap-6 max-lg:justify-items-center max-lg:text-center max-md:gap-4">
+          <p data-home-accent-label="true" className="m-0 text-[0.85rem] font-bold uppercase tracking-[0.18em] text-[#0b5ed7] opacity-0 motion-safe:animate-[rise-in_0.9s_ease-out_0.08s_forwards] motion-reduce:opacity-100 max-md:text-[0.7rem] max-md:leading-5">
+            {content.eyebrow}
           </p>
 
           <div className="grid justify-items-center opacity-0 motion-safe:animate-[rise-in_1.02s_ease-out_0.22s_forwards] motion-reduce:opacity-100 lg:hidden">
             <div className="relative inline-grid justify-items-center">
-              <div className="pointer-events-none absolute bottom-[-18px] left-1/2 z-0 h-[42px] w-[88%] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.18)_0%,rgba(15,23,42,0.08)_46%,rgba(15,23,42,0)_100%)] blur-[10px]" />
-              <div className="relative z-[1] inline-grid overflow-hidden rounded-[28px]">
+              <div
+                data-home-hero-shadow="true"
+                className="pointer-events-none absolute bottom-[-18px] left-1/2 z-0 h-[42px] w-[88%] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.18)_0%,rgba(15,23,42,0.08)_46%,rgba(15,23,42,0)_100%)] blur-[10px] max-md:bottom-[-12px] max-md:h-[28px]"
+              />
+              <div className="relative z-[1] inline-grid overflow-hidden rounded-[28px] max-md:rounded-[22px]">
                 <img
                   src={gwangminPicture}
-                  alt="Portrait of Gwangmin"
-                  className="block h-auto w-[min(72vw,320px)] max-w-full"
+                  alt={content.portraitAlt}
+                  className="block h-auto w-[min(72vw,320px)] max-w-full max-md:w-[min(52vw,208px)]"
                 />
               </div>
             </div>
           </div>
 
-          <h1 className="m-0 max-w-[820px] text-[clamp(3rem,8vw,6rem)] leading-[0.95] tracking-[-0.05em] text-[var(--text-h)] opacity-0 motion-safe:animate-[rise-in_0.98s_ease-out_0.24s_forwards] motion-reduce:opacity-100">
-            Gwangmin&apos;s
+          <h1 className="m-0 max-w-[820px] text-[clamp(3rem,8vw,6rem)] leading-[0.95] tracking-[-0.05em] text-[var(--text-h)] opacity-0 motion-safe:animate-[rise-in_0.98s_ease-out_0.24s_forwards] motion-reduce:opacity-100 max-md:text-[clamp(2.3rem,11vw,3.45rem)] max-md:leading-[0.9]">
+            {content.title[0]}
             <br />
-            Workspace
+            {content.title[1]}
           </h1>
 
-          <p className="m-0 max-w-[640px] text-[0.95rem] leading-[1.9] text-slate-600 opacity-0 motion-safe:animate-[rise-in_1.04s_ease-out_0.42s_forwards] motion-reduce:opacity-100">
-            복잡한 과정을 단순한 화면 구조로 개선하고, 서비스 기획과 개발을 연결하는
-            프론트엔드를 지향합니다.
+          <p data-home-muted-text="true" className="m-0 max-w-[640px] text-[0.95rem] leading-[1.9] text-slate-600 opacity-0 motion-safe:animate-[rise-in_1.04s_ease-out_0.42s_forwards] motion-reduce:opacity-100 max-md:max-w-[32ch] max-md:text-[0.82rem] max-md:leading-[1.65]">
+            {content.description[0]}
             <br />
-            단순한 기능 추가를 넘어서 현장의 문제를 근본적으로 해결하는 직관적인 경험을
-            만드는 데 집중합니다.
+            {content.description[1]}
           </p>
 
-          <div className="flex flex-wrap gap-3 opacity-0 motion-safe:animate-[rise-in_1.04s_ease-out_0.6s_forwards] motion-reduce:opacity-100 max-lg:justify-center">
+          <div className="flex flex-wrap gap-3 opacity-0 motion-safe:animate-[rise-in_1.04s_ease-out_0.6s_forwards] motion-reduce:opacity-100 max-lg:justify-center max-md:w-full max-md:flex-col max-md:gap-2">
             <button
               type="button"
               onClick={scrollToNextSection}
-              className="inline-flex items-center justify-center rounded px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-[#004BA3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 bg-[#0064DE]"
+              className="inline-flex items-center justify-center rounded bg-[#0064DE] px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-[#004BA3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 max-md:min-h-[46px] max-md:w-full max-md:px-5 max-md:py-2.5 max-md:text-[0.9rem]"
             >
-              View Projects
+              {content.primaryCta}
             </button>
             <a
               href="mailto:hello@phangport.dev"
-              className="inline-flex items-center justify-center rounded border border-slate-900/15 bg-white px-[18px] py-3 font-semibold text-slate-900 no-underline"
+              data-home-hero-secondary="true"
+              className="inline-flex items-center justify-center rounded border border-slate-900/15 bg-white px-[18px] py-3 font-semibold text-slate-900 no-underline max-md:min-h-[46px] max-md:w-full max-md:px-5 max-md:py-2.5 max-md:text-[0.9rem]"
             >
-              Start a Conversation
+              {content.secondaryCta}
             </a>
           </div>
         </div>
 
         <div className="hidden justify-items-center opacity-0 motion-safe:animate-[rise-in_1.08s_ease-out_0.5s_forwards] motion-reduce:opacity-100 lg:grid">
           <div className="relative inline-grid justify-items-center">
-            <div className="pointer-events-none absolute bottom-[-18px] left-1/2 z-0 h-[42px] w-[88%] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.18)_0%,rgba(15,23,42,0.08)_46%,rgba(15,23,42,0)_100%)] blur-[10px]" />
+            <div
+              data-home-hero-shadow="true"
+              className="pointer-events-none absolute bottom-[-18px] left-1/2 z-0 h-[42px] w-[88%] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.18)_0%,rgba(15,23,42,0.08)_46%,rgba(15,23,42,0)_100%)] blur-[10px]"
+            />
             <div className="relative z-[1] inline-grid overflow-hidden rounded-[28px]">
               <img
                 src={gwangminPicture}
-                alt="Portrait of Gwangmin"
+                alt={content.portraitAlt}
                 className="block h-auto w-[min(72vw,320px)] max-w-full"
               />
             </div>
@@ -83,9 +94,10 @@ function HeroSection() {
 
       <button
         type="button"
-        aria-label="Scroll to next section"
+        aria-label={content.scrollLabel}
         onClick={scrollToNextSection}
-        className="absolute bottom-7 left-1/2 z-[2] -translate-x-1/2 bg-transparent p-0 text-slate-400"
+        data-home-hero-scroll="true"
+        className="absolute bottom-7 left-1/2 z-[2] -translate-x-1/2 bg-transparent p-0 text-slate-400 max-md:hidden"
       >
         <ScrollIndicator />
       </button>
