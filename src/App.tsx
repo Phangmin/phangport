@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Navbar, ThemeToggle } from './components/common'
+import { FloatingControls, Navbar } from './components/common'
 import SkyScreen from './components/common/SkyScreen'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
@@ -27,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar variant="light" />
-      <ThemeToggle />
+      <FloatingControls />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />

@@ -62,14 +62,10 @@ function HomePage() {
   }, [])
 
   return (
-    <main className="[--navbar-offset:104px] bg-white text-slate-900 max-md:[--navbar-offset:132px]">
+    <main className="[--navbar-offset:104px] bg-[var(--bg)] text-[var(--text-h)] max-md:[--navbar-offset:96px]">
       <HeroPaperPlanes visible={activeSection === 'home'} />
       <HeroSection />
-      <AboutSection />
-      <ExperiencesSection />
-      <SkillsSection />
       <ProjectsSection />
-      <AwardsSection />
       <Footer />
     </main>
   )
