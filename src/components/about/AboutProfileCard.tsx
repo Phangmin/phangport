@@ -68,7 +68,7 @@ function AboutProfileCard({ imageSrc, content, language }: AboutProfileCardProps
     <RevealOnScroll
       as="aside"
       delay={0.04}
-      className="grid w-full content-start gap-4 rounded-[30px] border border-slate-900/8 bg-white/95 p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-6 lg:p-7"
+      className="grid min-w-0 box-border w-full content-start gap-4 rounded-[30px] border border-slate-900/8 bg-white/95 p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-6 lg:p-7"
       data-about-profile-card="true"
     >
       <div

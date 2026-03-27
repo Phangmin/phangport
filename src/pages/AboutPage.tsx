@@ -38,7 +38,7 @@ function AboutPage() {
       <section className="mx-auto grid min-h-screen w-[min(1126px,calc(100%-24px))] gap-5 px-0 pb-[72px] pt-[calc(var(--navbar-offset)+20px)] md:w-[min(1126px,calc(100%-128px))] md:gap-6 md:pt-[calc(var(--navbar-offset)+24px)]">
         <div className="grid gap-8 mb-2 lg:grid-cols-[minmax(280px,312px)_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[320px_minmax(0,1fr)] xl:gap-12">
           <AboutProfileCard imageSrc={gwangminPicture} content={profileContent} language={language} />
-          <div className="max-md:px-5">
+          <div className="box-border min-w-0 max-md:px-4">
             <AboutIntroSection
               strengthCards={strengthCards}
               headingLines={profileContent.headingLines}
@@ -48,7 +48,7 @@ function AboutPage() {
           </div>
         </div>
 
-        <div className="grid w-full gap-5 max-md:px-5">
+        <div className="grid min-w-0 box-border gap-5 max-md:px-4">
           <AboutEducationSection items={trainingItems} header={sectionHeaders.education} />
           <AboutAwardsSection items={awardItems} header={sectionHeaders.awards} />
           <AboutProjectsSection items={projectItems} header={sectionHeaders.projects} />
