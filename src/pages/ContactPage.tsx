@@ -110,9 +110,13 @@ function ContactPage() {
                         <p className="m-0 break-words text-[0.82rem] leading-[1.6] text-slate-600" data-contact-muted="true">
                           {item.value}
                         </p>
-                        {'helperText' in item ? (
+                        {item.href.startsWith('mailto:') ? (
                           <p className="m-0 text-[0.72rem] leading-[1.55] text-slate-400" data-contact-muted="true">
-                            {item.helperText}
+                            클릭하면 메일 보내기로 연결됩니다.
+                          </p>
+                        ) : item.href.startsWith('tel:') ? (
+                          <p className="m-0 text-[0.72rem] leading-[1.55] text-slate-400" data-contact-muted="true">
+                            모바일에서 누르면 전화 앱으로 연결됩니다.
                           </p>
                         ) : null}
                       </div>
