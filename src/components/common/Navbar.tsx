@@ -7,6 +7,7 @@ import phangportTextlogoWhite from '../../assets/phangporticon/phangport-textlog
 import DesktopNav from './navbar/DesktopNav'
 import LanguageMenu from './navbar/LanguageMenu'
 import MobileNav from './navbar/MobileNav'
+import { getResolvedTheme, type ThemeMode } from './theme'
 
 const NAV_ITEMS = [
   { label: { ko: '홈', en: 'Home' }, to: '/' },
@@ -24,28 +25,7 @@ const LANGUAGE_OPTIONS = [
   { code: 'en', label: 'English', icon: englishIcon },
 ] as const
 
-type ThemeMode = 'light' | 'dark'
 type LanguageCode = 'ko' | 'en'
-
-function getThemeMode(): ThemeMode {
-  if (typeof window === 'undefined') {
-    return 'light'
-  }
-
-  const documentTheme = document.documentElement.dataset.theme
-
-  if (documentTheme === 'dark' || documentTheme === 'light') {
-    return documentTheme
-  }
-
-  const savedTheme = window.localStorage.getItem('phangport-theme')
-
-  if (savedTheme === 'dark' || savedTheme === 'light') {
-    return savedTheme
-  }
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
 
 function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
   const location = useLocation()
@@ -64,7 +44,7 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
   })
   const [openLanguageMenu, setOpenLanguageMenu] = useState<'desktop' | 'mobile' | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [themeMode, setThemeMode] = useState<ThemeMode>(() => getThemeMode())
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => getResolvedTheme())
 
   useEffect(() => {
     document.documentElement.lang = language
@@ -80,7 +60,7 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
     const rootElement = document.documentElement
 
     function syncThemeMode() {
-      setThemeMode(getThemeMode())
+      setThemeMode(getResolvedTheme())
     }
 
     function handlePointerDown(event: MouseEvent) {
@@ -202,11 +182,16 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
   const languageMenuClass = isDark
     ? 'border-slate-200/15 bg-slate-900/95 shadow-[0_20px_48px_rgba(2,6,23,0.28)]'
     : 'border-slate-900/10 bg-white/95 shadow-[0_18px_42px_rgba(15,23,42,0.12)]'
+  const activeLanguageOptionTextClass = isDark ? 'text-blue-100' : 'text-blue-700'
   const navbarSurfaceClass = isDark
     ? 'border-slate-200/10 bg-[#2b2f36]/68 shadow-[0_18px_40px_rgba(2,6,23,0.22)]'
     : 'border-white/54 bg-white/64 shadow-[0_18px_40px_rgba(15,23,42,0.08)]'
   const mobileHeaderSurfaceClass = navbarSurfaceClass
   const mobilePanelSurfaceClass = navbarSurfaceClass
+  const mobileMenuButtonBorderClass = isDark ? 'border-slate-200/15' : 'border-slate-900/10'
+  const mobileSectionBorderClass = isDark ? 'border-slate-200/12' : 'border-slate-900/8'
+  const mobileSectionLabelClass = isDark ? 'text-slate-400' : 'text-slate-500'
+  const mobileSectionTitle = language === 'en' ? 'Language' : '언어'
 
   const activeLanguageIcon = language === 'en' ? englishIcon : koreaIcon
   const activeLanguageLabel = language === 'en' ? 'English' : '\uD55C\uAD6D\uC5B4'
@@ -233,6 +218,7 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
       hoverTextClass={hoverTextClass}
       languageBorderClass={languageBorderClass}
       languageMenuClass={languageMenuClass}
+      activeOptionTextClass={activeLanguageOptionTextClass}
     />
   )
 
@@ -256,6 +242,7 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
       hoverTextClass={hoverTextClass}
       languageBorderClass={languageBorderClass}
       languageMenuClass={languageMenuClass}
+      activeOptionTextClass={activeLanguageOptionTextClass}
       wrapperClassName="flex w-full"
       buttonClassName="min-h-12 w-full justify-between rounded-[18px] px-4 py-3 text-[0.82rem]"
       menuPositionClassName="inset-x-0 top-[calc(100%+10px)]"
@@ -293,6 +280,10 @@ function Navbar({ variant = 'light' }: { variant?: ThemeMode }) {
           menuPanelRef={mobileMenuPanelRef}
           mobileHeaderSurfaceClass={mobileHeaderSurfaceClass}
           mobilePanelSurfaceClass={mobilePanelSurfaceClass}
+          mobileMenuButtonBorderClass={mobileMenuButtonBorderClass}
+          mobileSectionBorderClass={mobileSectionBorderClass}
+          mobileSectionLabelClass={mobileSectionLabelClass}
+          mobileSectionTitle={mobileSectionTitle}
           textClass={textClass}
           mutedClass={mutedClass}
           hoverTextClass={hoverTextClass}

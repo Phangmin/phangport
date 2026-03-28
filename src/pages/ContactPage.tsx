@@ -46,9 +46,9 @@ const contactItems = [
   },
   {
     title: '연락처',
-    value: '+82 10 2025 041',
+    value: '+82 10 2025 0041',
     ariaLabel: 'Phone',
-    href: 'tel:+82102025041',
+    href: 'tel:+821020250041',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path

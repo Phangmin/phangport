@@ -21,6 +21,7 @@ type LanguageMenuProps = {
   hoverTextClass: string
   languageBorderClass: string
   languageMenuClass: string
+  activeOptionTextClass: string
   wrapperClassName?: string
   buttonClassName?: string
   menuPositionClassName?: string
@@ -40,6 +41,7 @@ function LanguageMenu({
   hoverTextClass,
   languageBorderClass,
   languageMenuClass,
+  activeOptionTextClass,
   wrapperClassName,
   buttonClassName,
   menuPositionClassName,
@@ -83,7 +85,7 @@ function LanguageMenu({
               data-language-menu-option={option.code === language ? 'active' : 'inactive'}
               className={
                 option.code === language
-                  ? 'inline-flex w-full items-center gap-2 rounded-xl bg-blue-600/10 px-[10px] py-2 text-left text-[0.74rem] font-semibold text-blue-700 transition-colors duration-200 focus-visible:outline-none dark:text-blue-100'
+                  ? `inline-flex w-full items-center gap-2 rounded-xl bg-blue-600/10 px-[10px] py-2 text-left text-[0.74rem] font-semibold transition-colors duration-200 focus-visible:outline-none ${activeOptionTextClass}`
                   : `inline-flex w-full items-center gap-2 rounded-xl px-[10px] py-2 text-left text-[0.74rem] font-semibold transition-colors duration-200 hover:bg-blue-600/8 focus-visible:bg-blue-600/8 focus-visible:outline-none ${textClass} ${hoverTextClass}`
               }
             >

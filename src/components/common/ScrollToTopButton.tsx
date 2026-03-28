@@ -1,22 +1,9 @@
 // @ts-nocheck
 import { useEffect, useState } from 'react'
-
-function getCurrentTheme() {
-  if (typeof window === 'undefined') {
-    return 'light'
-  }
-
-  const documentTheme = document.documentElement.dataset.theme
-
-  if (documentTheme === 'light' || documentTheme === 'dark') {
-    return documentTheme
-  }
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
+import { getResolvedTheme } from './theme'
 
 function ScrollToTopButton() {
-  const [theme, setTheme] = useState(getCurrentTheme)
+  const [theme, setTheme] = useState(getResolvedTheme)
   const [isHighlighted, setIsHighlighted] = useState(false)
 
   function getScrollTarget() {
@@ -26,7 +13,7 @@ function ScrollToTopButton() {
   useEffect(() => {
     function handleThemeChange(event) {
       const nextTheme = event instanceof CustomEvent ? event.detail : null
-      setTheme(nextTheme === 'dark' ? 'dark' : nextTheme === 'light' ? 'light' : getCurrentTheme())
+      setTheme(nextTheme === 'dark' ? 'dark' : nextTheme === 'light' ? 'light' : getResolvedTheme())
     }
 
     window.addEventListener('phangport-theme-change', handleThemeChange)
