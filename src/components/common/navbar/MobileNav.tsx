@@ -17,6 +17,10 @@ type MobileNavProps = {
   menuPanelRef: RefObject<HTMLDivElement | null>
   mobileHeaderSurfaceClass: string
   mobilePanelSurfaceClass: string
+  mobileMenuButtonBorderClass: string
+  mobileSectionBorderClass: string
+  mobileSectionLabelClass: string
+  mobileSectionTitle: string
   textClass: string
   mutedClass: string
   hoverTextClass: string
@@ -34,6 +38,10 @@ function MobileNav({
   menuPanelRef,
   mobileHeaderSurfaceClass,
   mobilePanelSurfaceClass,
+  mobileMenuButtonBorderClass,
+  mobileSectionBorderClass,
+  mobileSectionLabelClass,
+  mobileSectionTitle,
   textClass,
   mutedClass,
   hoverTextClass,
@@ -52,7 +60,7 @@ function MobileNav({
           aria-expanded={isMenuOpen}
           aria-controls="mobile-primary-navigation"
           onClick={onToggleMenu}
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-900/10 bg-transparent transition-[background-color,color,transform] duration-200 hover:-translate-y-px focus-visible:-translate-y-px focus-visible:outline-none dark:border-slate-200/15 ${textClass}`}
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-full border bg-transparent transition-[background-color,color,transform] duration-200 hover:-translate-y-px focus-visible:-translate-y-px focus-visible:outline-none ${mobileMenuButtonBorderClass} ${textClass}`}
         >
           <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open menu'}</span>
           <span className="relative h-4 w-4">
@@ -104,9 +112,9 @@ function MobileNav({
             ))}
           </nav>
 
-          <div className="mt-3 border-t border-slate-900/8 pt-3 dark:border-slate-200/12">
-            <div className="mb-2 px-1 text-left text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Language
+          <div className={`mt-3 border-t pt-3 ${mobileSectionBorderClass}`}>
+            <div className={`mb-2 px-1 text-left text-[0.7rem] font-semibold uppercase tracking-[0.2em] ${mobileSectionLabelClass}`}>
+              {mobileSectionTitle}
             </div>
             {languageMenu}
           </div>

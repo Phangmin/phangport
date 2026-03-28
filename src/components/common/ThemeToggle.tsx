@@ -1,21 +1,8 @@
 import { useEffect, useState } from 'react'
-
-const THEME_STORAGE_KEY = 'phangport-theme'
+import { getResolvedTheme, THEME_STORAGE_KEY } from './theme'
 
 function ThemeToggle() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') {
-      return 'light'
-    }
-
-    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY)
-
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-      return savedTheme
-    }
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  })
+  const [theme, setTheme] = useState(() => getResolvedTheme())
   const [isHighlighted, setIsHighlighted] = useState(false)
 
   useEffect(() => {

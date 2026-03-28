@@ -8,8 +8,7 @@ import phangportTextlogoWhite from '../../assets/phangporticon/phangport-textlog
 import linkedinIconAsset from '../../assets/skillsicons/linkedin-icon.png'
 import notionIconAsset from '../../assets/skillsicons/notion-icon.webp'
 import tistoryIconAsset from '../../assets/skillsicons/tistory-icon.svg'
-
-type ThemeMode = 'light' | 'dark'
+import { getResolvedTheme, type ThemeMode } from './theme'
 
 const SOCIAL_ITEMS = [
   { label: 'GitHub', src: githubIconAsset },
@@ -42,29 +41,20 @@ function getSocialIconFilter(label: string, themeMode: ThemeMode, isActive: bool
   return isActive && label !== 'GitHub' && label !== 'Notion' ? 'none' : lightDefault
 }
 
-function getThemeMode() {
-  if (typeof window === 'undefined') {
-    return 'light'
-  }
-
-  const savedTheme = window.localStorage.getItem('phangport-theme')
-
-  if (savedTheme === 'dark' || savedTheme === 'light') {
-    return savedTheme
-  }
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
 function Footer() {
-  const [themeMode, setThemeMode] = useState<ThemeMode>(() => getThemeMode())
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => getResolvedTheme())
   const [activeIcon, setActiveIcon] = useState<string | null>(null)
   const [isLogoActive, setIsLogoActive] = useState(false)
 
   useEffect(() => {
-    function handleThemeChange() {
-      const event = arguments[0]
-      setThemeMode(event.detail === 'dark' ? 'dark' : 'light')
+    function handleThemeChange(event: Event) {
+      const nextTheme =
+        event instanceof CustomEvent && event.detail === 'dark'
+          ? 'dark'
+          : event instanceof CustomEvent && event.detail === 'light'
+            ? 'light'
+            : getResolvedTheme()
+      setThemeMode(nextTheme)
     }
 
     window.addEventListener('phangport-theme-change', handleThemeChange)
