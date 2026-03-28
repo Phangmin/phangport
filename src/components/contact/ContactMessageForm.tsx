@@ -63,7 +63,7 @@ function ContactMessageForm() {
 
   const submitMessageClassName =
     submitState.type === 'success'
-      ? 'text-emerald-600'
+      ? 'text-blue-600'
       : submitState.type === 'error'
         ? 'text-rose-600'
         : 'text-slate-500'
@@ -135,7 +135,7 @@ function ContactMessageForm() {
 
         <div className="flex flex-col gap-3 pt-1 md:flex-row md:items-center md:justify-between">
           <p className="m-0 text-[0.8rem] leading-[1.6] text-slate-500" data-contact-muted="true">
-            작성해주신 내용은 메일로 전달됩니다. 답변이 필요한 경우 입력하신 이메일로 회신드립니다.
+            전달달하고자 하는 내용을 작성해 보내주시면 입력하신 이메일로 회신드립니다.
           </p>
           <button
             type="submit"

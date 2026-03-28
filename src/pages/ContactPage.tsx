@@ -45,10 +45,10 @@ const contactItems = [
     ),
   },
   {
-    title: '전화번호',
+    title: '연락처',
     value: '+82 10 2025 041',
     ariaLabel: 'Phone',
-    href: null,
+    href: 'tel:+82102025041',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path
@@ -110,9 +110,11 @@ function ContactPage() {
                         <p className="m-0 break-words text-[0.82rem] leading-[1.6] text-slate-600" data-contact-muted="true">
                           {item.value}
                         </p>
-                        <p className="m-0 text-[0.72rem] leading-[1.55] text-slate-400" data-contact-muted="true">
-                          클릭하면 메일 보내기로 연결됩니다.
-                        </p>
+                        {'helperText' in item ? (
+                          <p className="m-0 text-[0.72rem] leading-[1.55] text-slate-400" data-contact-muted="true">
+                            {item.helperText}
+                          </p>
+                        ) : null}
                       </div>
                     </a>
                   ) : (
