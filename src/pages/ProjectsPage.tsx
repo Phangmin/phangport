@@ -32,6 +32,20 @@ function ProjectCover({ project }: { project: ProjectPageProject }) {
   )
 }
 
+function ProjectCardStacks({ stacks }: { stacks: string[] }) {
+  const visibleStacks = stacks.slice(0, 4)
+  const hasOverflow = stacks.length > 4
+
+  return (
+    <div className="flex min-h-[74px] flex-wrap content-start gap-1.5">
+      {visibleStacks.map((stack) => (
+        <SkillBadge key={stack} label={stack} />
+      ))}
+      {hasOverflow ? <SkillBadge label="..." className="min-w-[44px] justify-center" /> : null}
+    </div>
+  )
+}
+
 function ProjectsPage() {
   const language = useLanguage()
   const copy = projectsPageCopyByLanguage[language]
@@ -213,8 +227,8 @@ function ProjectsPage() {
                     <ProjectCover project={project} />
                   </div>
 
-                  <div className="grid gap-3 pt-3">
-                    <div className="flex flex-wrap items-center gap-2">
+                  <div className="grid h-full gap-3 pt-3 [grid-template-rows:auto_auto_auto_auto_auto]">
+                    <div className="flex min-h-[38px] flex-wrap content-start items-start gap-2">
                       <span
                         className={`inline-flex items-center rounded-full px-3 py-1 text-[0.7rem] font-semibold ${
                           project.type === 'individual'
@@ -241,8 +255,9 @@ function ProjectsPage() {
                       </span>
                     </div>
 
-                    <div className="grid gap-2">
-                      <h3 className="m-0 flex items-center gap-2 text-[1.08rem] font-bold leading-[1.08] tracking-[-0.04em] text-[var(--text-h)]">
+                    <div className="grid min-h-[64px] content-start gap-1">
+                      <h3 className="m-0 min-h-[40px] text-[1.08rem] font-bold leading-[1.08] tracking-[-0.04em] text-[var(--text-h)]">
+                        <span className="flex items-start gap-2">
                         {project.hasAward ? (
                           <img
                             src={awardIcon}
@@ -251,14 +266,20 @@ function ProjectsPage() {
                             className="h-5 w-5 shrink-0 object-contain"
                           />
                         ) : null}
-                        <span>{project.title}</span>
+                          <span className="[display:-webkit-box] overflow-hidden [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+                            {project.title}
+                          </span>
+                        </span>
                       </h3>
-                      <p className="m-0 text-[0.82rem] leading-[1.7] text-slate-600" data-projects-muted="true">
+                      <p
+                        className="m-0 min-h-[44px] overflow-hidden text-[0.82rem] leading-[1.7] text-slate-600 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]"
+                        data-projects-muted="true"
+                      >
                         {project.summary}
                       </p>
                     </div>
 
-                    <div className="grid gap-1.5">
+                    <div className="grid min-h-[62px] content-start gap-1.5">
                       <p className="m-0 text-[0.78rem] leading-[1.6] text-slate-700" data-projects-meta="true">
                         <strong>{copy.labels.period}</strong> {project.period}
                       </p>
@@ -267,11 +288,7 @@ function ProjectsPage() {
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.stacks.map((stack) => (
-                        <SkillBadge key={`${project.id}-${stack}`} label={stack} />
-                      ))}
-                    </div>
+                    <ProjectCardStacks stacks={project.stacks} />
                   </div>
                 </button>
               </RevealOnScroll>
@@ -284,13 +301,12 @@ function ProjectsPage() {
           className="fixed inset-0 z-50 bg-slate-950/56 px-3 py-4 backdrop-blur-sm md:px-8 md:py-8"
           onClick={() => setSelectedProjectId(null)}
         >
-          <div className="mx-auto flex h-full w-full max-w-[1180px] items-start justify-center overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="grid w-full">
-              <div className="relative" onClick={(event) => event.stopPropagation()}>
+          <div className="mx-auto flex h-full w-full max-w-[1180px] items-center justify-center">
+            <div className="relative w-full" onClick={(event) => event.stopPropagation()}>
                 <button
                   type="button"
                   onClick={() => setSelectedProjectId(null)}
-                  className="absolute right-4 top-4 z-10 hidden h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-transparent text-slate-400 transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 focus-visible:border-blue-600 focus-visible:text-blue-600 focus-visible:outline-none md:inline-flex"
+                  className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-transparent text-slate-400 transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 focus-visible:border-blue-600 focus-visible:text-blue-600 focus-visible:outline-none"
                   data-projects-modal-close="true"
                   aria-label="Close project detail modal"
                 >
@@ -304,24 +320,14 @@ function ProjectsPage() {
                     />
                   </svg>
                 </button>
-                <ProjectDetailGrid
-                  project={selectedProject}
-                  labels={copy.labels}
-                  projectTypeLabel={getProjectTypeLabel(selectedProject.type)}
-                  media={<FeaturedProjectCarousel project={selectedProject} />}
-                />
-              </div>
-              <div className="flex justify-center pt-3 md:hidden" onClick={(event) => event.stopPropagation()}>
-                <button
-                  type="button"
-                  onClick={() => setSelectedProjectId(null)}
-                  className="inline-flex w-full py-2 items-center justify-center rounded-full bg-gray-900 px-5 text-sm font-semibold text-white transition-colors duration-200"
-                  data-projects-modal-close="true"
-                  aria-label="Close project detail modal"
-                >
-                  닫기
-                </button>
-              </div>
+                <div className="max-h-[90vh] overflow-y-auto rounded-[30px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:rounded-[34px]">
+                  <ProjectDetailGrid
+                    project={selectedProject}
+                    labels={copy.labels}
+                    projectTypeLabel={getProjectTypeLabel(selectedProject.type)}
+                    media={<FeaturedProjectCarousel project={selectedProject} />}
+                  />
+                </div>
             </div>
           </div>
         </div>

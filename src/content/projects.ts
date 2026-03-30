@@ -1,4 +1,16 @@
 import type { LanguageCode } from '../hooks/useLanguage'
+import airPassCoverImage from '../assets/projects/cover-imeges/Air-PASS-coverimage.png'
+import healthCalendarCoverImage from '../assets/projects/cover-imeges/Health-Calendar-coverimage.png'
+import hotelWellnessButlerCoverImage from '../assets/projects/cover-imeges/HotelWellnessButler-coverimage.png'
+import linBookCoverImage from '../assets/projects/cover-imeges/LinBook-coverimage.png'
+import insiteCoverImage from '../assets/projects/cover-imeges/Insite-coveriamge.png'
+import namuhCoverImage from '../assets/projects/cover-imeges/NAMUH-coverimage.png'
+import airPassHomeImage from '../assets/projects/detail-imeges/air-pass/Air-PASS-Home.png'
+import airPassManagementImage from '../assets/projects/detail-imeges/air-pass/Air-PASS-Managemanet.png'
+import airPassReportImage from '../assets/projects/detail-imeges/air-pass/Air-PASS-Report.png'
+import hotelWellnessButlerCallImage from '../assets/projects/detail-imeges/hotelwellnessbutler/HotelWellnessButler-Call.png'
+import hotelWellnessButlerHomeImage from '../assets/projects/detail-imeges/hotelwellnessbutler/HotelWellnessButler-Home.png'
+import hotelWellnessButlerRoomImage from '../assets/projects/detail-imeges/hotelwellnessbutler/HotelWellnessButler-Room.png'
 
 export type ProjectSortKey = 'latest' | 'oldest' | 'importance'
 export type ProjectType = 'individual' | 'team'
@@ -30,6 +42,9 @@ export type ProjectPageProject = {
   hasAward?: boolean
   importance: number
   gallery?: ProjectGallerySlide[]
+  githubUrl?: string
+  websiteUrl?: string
+  downloadUrl?: string
   isFeatured?: boolean
   imageSrc?: string
   coverLabel: string
@@ -41,6 +56,9 @@ export type ProjectCopyLabels = {
   period: string
   role: string
   contribution: string
+  github: string
+  website: string
+  download: string
   mission: string
   stack: string
   introduction: string
@@ -85,6 +103,9 @@ export const projectsPageCopyByLanguage: Record<LanguageCode, ProjectsPageCopy> 
       period: '기간',
       role: '역할',
       contribution: '기여도',
+      github: 'GitHub',
+      website: 'URL',
+      download: '다운로드',
       mission: '임무',
       stack: '기술 스택',
       introduction: '프로젝트 소개',
@@ -114,6 +135,9 @@ export const projectsPageCopyByLanguage: Record<LanguageCode, ProjectsPageCopy> 
       period: 'Period',
       role: 'Role',
       contribution: 'Contribution',
+      github: 'GitHub',
+      website: 'URL',
+      download: 'Download',
       mission: 'Mission',
       stack: 'Tech Stack',
       introduction: 'Overview',
@@ -128,6 +152,61 @@ export const projectsPageCopyByLanguage: Record<LanguageCode, ProjectsPageCopy> 
 
 export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
   ko: [
+    {
+      id: 'air-pass',
+      title: 'Air-PASS',
+      period: '2026.03.03 - 현재',
+      startedAt: '2026-03-03',
+      endedAt: '2026-03-30',
+      role: '서비스 기획, 업무 자동화 설계',
+      summary: '행정과태료 처리 흐름을 더 빠르고 일관되게 만들기 위한 업무 자동화 시스템 프로젝트',
+      introduction:
+        '공공 행정 실무 환경에서 반복되는 과태료 업무 흐름을 더 정확하고 효율적으로 처리할 수 있도록, 절차 중심의 사용자 흐름과 업무 화면 구조를 정리한 프로젝트입니다.',
+      features: [
+        '행정과태료 업무 단계를 기준으로 정리한 프로세스 중심 화면 구조',
+        '반복 입력과 확인 절차를 줄이기 위한 업무 흐름 단순화',
+        '실무자가 현재 처리 상태를 빠르게 파악할 수 있는 단계별 정보 구성',
+      ],
+      troubleshooting:
+        '공공 업무는 정확성과 절차 준수가 중요해서 단순히 화면을 줄이는 것만으로는 해결되지 않았습니다. 실무 흐름을 기준으로 입력, 검토, 처리 단계를 다시 나누고 각 단계에서 필요한 정보만 우선 노출하도록 구조를 재정리했습니다.',
+      results: [
+        '행정과태료 업무를 절차 중심으로 재구성한 서비스 흐름 초안을 만들었습니다.',
+        '반복적인 실무 과정을 더 명확하게 처리할 수 있는 화면 구조 방향을 정리했습니다.',
+      ],
+      stacks: ['Figma', 'Workflow Design', 'Service Planning'],
+      contribution: '업무 흐름 분석과 화면 구조 설계 중심으로 프로젝트 방향을 구체화하고 있습니다.',
+      contributionRate: 70,
+      type: 'team',
+      importance: 110,
+      githubUrl: 'https://github.com/Phangmin/Air-PASS',
+      websiteUrl: '',
+      downloadUrl: '',
+      gallery: [
+        {
+          id: 'air-pass-flow',
+          title: '업무 절차 중심 구조',
+          description: '실무 처리 순서에 맞춰 입력, 검토, 처리 단계가 자연스럽게 이어지도록 화면 흐름을 설계했습니다.',
+          imageSrc: airPassHomeImage,
+        },
+        {
+          id: 'air-pass-state',
+          title: '상태 파악을 위한 정보 계층',
+          description: '현재 어떤 업무 단계에 있는지 빠르게 확인할 수 있도록 상태 정보와 핵심 액션의 우선순위를 조정했습니다.',
+          imageSrc: airPassManagementImage,
+        },
+        {
+          id: 'air-pass-efficiency',
+          title: '반복 업무 단순화',
+          description: '반복 입력과 확인 절차를 줄이는 방향으로 업무 자동화 경험을 정리하고 있습니다.',
+          imageSrc: airPassReportImage,
+        },
+      ],
+      isFeatured: true,
+      imageSrc: airPassCoverImage,
+      coverLabel: 'AP',
+      coverGradientFrom: '#dbeafe',
+      coverGradientTo: '#06b6d4',
+    },
     {
       id: 'stalk',
       title: 'Stalk',
@@ -156,6 +235,9 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 6,
       hasAward: true,
       importance: 100,
+      githubUrl: 'https://github.com/Phangmin/Stalk',
+      websiteUrl: '',
+      downloadUrl: '',
       gallery: [
         {
           id: 'stalk-live-room',
@@ -173,7 +255,6 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
           description: '영상, 차트, 안내 요소가 동시에 보여도 사용자가 현재 상태를 잃지 않도록 정보 계층을 재정리했습니다.',
         },
       ],
-      isFeatured: true,
       coverLabel: 'ST',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#60a5fa',
@@ -206,6 +287,9 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 2,
       hasAward: true,
       importance: 84,
+      githubUrl: 'https://github.com/Phangmin/BookTemperature',
+      websiteUrl: '',
+      downloadUrl: '',
       coverLabel: 'RT',
       coverGradientFrom: '#fef3c7',
       coverGradientTo: '#f59e0b',
@@ -237,6 +321,10 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       type: 'team',
       teamSize: 5,
       importance: 76,
+      githubUrl: 'https://github.com/Phangmin/LinBook',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: linBookCoverImage,
       coverLabel: 'LB',
       coverGradientFrom: '#e0e7ff',
       coverGradientTo: '#818cf8',
@@ -269,6 +357,10 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 6,
       hasAward: true,
       importance: 94,
+      githubUrl: 'https://github.com/Phangmin/Insite',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: insiteCoverImage,
       coverLabel: 'IN',
       coverGradientFrom: '#dcfce7',
       coverGradientTo: '#22c55e',
@@ -301,6 +393,10 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 6,
       hasAward: true,
       importance: 72,
+      githubUrl: 'https://github.com/Phangmin/NAMUH',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: namuhCoverImage,
       coverLabel: 'NA',
       coverGradientFrom: '#fee2e2',
       coverGradientTo: '#f87171',
@@ -312,26 +408,50 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       startedAt: '2025-11-01',
       endedAt: '2025-12-01',
       role: '서비스 기획, UI/UX 설계',
-      summary: 'AI 기반 호텔 웰니스 서비스 제안 프로젝트',
+      summary: 'SK Intelix의 A1 서비스를 200% 활용한 호텔 웰니스 프로젝트',
       introduction:
-        '호텔 공간 안에서 고객의 웰니스 경험을 끊김 없이 연결할 수 있도록 서비스 흐름과 접점 화면을 기획한 프로젝트입니다.',
+        '호텔 공간 안에서 고객의 웰니스 경험을 끊김 없이 연결할 수 있도록 서비스 흐름과 접점 화면을 기획한 프로젝트',
       features: [
-        '체류 전후 경험을 잇는 웰니스 여정 설계',
-        '호텔 현장 직원과 고객의 접점을 함께 고려한 서비스 구조',
-        '컨셉 제안 단계에서 사용 맥락을 빠르게 이해시키는 시나리오 중심 화면',
+        '미로같은 복도에서 투숙객이 길을 잃지 않도록 객실을 안내하는 기능',
+        '5성급 호텔 객실 스마트화의 시작을 알리는 투숙객 객실 웰컴 모드 서비스',
+        '투숙객의 건강정보와 스케줄을 고려해 온습도·조명·커튼·음악 제어를 통한 9가지 사용모드',
       ],
       troubleshooting:
-        '아이디어 제안 성격의 프로젝트라 기능 설명보다 맥락 전달이 중요해, 화면 수를 무리하게 늘리지 않고 핵심 장면만으로 서비스 가치를 이해할 수 있게 정리했습니다.',
+        '실현 가능성과 현장 접목성 그리고 법적 문제(개인정보침해우려, 사생활보호 등)를 고려한 서비스 제안',
       results: [
-        '호텔 웰니스 여정을 한 흐름으로 전달하는 제안형 UX를 구성했습니다.',
-        '서비스 제안 단계에서 가치 전달 중심의 화면 스토리텔링 구조를 정리했습니다.',
+        '호텔 시스템 연계를 통한 시설 내 A1 서비스 일괄 관리 플로우 및 서비스 제안',
+        '기존 A1 서비스의 고도화 및 활용성을 높인 기능 제안',
       ],
       stacks: ['Figma'],
-      contribution: '서비스 컨셉 정의와 핵심 UX 흐름 설계를 맡았습니다.',
-      contributionRate: 70,
+      contribution: '투숙객의 객실 이용 흐름과 편의성을 고려한 서비스 흐름 설계',
+      contributionRate: 50,
       type: 'team',
       teamSize: 2,
       importance: 64,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
+      gallery: [
+        {
+          id: 'hotel-wellness-butler-home',
+          title: '웰니스 서비스 홈',
+          description: '호텔 웰니스 서비스의 전체 톤과 핵심 진입 경험을 빠르게 이해할 수 있도록 구성한 메인 화면입니다.',
+          imageSrc: hotelWellnessButlerHomeImage,
+        },
+        {
+          id: 'hotel-wellness-butler-room',
+          title: '객실 경험 연계',
+          description: '객실 내 접점에서도 서비스 흐름이 끊기지 않도록 웰니스 여정을 연결하는 화면입니다.',
+          imageSrc: hotelWellnessButlerRoomImage,
+        },
+        {
+          id: 'hotel-wellness-butler-call',
+          title: '컨시어지 호출 흐름',
+          description: '고객 요청과 호텔 응대 접점이 자연스럽게 이어지도록 서비스 호출 흐름을 제안형 UX로 정리했습니다.',
+          imageSrc: hotelWellnessButlerCallImage,
+        },
+      ],
+      imageSrc: hotelWellnessButlerCoverImage,
       coverLabel: 'HW',
       coverGradientFrom: '#fae8ff',
       coverGradientTo: '#d946ef',
@@ -362,12 +482,72 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       contributionRate: 100,
       type: 'individual',
       importance: 68,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: healthCalendarCoverImage,
       coverLabel: 'MH',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#38bdf8',
     },
   ],
   en: [
+    {
+      id: 'air-pass',
+      title: 'Air-PASS',
+      period: 'March 3, 2026 - Present',
+      startedAt: '2026-03-03',
+      endedAt: '2026-03-30',
+      role: 'Service Planning, Workflow Design',
+      summary:
+        'A workflow automation system project designed to make administrative penalty processing faster and more consistent.',
+      introduction:
+        'This project focuses on organizing a procedure-centered service flow for real public-sector work, helping repetitive administrative penalty tasks become clearer, more efficient, and easier to manage accurately.',
+      features: [
+        'A process-first interface structured around each administrative penalty step',
+        'A simplified workflow that reduces repeated input and review effort',
+        'A staged information layout that helps staff understand current processing status quickly',
+      ],
+      troubleshooting:
+        'Because public-sector operations require both accuracy and procedural clarity, reducing screen count alone was not enough. I reorganized the structure around input, review, and processing stages so each step surfaces only the information needed at that moment.',
+      results: [
+        'Defined a procedure-centered service flow for administrative penalty work.',
+        'Established a clearer screen structure for handling repetitive operational tasks.',
+      ],
+      stacks: ['Figma', 'Workflow Design', 'Service Planning'],
+      contribution: 'I am shaping the project direction through workflow analysis and screen-structure planning.',
+      contributionRate: 70,
+      type: 'team',
+      importance: 110,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
+      gallery: [
+        {
+          id: 'air-pass-flow',
+          title: 'Procedure-Centered Flow',
+          description: 'The screen flow is structured so input, review, and processing steps follow the real working order naturally.',
+          imageSrc: airPassHomeImage,
+        },
+        {
+          id: 'air-pass-state',
+          title: 'Status-First Information Hierarchy',
+          description: 'I adjusted content priority so staff can quickly understand the current task stage and next action.',
+          imageSrc: airPassManagementImage,
+        },
+        {
+          id: 'air-pass-efficiency',
+          title: 'Repeated Task Simplification',
+          description: 'The workflow is being organized to reduce repeated checks and manual entry in day-to-day operations.',
+          imageSrc: airPassReportImage,
+        },
+      ],
+      isFeatured: true,
+      imageSrc: airPassCoverImage,
+      coverLabel: 'AP',
+      coverGradientFrom: '#dbeafe',
+      coverGradientTo: '#06b6d4',
+    },
     {
       id: 'stalk',
       title: 'Stalk',
@@ -396,6 +576,9 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 6,
       hasAward: true,
       importance: 100,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
       gallery: [
         {
           id: 'stalk-live-room',
@@ -413,7 +596,6 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
           description: 'I reorganized visual hierarchy so video, chart, and guidance elements could coexist without breaking the user’s focus.',
         },
       ],
-      isFeatured: true,
       coverLabel: 'ST',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#60a5fa',
@@ -446,6 +628,9 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 2,
       hasAward: true,
       importance: 84,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
       coverLabel: 'RT',
       coverGradientFrom: '#fef3c7',
       coverGradientTo: '#f59e0b',
@@ -477,6 +662,10 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       type: 'team',
       teamSize: 5,
       importance: 76,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: linBookCoverImage,
       coverLabel: 'LB',
       coverGradientFrom: '#e0e7ff',
       coverGradientTo: '#818cf8',
@@ -509,6 +698,10 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 6,
       hasAward: true,
       importance: 94,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: insiteCoverImage,
       coverLabel: 'IN',
       coverGradientFrom: '#dcfce7',
       coverGradientTo: '#22c55e',
@@ -541,6 +734,10 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       teamSize: 6,
       hasAward: true,
       importance: 72,
+      githubUrl: 'https://github.com/Phangmin/NAMUH',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: namuhCoverImage,
       coverLabel: 'NA',
       coverGradientFrom: '#fee2e2',
       coverGradientTo: '#f87171',
@@ -572,6 +769,30 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       type: 'team',
       teamSize: 2,
       importance: 64,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
+      gallery: [
+        {
+          id: 'hotel-wellness-butler-home',
+          title: 'Wellness Service Home',
+          description: 'The main screen was composed to communicate the service tone and primary entry points at a glance.',
+          imageSrc: hotelWellnessButlerHomeImage,
+        },
+        {
+          id: 'hotel-wellness-butler-room',
+          title: 'In-Room Journey Touchpoint',
+          description: 'This screen connects the wellness journey into the guest room experience without breaking the service flow.',
+          imageSrc: hotelWellnessButlerRoomImage,
+        },
+        {
+          id: 'hotel-wellness-butler-call',
+          title: 'Concierge Request Flow',
+          description: 'The service request flow was organized so guest needs and hotel response touchpoints connect naturally.',
+          imageSrc: hotelWellnessButlerCallImage,
+        },
+      ],
+      imageSrc: hotelWellnessButlerCoverImage,
       coverLabel: 'HW',
       coverGradientFrom: '#fae8ff',
       coverGradientTo: '#d946ef',
@@ -602,6 +823,10 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       contributionRate: 100,
       type: 'individual',
       importance: 68,
+      githubUrl: '',
+      websiteUrl: '',
+      downloadUrl: '',
+      imageSrc: healthCalendarCoverImage,
       coverLabel: 'MH',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#38bdf8',
