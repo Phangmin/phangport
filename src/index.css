@@ -499,6 +499,18 @@ code {
   color: #e5e7eb !important;
 }
 
+:root[data-theme='dark'] [data-projects-action='true'] {
+  background: rgba(43, 47, 54, 0.84) !important;
+  border-color: rgba(148, 163, 184, 0.18) !important;
+  color: #e5e7eb !important;
+}
+
+:root[data-theme='dark'] [data-projects-action='true']:hover,
+:root[data-theme='dark'] [data-projects-action='true']:focus-visible {
+  border-color: rgba(96, 165, 250, 0.24) !important;
+  color: #dbeafe !important;
+}
+
 :root[data-theme='dark'] [data-projects-skill='true'] {
   background: rgba(96, 165, 250, 0.14) !important;
   border-color: rgba(96, 165, 250, 0.2) !important;
