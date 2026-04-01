@@ -1,21 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Footer } from '../components/common'
 import {
-  AboutSection,
-  ExperiencesSection,
-  SkillsSection,
-  AwardsSection,
+  ContactSection,
   HeroSection,
-  HeroPaperPlanes,
+  HomeSectionNavigator,
   ProjectsSection,
+  SkillsSection,
 } from '../components/home'
 
 function HomePage() {
-  const [activeSection, setActiveSection] = useState('home')
-
   useEffect(() => {
     const root = document.getElementById('root')
-    const sectionIds = ['home', 'about', 'experiences', 'skills', 'portfolio', 'contact']
 
     if (!root) {
       return undefined
@@ -24,48 +19,18 @@ function HomePage() {
     const rootNode = root
     rootNode.classList.add('home-scroll-snap')
 
-    function updateNavbarVariant() {
-      const rootRect = rootNode.getBoundingClientRect()
-      const viewportCenter = rootRect.top + rootNode.clientHeight / 2
-      let closestSection = 'home'
-      let closestDistance = Number.POSITIVE_INFINITY
-
-      sectionIds.forEach((sectionId) => {
-        const section = document.getElementById(sectionId)
-
-        if (!section) {
-          return
-        }
-
-        const rect = section.getBoundingClientRect()
-        const sectionCenter = rect.top + rect.height / 2
-        const distance = Math.abs(sectionCenter - viewportCenter)
-
-        if (distance < closestDistance) {
-          closestDistance = distance
-          closestSection = sectionId
-        }
-      })
-
-      setActiveSection(closestSection)
-    }
-
-    updateNavbarVariant()
-    rootNode.addEventListener('scroll', updateNavbarVariant, { passive: true })
-    window.addEventListener('resize', updateNavbarVariant)
-
     return () => {
       rootNode.classList.remove('home-scroll-snap')
-      rootNode.removeEventListener('scroll', updateNavbarVariant)
-      window.removeEventListener('resize', updateNavbarVariant)
     }
   }, [])
 
   return (
-    <main className="[--navbar-offset:104px] bg-[var(--bg)] text-[var(--text-h)] max-md:[--navbar-offset:96px]">
-      <HeroPaperPlanes visible={activeSection === 'home'} />
+    <main className="[--navbar-offset:104px] bg-[radial-gradient(circle_at_top_left,rgba(96,165,250,0.14),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(14,165,233,0.08),transparent_22%),linear-gradient(180deg,#f8fbff_0%,#eef5ff_52%,#f7fbff_100%)] text-[var(--text-h)] dark:bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_28%),radial-gradient(circle_at_82%_16%,rgba(59,130,246,0.14),transparent_24%),linear-gradient(180deg,#08101d_0%,#0b1220_56%,#0f172a_100%)] max-md:[--navbar-offset:96px]">
+      <HomeSectionNavigator />
       <HeroSection />
       <ProjectsSection />
+      <SkillsSection />
+      <ContactSection />
       <Footer />
     </main>
   )

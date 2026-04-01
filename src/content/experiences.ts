@@ -12,12 +12,17 @@ export type ExperienceTimelineItem = {
 }
 
 type ExperiencesPageContent = {
+  eyebrow: string
+  description: string
   items: ExperienceTimelineItem[]
   categoryLabels: Record<ExperienceCategory, string>
 }
 
 export const experiencesPageContentByLanguage: Record<LanguageCode, ExperiencesPageContent> = {
   ko: {
+    eyebrow: 'Experiences',
+    description:
+      '프로젝트, 수상, 교육, 실무를 지나오며 어떤 문제를 만나고 어떻게 풀어왔는지 시간순으로 정리했습니다.',
     categoryLabels: {
       education: '학력',
       training: '교육',
@@ -74,7 +79,7 @@ export const experiencesPageContentByLanguage: Record<LanguageCode, ExperiencesP
         id: 'education-2022',
         period: '2022.02',
         category: 'education',
-        title: '동아대학교 전자공학과 졸업',
+        title: '동아대학교 전자공학과 졸업업',
         meta: 'Electronic Engineering, Dong-A University',
         details: [
           '공학적 사고 기반 시스템 구조 이해 역량 확보',
@@ -150,6 +155,9 @@ export const experiencesPageContentByLanguage: Record<LanguageCode, ExperiencesP
     ],
   },
   en: {
+    eyebrow: 'Experiences',
+    description:
+      'This timeline shows how I approached problems across projects, awards, education, and real work over time.',
     categoryLabels: {
       education: 'Education',
       training: 'Training',

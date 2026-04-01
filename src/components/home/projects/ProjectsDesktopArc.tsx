@@ -56,6 +56,82 @@ function getWrappedSlotPositions(slotPosition: number, length: number) {
   return [slotPosition, slotPosition - length, slotPosition + length]
 }
 
+function getInactiveCardOpacity(slotPosition: number, length: number, isActive: boolean) {
+  if (isActive) {
+    return 1
+  }
+
+  const activeSlot = Math.floor(length / 2)
+  const maxDistance = Math.max(activeSlot, length - 1 - activeSlot, 1)
+  const distanceFromActive = Math.min(Math.abs(slotPosition - activeSlot), maxDistance)
+  const proximity = 1 - distanceFromActive / maxDistance
+
+  return 0.3 + proximity * 0.42
+}
+
+function getExpandedSlotAnchors(length: number) {
+  const activeSlot = Math.floor(length / 2)
+  const anchors = Array.from({ length }, (_, index) => index)
+  const firstGap = 1.55
+  const secondGap = 1.24
+  const outerGap = 1.18
+
+  anchors[activeSlot] = activeSlot
+
+  for (let index = activeSlot - 1; index >= 0; index -= 1) {
+    const distanceFromActive = activeSlot - index
+    const gap =
+      distanceFromActive === 1 ? firstGap : distanceFromActive === 2 ? secondGap : outerGap
+    const nextAnchor = anchors[index + 1]
+
+    if (nextAnchor === undefined) {
+      continue
+    }
+
+    anchors[index] = nextAnchor - gap
+  }
+
+  for (let index = activeSlot + 1; index < length; index += 1) {
+    const distanceFromActive = index - activeSlot
+    const gap =
+      distanceFromActive === 1 ? firstGap : distanceFromActive === 2 ? secondGap : outerGap
+    const previousAnchor = anchors[index - 1]
+
+    if (previousAnchor === undefined) {
+      continue
+    }
+
+    anchors[index] = previousAnchor + gap
+  }
+
+  return anchors
+}
+
+function getExpandedSlotPosition(slotPosition: number, length: number, isActive: boolean) {
+  if (isActive || length <= 2 || slotPosition < 0 || slotPosition > length - 1) {
+    return slotPosition
+  }
+
+  const anchors = getExpandedSlotAnchors(length)
+  const lowerIndex = Math.floor(slotPosition)
+  const upperIndex = Math.ceil(slotPosition)
+
+  if (lowerIndex === upperIndex) {
+    return anchors[lowerIndex] ?? slotPosition
+  }
+
+  const lowerAnchor = anchors[lowerIndex]
+  const upperAnchor = anchors[upperIndex]
+
+  if (lowerAnchor === undefined || upperAnchor === undefined) {
+    return slotPosition
+  }
+
+  const progress = slotPosition - lowerIndex
+
+  return lowerAnchor + (upperAnchor - lowerAnchor) * progress
+}
+
 function getDesktopArcCardStyle(slotPosition: number, length: number, isActive: boolean): CSSProperties {
   const safeLength = Math.max(length, 2)
   const progress = safeLength === 1 ? 0.5 : slotPosition / (safeLength - 1)
@@ -186,7 +262,11 @@ function ProjectsDesktopArc({
           return wrappedPositions.map((position, duplicateIndex) => {
             const edgeFade = getEdgeFade(position, projects.length)
             const isGhost = duplicateIndex > 0
-            const baseOpacity = isActive ? 1 : 0.58
+            const baseOpacity = getInactiveCardOpacity(position, projects.length, isActive)
+            const visualPosition = getExpandedSlotPosition(position, projects.length, isActive)
+            const coverLabel = project.coverLabel || String(projectIndex + 1).padStart(2, '0')
+            const coverGradientFrom = project.coverGradientFrom || '#dbeafe'
+            const coverGradientTo = project.coverGradientTo || '#60a5fa'
 
             return (
               <button
@@ -197,28 +277,75 @@ function ProjectsDesktopArc({
                 tabIndex={isGhost ? -1 : 0}
                 onClick={isGhost ? undefined : () => onFocusChange(projectIndex)}
                 data-home-projects-arc-card="true"
-                className={`absolute grid rounded-[24px] border border-white/30 text-left shadow-[0_24px_56px_rgba(2,6,23,0.24)] transition-[box-shadow,background-color,opacity] ${
+                className={`group absolute rounded-[24px] border border-white/30 text-left shadow-[0_24px_56px_rgba(2,6,23,0.24)] transition-[box-shadow,background-color,opacity,border-color] ${
                   isGhost ? 'duration-500 ease-out' : 'duration-500 ease-out'
                 } hover:shadow-[0_28px_62px_rgba(2,6,23,0.3)] ${
-                  isActive ? 'aspect-[16/9] w-[272px] gap-3 p-5' : 'w-[182px] gap-[10px] p-4'
+                  isActive
+                    ? 'relative aspect-[16/9] w-[408px] overflow-hidden p-0'
+                    : 'grid aspect-[16/9] w-[264px] content-start gap-[10px] p-4'
                 } ${
                   isActive ? 'bg-white/95 opacity-100 ring-2 ring-blue-500/40' : 'bg-white/72 opacity-58'
                 }`}
                 style={{
-                  ...getDesktopArcCardStyle(position, projects.length, isActive),
+                  ...getDesktopArcCardStyle(visualPosition, projects.length, isActive),
                   opacity: edgeFade * baseOpacity,
                   pointerEvents: isGhost || edgeFade < 0.08 ? 'none' : 'auto',
                 }}
               >
-                <span data-home-projects-card-badge="true" className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-full bg-blue-50 text-[0.74rem] font-bold text-blue-600">
-                  {String(projectIndex + 1).padStart(2, '0')}
-                </span>
-                <div className="grid gap-2">
-                  <strong data-home-projects-card-title="true" className="text-[0.92rem] leading-[1.2] text-slate-900">{project.title}</strong>
-                  <span data-home-projects-card-description="true" className="max-h-[3.9rem] overflow-hidden text-[0.78rem] leading-[1.6] text-slate-500">
-                    {project.description}
-                  </span>
-                </div>
+                {isActive ? (
+                  <div data-home-projects-card-cover="true" className="absolute inset-0 overflow-hidden">
+                    {project.imageSrc ? (
+                      <img src={project.imageSrc} alt={project.title} className="block h-full w-full object-cover" />
+                    ) : (
+                      <div
+                        className="relative h-full w-full"
+                        style={{
+                          background: `linear-gradient(135deg, ${coverGradientFrom} 0%, ${coverGradientTo} 100%)`,
+                        }}
+                      >
+                        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.32),transparent_42%)]" />
+                        <div className="pointer-events-none absolute bottom-4 right-4 h-14 w-14 rounded-full border border-white/22 bg-white/10" />
+                        <div className="pointer-events-none absolute left-4 top-4 inline-flex rounded-full border border-white/28 bg-white/22 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-950/72">
+                          {coverLabel}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <>
+                    <span data-home-projects-card-badge="true" className="relative z-[1] inline-flex h-[30px] w-[30px] items-center justify-center rounded-full bg-blue-50 text-[0.74rem] font-bold text-blue-600 transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0">
+                      {String(projectIndex + 1).padStart(2, '0')}
+                    </span>
+                    <div className="relative z-[1] grid gap-2 transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0">
+                      <strong data-home-projects-card-title="true" className="text-[0.92rem] leading-[1.2] text-slate-900">{project.title}</strong>
+                      <span data-home-projects-card-description="true" className="max-h-[3.9rem] overflow-hidden text-[0.78rem] leading-[1.6] text-slate-500">
+                        {project.description}
+                      </span>
+                    </div>
+
+                    <div
+                      data-home-projects-card-cover="true"
+                      className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+                    >
+                      {project.imageSrc ? (
+                        <img src={project.imageSrc} alt={project.title} className="block h-full w-full object-cover" />
+                      ) : (
+                        <div
+                          className="relative h-full w-full"
+                          style={{
+                            background: `linear-gradient(135deg, ${coverGradientFrom} 0%, ${coverGradientTo} 100%)`,
+                          }}
+                        >
+                          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.32),transparent_42%)]" />
+                          <div className="pointer-events-none absolute bottom-4 right-4 h-14 w-14 rounded-full border border-white/22 bg-white/10" />
+                          <div className="pointer-events-none absolute left-4 top-4 inline-flex rounded-full border border-white/28 bg-white/22 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-950/72">
+                            {coverLabel}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </button>
             )
           })

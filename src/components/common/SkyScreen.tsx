@@ -14,10 +14,12 @@ function SkyScreen() {
           alt="PHANG PORT icon"
           className="mx-auto mb-2 h-auto w-[clamp(72px,10vw,112px)] drop-shadow-[0_12px_30px_rgba(0,0,0,0.18)]"
         />
-        <p className="m-0 text-base uppercase tracking-[0.12em] opacity-80">Loading Portfolio</p>
         <h1 className="m-0 text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.04em] text-white">
-          PHANG PORT
+          흐름을 설계하고, 경험으로 완성합니다
         </h1>
+        <p className="m-0 text-[0.86rem] tracking-[0.04em] text-white/76 md:text-[0.94rem]">
+          Turning product thinking into intuitive, working interfaces.
+        </p>
       </div>
     </div>
   )

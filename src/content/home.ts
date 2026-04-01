@@ -12,10 +12,17 @@ type HeroContent = {
 }
 
 export type ProjectItem = {
+  id?: string
   title: string
   period: string
   role: string
   description: string
+  stacks?: string[]
+  imageSrc?: string
+  backgroundUrl?: string
+  coverLabel?: string
+  coverGradientFrom?: string
+  coverGradientTo?: string
 }
 
 export type ProjectsContent = {
@@ -23,8 +30,25 @@ export type ProjectsContent = {
   heading: string
   summary: string
   detailCta: string
+  allProjectsCta: string
   swipeHint: string
   projects: ProjectItem[]
+}
+
+function toHomeProjectItem(project: (typeof projectItemsByLanguage)['ko'][number]): ProjectItem {
+  return {
+    ...(project.id ? { id: project.id } : {}),
+    title: project.title,
+    period: project.period,
+    role: project.role,
+    description: project.description,
+    ...(project.skills ? { stacks: Array.isArray(project.skills) ? project.skills : [project.skills] } : {}),
+    ...(project.imageSrc ? { imageSrc: project.imageSrc } : {}),
+    ...(project.backgroundUrl ? { backgroundUrl: project.backgroundUrl } : {}),
+    ...(project.coverLabel ? { coverLabel: project.coverLabel } : {}),
+    ...(project.coverGradientFrom ? { coverGradientFrom: project.coverGradientFrom } : {}),
+    ...(project.coverGradientTo ? { coverGradientTo: project.coverGradientTo } : {}),
+  }
 }
 
 export const heroContent: Record<LanguageCode, HeroContent> = {
@@ -57,28 +81,20 @@ export const heroContent: Record<LanguageCode, HeroContent> = {
 export const projectsContent: Record<LanguageCode, ProjectsContent> = {
   ko: {
     sectionLabel: 'Projects',
-    heading: '프로덕트와 화면을 설계하는 방식',
+    heading: '',
     summary: '기획 의도와 구현 디테일 사이를 연결하면서, 사용자가 흐름을 자연스럽게 따라가도록 화면을 구성합니다.',
     detailCta: '자세히 보기',
+    allProjectsCta: '전체 프로젝트 보기',
     swipeHint: '좌우로 드래그하거나 스크롤해 카드 넘기기',
-    projects: projectItemsByLanguage.ko.map((project) => ({
-      title: project.title,
-      period: project.period,
-      role: project.role,
-      description: project.description,
-    })),
+    projects: projectItemsByLanguage.ko.map(toHomeProjectItem),
   },
   en: {
     sectionLabel: 'Projects',
-    heading: 'How I shape product interfaces',
+    heading: '',
     summary: 'I bridge planning and implementation so users can move through complex flows with less friction and clearer focus.',
     detailCta: 'See Details',
+    allProjectsCta: 'View All Projects',
     swipeHint: 'Drag or scroll sideways to move one card at a time',
-    projects: projectItemsByLanguage.en.map((project) => ({
-      title: project.title,
-      period: project.period,
-      role: project.role,
-      description: project.description,
-    })),
+    projects: projectItemsByLanguage.en.map(toHomeProjectItem),
   },
 }

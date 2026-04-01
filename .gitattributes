@@ -1,0 +1,2 @@
+Air-PASS.exe filter=lfs diff=lfs merge=lfs -text
+src/assets/projects/files/Air-PASS.exe filter=lfs diff=lfs merge=lfs -text

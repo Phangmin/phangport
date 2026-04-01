@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
-import githubIconAsset from '../../assets/skillsicons/github-icon.png'
-import notionIconAsset from '../../assets/skillsicons/notion-icon.webp'
-import tistoryIconAsset from '../../assets/skillsicons/tistory-icon.svg'
-import instagramIconAsset from '../../assets/skillsicons/instagram-icon.png'
-import linkedinIconAsset from '../../assets/skillsicons/linkedin-icon.png'
+import githubIconAsset from '../../assets/icons/github-icon.png'
+import notionIconAsset from '../../assets/icons/notion-icon.webp'
+import tistoryIconAsset from '../../assets/icons/tistory-icon.svg'
+import instagramIconAsset from '../../assets/icons/instagram-icon.png'
+import linkedinIconAsset from '../../assets/icons/linkedin-icon.png'
 import { RevealOnScroll } from '../common'
 
 type StrengthCard = {

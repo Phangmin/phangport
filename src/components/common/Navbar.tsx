@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { label: { ko: '프로젝트', en: 'Projects' }, to: '/projects' },
   { label: { ko: '포트폴리오', en: 'Portfolio' }, to: '/portfolio' },
   { label: { ko: '연락처', en: 'Contact' }, to: '/contact' },
+  { label: { ko: '\uBC29\uBA85\uB85D', en: 'Guestbook' }, to: '/guestbook' },
 ] as const
 
 const LANGUAGE_STORAGE_KEY = 'phangport-language'

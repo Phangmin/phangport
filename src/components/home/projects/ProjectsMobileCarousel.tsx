@@ -117,7 +117,7 @@ function ProjectsMobileCarousel({
   }
 
   return (
-    <div className="grid gap-3 lg:hidden lg:col-span-2">
+    <div className="relative left-1/2 grid w-[calc(100%+48px)] -translate-x-1/2 gap-3 lg:hidden lg:col-span-2">
       <div
         role="region"
         aria-label={sectionLabel}
@@ -150,16 +150,20 @@ function ProjectsMobileCarousel({
         {projects.map((project, index) => {
           const offset = getCircularOffset(index, focusedIndex, projects.length)
           const distance = Math.abs(offset)
-          const xShift = offset * 88
+          const xShift = offset * 106
           const baseScale = offset === 0 ? 1 : 0.92
-          const opacity = distance > 1 ? 0 : distance === 0 ? 1 : 0.56
+          const opacity = distance > 1 ? 0 : distance === 0 ? 1 : 0.42
           const zIndex = projects.length - distance
+          const isActive = index === focusedIndex
+          const coverLabel = project.coverLabel || String(index + 1).padStart(2, '0')
+          const coverGradientFrom = project.coverGradientFrom || '#dbeafe'
+          const coverGradientTo = project.coverGradientTo || '#60a5fa'
 
           return (
             <button
               key={project.title}
               type="button"
-              aria-pressed={index === focusedIndex}
+              aria-pressed={isActive}
               aria-label={`${String(index + 1).padStart(2, '0')} ${project.title}`}
               onClick={() => {
                 if (suppressClickRef.current) {
@@ -170,22 +174,47 @@ function ProjectsMobileCarousel({
                 onFocusChange(index)
               }}
               data-home-projects-mobile-card="true"
-              className={`absolute left-1/2 top-0 grid h-[214px] w-[82%] max-w-[320px] rounded-[24px] border border-white/10 bg-white/95 p-5 text-left shadow-[0_24px_56px_rgba(2,6,23,0.24)] ${isDragging ? '' : 'transition-[transform,opacity] duration-300 ease-out'}`}
+              className={`absolute left-1/2 top-0 rounded-[24px] border border-white/10 text-left shadow-none ${
+                isDragging ? '' : 'transition-[transform,opacity] duration-300 ease-out'
+              } ${isActive ? 'h-[214px] w-[82%] max-w-[320px] overflow-hidden bg-transparent p-0' : 'grid h-[214px] w-[68%] max-w-[272px] bg-white/95 p-5'}`}
               style={{
                 zIndex,
                 opacity,
                 transform: `translate3d(calc(-50% + ${xShift}% + ${dragOffset}px), 0, 0) scale(${baseScale})`,
               }}
             >
-              <span data-home-projects-card-badge="true" className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-full bg-blue-50 text-[0.74rem] font-bold text-blue-600">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <div className="mt-3 grid gap-2">
-                <strong data-home-projects-card-title="true" className="text-[1rem] leading-[1.2] text-slate-900">{project.title}</strong>
-                <span data-home-projects-card-description="true" className="text-[0.86rem] leading-[1.65] text-slate-500">
-                  {project.description}
-                </span>
-              </div>
+              {isActive ? (
+                <div data-home-projects-card-cover="true" className="absolute inset-0 overflow-hidden">
+                  {project.imageSrc ? (
+                    <img src={project.imageSrc} alt={project.title} className="block h-full w-full object-cover" />
+                  ) : (
+                    <div
+                      className="relative h-full w-full"
+                      style={{
+                        background: `linear-gradient(135deg, ${coverGradientFrom} 0%, ${coverGradientTo} 100%)`,
+                      }}
+                    >
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.32),transparent_42%)]" />
+                      <div className="pointer-events-none absolute bottom-4 right-4 h-14 w-14 rounded-full border border-white/22 bg-white/10" />
+                      <div className="pointer-events-none absolute left-4 top-4 inline-flex rounded-full border border-white/28 bg-white/22 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-950/72">
+                        {coverLabel}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <span data-home-projects-card-badge="true" className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-full bg-blue-50 text-[0.74rem] font-bold text-blue-600">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div className="mt-3 grid gap-2">
+                    <strong data-home-projects-card-title="true" className="text-[1rem] leading-[1.2] text-slate-900">{project.title}</strong>
+                    <span data-home-projects-card-description="true" className="text-[0.86rem] leading-[1.65] text-slate-500">
+                      {project.description}
+                    </span>
+                  </div>
+                </>
+              )}
             </button>
           )
         })}

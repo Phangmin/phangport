@@ -98,7 +98,7 @@ function ProjectsPage() {
 
   if (!featuredProject) {
     return (
-      <main className="min-h-screen bg-[var(--bg)] pt-[var(--navbar-offset)] text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
+      <main className="min-h-screen pt-[var(--navbar-offset)] text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
         <Footer />
       </main>
     )
@@ -109,20 +109,14 @@ function ProjectsPage() {
   }
 
   return (
-    <main
-      className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]"
-      style={{
-        background:
-          'radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%), linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
-      }}
-    >
+    <main className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
       <section className="mx-auto grid w-[min(1126px,calc(100%-24px))] gap-7 pb-[72px] pt-[calc(var(--navbar-offset)+20px)] md:w-[min(1126px,calc(100%-128px))] md:gap-9 md:pt-[calc(var(--navbar-offset)+28px)]">
-        <RevealOnScroll className="grid gap-4 md:gap-5">
+        <RevealOnScroll className="grid gap-2 md:gap-3">
           <p className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.2em] text-blue-600">
             {copy.eyebrow}
           </p>
           <p
-            className="m-0 max-w-[760px] text-[0.92rem] leading-[1.78] text-slate-600 md:text-[1rem] md:leading-[1.9]"
+            className="m-0 text-[0.92rem] leading-[1.78] text-slate-600 md:text-[1rem] md:leading-[1.9]"
             data-projects-muted="true"
           >
             {copy.description}

@@ -1,31 +1,11 @@
 import { Footer, RevealOnScroll } from '../components/common'
+import ContactInfoCard, { type ContactInfoCardProps } from '../components/contact/ContactInfoCard'
 import ContactMessageForm from '../components/contact/ContactMessageForm'
+import instagramIcon from '../assets/icons/instagram-icon.png'
+import kakaoTalkIcon from '../assets/icons/kakaotalk-icon.png'
+import linkedinIcon from '../assets/icons/linkedin-icon.png'
 
-const contactItems = [
-  {
-    title: '주소',
-    value: 'Busan, South Korea',
-    ariaLabel: 'Address',
-    href: null,
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M21 3 10 14"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M21 3 14 21 10 14 3 10 21 3Z"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
+const contactItems: ContactInfoCardProps[] = [
   {
     title: '이메일',
     value: 'phangmin03@gmail.com',
@@ -62,88 +42,100 @@ const contactItems = [
       </svg>
     ),
   },
+  {
+    title: 'Instagram',
+    ariaLabel: 'Instagram',
+    href: 'https://instagram.com/gwang._.min/',
+    tone: 'instagram',
+    framedIcon: false,
+    icon: (
+      <img
+        src={instagramIcon}
+        alt=""
+        aria-hidden="true"
+        className="block h-full w-full object-contain transition-[filter] duration-200 group-hover:brightness-0 group-hover:invert group-focus-visible:brightness-0 group-focus-visible:invert"
+      />
+    ),
+  },
+  {
+    title: 'LinkedIn',
+    ariaLabel: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/phangmin',
+    tone: 'linkedin',
+    framedIcon: false,
+    icon: (
+      <img
+        src={linkedinIcon}
+        alt=""
+        aria-hidden="true"
+        className="block h-full w-full object-contain transition-[filter] duration-200 group-hover:brightness-0 group-hover:invert group-focus-visible:brightness-0 group-focus-visible:invert"
+      />
+    ),
+  },
+  {
+    title: 'KakaoTalk',
+    ariaLabel: 'KakaoTalk',
+    href: 'https://open.kakao.com/o/g4LnG6ni',
+    tone: 'kakao',
+    framedIcon: false,
+    icon: (
+      <img
+        src={kakaoTalkIcon}
+        alt=""
+        aria-hidden="true"
+        className="block h-full w-full object-contain transition-[filter] duration-200 group-hover:brightness-0 group-hover:invert group-focus-visible:brightness-0 group-focus-visible:invert"
+      />
+    ),
+  },
 ] as const
 
 function ContactPage() {
+  const primaryContactItems = contactItems.slice(0, 2)
+  const socialContactItems = contactItems.slice(2)
+
   return (
-    <main
-      className="[--navbar-offset:104px] min-h-screen text-slate-900 max-md:[--navbar-offset:96px]"
-      style={{
-        background:
-          'radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%), linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
-      }}
-    >
+    <main className="[--navbar-offset:104px] min-h-screen text-slate-900 max-md:[--navbar-offset:96px]">
       <section className="mx-auto grid min-h-screen w-[min(1040px,calc(100%-24px))] content-start gap-7 pb-[72px] pt-[calc(var(--navbar-offset)+28px)] md:w-[min(1040px,calc(100%-128px))] md:gap-8">
         <RevealOnScroll className="grid gap-3 text-center lg:text-left">
-          <p className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.18em] text-blue-600">Contact</p>
-          <h1 className="m-0 text-[clamp(2.1rem,5vw,3.8rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-[var(--text-h)]">
-            함께 이야기해볼까요?
+          <p
+            className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.18em] text-blue-600"
+            data-contact-accent="true"
+          >
+            Contact
+          </p>
+          <h1 className="m-0 text-[clamp(1.44rem,3.45vw,2.48rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-[var(--text-h)]">
+            연락과 제안을 기다립니다.
           </h1>
           <p
-            className="mx-auto m-0 max-w-[680px] text-[0.92rem] leading-[1.78] text-slate-600 lg:mx-0 md:text-[0.98rem]"
+            className="mx-auto m-0 text-[0.92rem] leading-[1.78] text-slate-600 lg:mx-0 md:text-[0.98rem]"
             data-contact-muted="true"
           >
-            프로젝트 문의, 협업 제안, 가벼운 인사까지 괜찮습니다. 가장 빠른 연결은 이메일 카드이고, 오른쪽 폼은 이후 실제 전송 기능을 붙이기 위한 구조로 정리했습니다.
+            프로젝트 문의, 작업 제안, 가벼운 커피챗도 환영합니다. 남겨주신 메시지를 확인하는 대로 빠르게 회신드리겠습니다.
           </p>
         </RevealOnScroll>
 
         <div className="grid items-start gap-6 lg:grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)]">
           <aside className="grid gap-4">
+            <RevealOnScroll delay={0.04}>
+              <div className="border-l-2 border-slate-900/18 pl-4 text-left" data-contact-accent-border="true">
+                <p className="m-0 text-[0.78rem] leading-[1.65] text-slate-500" data-contact-muted="true">
+                  각 카드를 누르면 연결된 링크로 바로 이동할 수 있습니다.
+                </p>
+              </div>
+            </RevealOnScroll>
             <div className="grid gap-[14px]">
-              {contactItems.map((item, index) => (
+              {primaryContactItems.map((item, index) => (
                 <RevealOnScroll key={item.title} delay={0.08 + index * 0.06}>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      aria-label={item.ariaLabel}
-                      className="grid min-h-[98px] grid-cols-[48px_minmax(0,1fr)] items-center gap-4 rounded-[22px] border border-blue-600/14 bg-white/95 px-5 py-[18px] text-left no-underline shadow-[0_18px_42px_rgba(15,23,42,0.05)] transition-colors duration-200 hover:border-blue-600/28 focus-visible:border-blue-600/28 focus-visible:outline-none"
-                      data-contact-surface="true"
-                      data-contact-email-card="true"
-                    >
-                      <div className="inline-flex h-[40px] w-[40px] items-center justify-center rounded-full border-[1.5px] border-blue-600/70 bg-white text-blue-600">
-                        <span className="h-[16px] w-[16px]">{item.icon}</span>
-                      </div>
-                      <div className="grid gap-1.5 text-left">
-                        <h2 className="m-0 text-[0.96rem] font-semibold leading-[1.15] text-[var(--text-h)]">
-                          {item.title}
-                        </h2>
-                        <p className="m-0 break-words text-[0.82rem] leading-[1.6] text-slate-600" data-contact-muted="true">
-                          {item.value}
-                        </p>
-                        {item.href.startsWith('mailto:') ? (
-                          <p className="m-0 text-[0.72rem] leading-[1.55] text-slate-400" data-contact-muted="true">
-                            클릭하면 메일 보내기로 연결됩니다.
-                          </p>
-                        ) : item.href.startsWith('tel:') ? (
-                          <p className="m-0 text-[0.72rem] leading-[1.55] text-slate-400" data-contact-muted="true">
-                            모바일에서 누르면 전화 앱으로 연결됩니다.
-                          </p>
-                        ) : null}
-                      </div>
-                    </a>
-                  ) : (
-                    <article
-                      className="grid min-h-[98px] grid-cols-[48px_minmax(0,1fr)] items-center gap-4 rounded-[22px] border border-blue-600/14 bg-white/95 px-5 py-[18px] shadow-[0_18px_42px_rgba(15,23,42,0.05)]"
-                      data-contact-surface="true"
-                    >
-                      <div
-                        aria-label={item.ariaLabel}
-                        className="inline-flex h-[40px] w-[40px] items-center justify-center rounded-full border-[1.5px] border-blue-600/70 bg-white text-blue-600"
-                      >
-                        <span className="h-[16px] w-[16px]">{item.icon}</span>
-                      </div>
-                      <div className="grid gap-1.5 text-left">
-                        <h2 className="m-0 text-[0.96rem] font-semibold leading-[1.15] text-[var(--text-h)]">
-                          {item.title}
-                        </h2>
-                        <p className="m-0 break-words text-[0.82rem] leading-[1.6] text-slate-600" data-contact-muted="true">
-                          {item.value}
-                        </p>
-                      </div>
-                    </article>
-                  )}
+                  <ContactInfoCard {...item} />
                 </RevealOnScroll>
               ))}
+              <div className="grid gap-[14px]">
+                {socialContactItems.map((item, index) => (
+                  <RevealOnScroll key={item.title} delay={0.2 + index * 0.06}>
+                    <ContactInfoCard {...item} />
+                  </RevealOnScroll>
+                ))}
+              </div>
             </div>
           </aside>
 

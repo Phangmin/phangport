@@ -1,19 +1,32 @@
 import { useEffect, useState } from 'react'
-import { getResolvedTheme, THEME_STORAGE_KEY } from './theme'
+import { getResolvedTheme, setThemePreference } from './theme'
 
 function ThemeToggle() {
   const [theme, setTheme] = useState(() => getResolvedTheme())
   const [isHighlighted, setIsHighlighted] = useState(false)
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    document.documentElement.style.colorScheme = theme
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme)
-    window.dispatchEvent(new CustomEvent('phangport-theme-change', { detail: theme }))
-  }, [theme])
+    function handleThemeChange(event: Event) {
+      const nextTheme =
+        event instanceof CustomEvent && event.detail === 'dark'
+          ? 'dark'
+          : event instanceof CustomEvent && event.detail === 'light'
+            ? 'light'
+            : getResolvedTheme()
+
+      setTheme(nextTheme)
+    }
+
+    window.addEventListener('phangport-theme-change', handleThemeChange)
+
+    return () => {
+      window.removeEventListener('phangport-theme-change', handleThemeChange)
+    }
+  }, [])
 
   function handleToggle() {
-    setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))
+    const nextTheme = theme === 'dark' ? 'light' : 'dark'
+    setThemePreference(nextTheme)
   }
 
   const isDark = theme === 'dark'

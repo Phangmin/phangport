@@ -1,9 +1,16 @@
 // @ts-nocheck
 import { useEffect, useRef, useState } from 'react'
-import { RevealOnScroll } from '../common'
+import { projectsByLanguage, projectsPageCopyByLanguage } from '../../content/projects'
+import useLanguage from '../../hooks/useLanguage'
+import { RevealOnScroll, SkillBadge } from '../common'
+import FeaturedProjectCarousel from '../projects/FeaturedProjectCarousel'
+import ProjectDetailGrid from '../projects/ProjectDetailGrid'
 
 function AboutProjectsSection(props) {
   const { items, header } = props
+  const language = useLanguage()
+  const projectCopy = projectsPageCopyByLanguage[language]
+  const detailProjects = projectsByLanguage[language]
   const trackRef = useRef(null)
   const pauseRef = useRef(false)
   const intervalRef = useRef(0)
@@ -14,8 +21,10 @@ function AboutProjectsSection(props) {
   const [isAnimating, setIsAnimating] = useState(false)
   const [transitionEnabled, setTransitionEnabled] = useState(false)
   const [pendingDirection, setPendingDirection] = useState(0)
+  const [selectedProjectId, setSelectedProjectId] = useState(null)
 
   const itemCount = items.length
+  const selectedProject = detailProjects.find((project) => project.id === selectedProjectId) ?? null
   const safeStartIndex =
     itemCount > 0 ? ((currentStartIndex % itemCount) + itemCount) % itemCount : 0
   const orderedItems =
@@ -144,8 +153,42 @@ function AboutProjectsSection(props) {
     }
   }, [currentStartIndex, itemCount, offsetPx])
 
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        setSelectedProjectId(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
+  useEffect(() => {
+    const root = document.getElementById('root')
+
+    if (!root) {
+      return undefined
+    }
+
+    const previousOverflow = root.style.overflowY
+    root.style.overflowY = selectedProject ? 'hidden' : previousOverflow || 'auto'
+
+    return () => {
+      root.style.overflowY = previousOverflow
+    }
+  }, [selectedProject])
+
+  function getProjectTypeLabel(projectType) {
+    return projectType === 'individual' ? projectCopy.labels.personal : projectCopy.labels.team
+  }
+
   return (
-    <section className="grid min-w-0 overflow-x-clip px-0 py-1 md:px-1 md:py-2">
+    <>
+      <section className="grid min-w-0 overflow-x-clip px-0 py-1 md:px-1 md:py-2">
       <RevealOnScroll
         delay={0.1}
         className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-end gap-3"
@@ -228,6 +271,9 @@ function AboutProjectsSection(props) {
           >
             {orderedItems.map((item, index) => {
               const projectImage = item.image || item.imageSrc || item.thumbnail || item.poster
+              const coverLabel = item.coverLabel || item.category || 'Project'
+              const coverGradientFrom = item.coverGradientFrom || '#dbeafe'
+              const coverGradientTo = item.coverGradientTo || '#60a5fa'
               const skillItems = Array.isArray(item.skills)
                 ? item.skills
                 : String(item.skills || '')
@@ -237,8 +283,9 @@ function AboutProjectsSection(props) {
 
               return (
                 <button
-                  key={`${item.title}-${index}`}
+                  key={`${item.id ?? item.title}-${index}`}
                   type="button"
+                  onClick={() => setSelectedProjectId(item.id)}
                   data-project-card="true"
                   className="group min-h-0 min-w-[min(18.25rem,calc(100%-2rem))] max-w-[min(18.25rem,calc(100%-2rem))] text-left focus-visible:outline-none sm:min-h-[300px] sm:min-w-[calc((100%-1rem)/2)] sm:max-w-[calc((100%-1rem)/2)] lg:min-h-[320px] lg:min-w-[calc((100%-2rem)/3)] lg:max-w-[calc((100%-2rem)/3)] xl:min-w-[calc((100%-3rem)/4)] xl:max-w-[calc((100%-3rem)/4)]"
                 >
@@ -268,14 +315,26 @@ function AboutProjectsSection(props) {
                           {projectImage ? (
                             <img src={projectImage} alt={item.title} className="h-full w-full object-cover" />
                           ) : (
-                            <div className="flex h-full w-full items-end justify-between bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.42),transparent_42%)] p-4">
-                            <span
-                              className="text-[0.7rem] uppercase tracking-[0.14em] text-slate-500 transition-colors duration-300 group-hover:text-[#dbeeff]/80 group-focus-visible:text-[#dbeeff]/80"
-                              data-about-project-placeholder="true"
+                            <div
+                              className="grid h-full w-full content-between p-4"
+                              style={{
+                                background: `linear-gradient(135deg, ${coverGradientFrom} 0%, ${coverGradientTo} 100%)`,
+                              }}
                             >
-                              Project Image
-                            </span>
-                              <div className="h-12 w-12 rounded-full bg-blue-600/12 transition-colors duration-300 group-hover:bg-[#dbeeff]/14 group-focus-visible:bg-[#dbeeff]/14" />
+                              <span
+                                className="inline-flex w-fit rounded-full border border-white/28 bg-white/22 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-950/72"
+                                data-about-project-placeholder="true"
+                              >
+                                {coverLabel}
+                              </span>
+                              <div className="grid max-w-[72%] gap-1 text-left">
+                                <p className="m-0 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-950/56">
+                                  Cover
+                                </p>
+                                <p className="m-0 text-[0.92rem] font-bold leading-[1.05] tracking-[-0.04em] text-slate-950">
+                                  {item.title}
+                                </p>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -313,15 +372,13 @@ function AboutProjectsSection(props) {
                       </div>
 
                       {skillItems.length > 0 ? (
-                        <div className="mt-1 flex flex-wrap gap-1.5 sm:mt-0 sm:gap-2">
+                        <div className="mt-0.5 flex flex-wrap gap-1 sm:mt-0 sm:gap-1.5">
                           {skillItems.map((skill) => (
-                            <span
+                            <SkillBadge
                               key={`${item.title}-${skill}`}
-                              data-about-skill-chip="true"
-                              className="inline-flex items-center justify-center rounded-full bg-blue-600/8 px-2.5 py-1 text-[0.64rem] font-medium leading-none text-blue-700 transition-colors duration-300 group-hover:bg-[#dbeeff]/14 group-hover:text-[#dbeeff] group-focus-visible:bg-[#dbeeff]/14 group-focus-visible:text-[#dbeeff] sm:text-[0.68rem]"
-                            >
-                              {skill}
-                            </span>
+                              label={skill}
+                              className="h-6 bg-blue-600/8 px-2 text-[0.62rem] font-semibold text-blue-700 transition-colors duration-300 group-hover:bg-[#dbeeff]/14 group-hover:text-[#dbeeff] group-focus-visible:bg-[#dbeeff]/14 group-focus-visible:text-[#dbeeff] md:h-6 md:px-2.5 md:text-[0.66rem]"
+                            />
                           ))}
                         </div>
                       ) : (
@@ -348,7 +405,45 @@ function AboutProjectsSection(props) {
           />
         ))}
       </div>
-    </section>
+      </section>
+
+      {selectedProject ? (
+        <div
+          className="fixed inset-0 z-50 bg-slate-950/56 px-3 py-4 backdrop-blur-sm md:px-8 md:py-8"
+          onClick={() => setSelectedProjectId(null)}
+        >
+          <div className="mx-auto flex h-full w-full max-w-[1180px] items-center justify-center">
+            <div className="relative w-full" onClick={(event) => event.stopPropagation()}>
+              <button
+                type="button"
+                onClick={() => setSelectedProjectId(null)}
+                className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-transparent text-slate-400 transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 focus-visible:border-blue-600 focus-visible:text-blue-600 focus-visible:outline-none"
+                data-projects-modal-close="true"
+                aria-label="Close project detail modal"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5" fill="none">
+                  <path
+                    d="M6 6 18 18M18 6 6 18"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <div className="max-h-[90vh] overflow-y-auto rounded-[30px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:rounded-[34px]">
+                <ProjectDetailGrid
+                  project={selectedProject}
+                  labels={projectCopy.labels}
+                  projectTypeLabel={getProjectTypeLabel(selectedProject.type)}
+                  media={<FeaturedProjectCarousel project={selectedProject} />}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }
 

@@ -2,11 +2,130 @@ import { useState } from 'react'
 import { RevealOnScroll } from '../common'
 
 const fieldClassName =
-  'min-h-[54px] w-full rounded-[16px] border border-blue-600/24 bg-white px-4 text-[0.92rem] text-slate-900 outline-none transition-[border-color,box-shadow,transform] duration-200 placeholder:text-slate-400 focus:-translate-y-px focus:border-blue-600 focus:shadow-[0_0_0_4px_rgba(37,99,235,0.12)]'
+  'h-[54px] w-full rounded-[16px] border border-slate-900/12 bg-white px-4 text-[0.92rem] text-slate-900 outline-none transition-[border-color,transform] duration-200 placeholder:text-transparent focus:-translate-y-px focus:border-blue-600'
 
 type SubmitState =
   | { type: 'idle'; message: '' }
   | { type: 'success' | 'error'; message: string }
+
+type FloatingFieldProps = {
+  id: string
+  name: string
+  label: string
+  type?: 'text' | 'email'
+  autoComplete?: string
+  value: string
+  onChange: (value: string) => void
+  maxLength: number
+  required?: boolean
+}
+
+type FloatingTextareaProps = {
+  id: string
+  name: string
+  label: string
+  value: string
+  onChange: (value: string) => void
+  maxLength: number
+  required?: boolean
+}
+
+function FloatingField({
+  id,
+  name,
+  label,
+  type = 'text',
+  autoComplete,
+  value,
+  onChange,
+  maxLength,
+  required = false,
+}: FloatingFieldProps) {
+  const [isFocused, setIsFocused] = useState(false)
+  const isRaised = isFocused || value.trim().length > 0
+  const floatingLabelClassName = isRaised
+    ? `pointer-events-none absolute left-3 top-0 z-[1] -translate-y-1/2 rounded-full bg-white px-2 text-[0.72rem] font-semibold leading-none whitespace-nowrap transition-all duration-200 ${
+        isFocused ? 'text-blue-600' : 'text-slate-900'
+      }`
+    : 'pointer-events-none absolute left-3 top-1/2 z-[1] -translate-y-1/2 rounded-full bg-transparent px-2 text-[0.84rem] font-semibold leading-none whitespace-nowrap text-slate-400 transition-all duration-200'
+
+  return (
+    <div className="relative" data-contact-floating-field="true">
+      <input
+        id={id}
+        name={name}
+        aria-label={label}
+        autoComplete={autoComplete}
+        lang="ko"
+        type={type}
+        placeholder=" "
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        className={fieldClassName}
+        data-contact-input="true"
+        maxLength={maxLength}
+        required={required}
+      />
+      <label
+        htmlFor={id}
+        className={floatingLabelClassName}
+        data-contact-floating-label="true"
+        data-contact-floating-raised={isRaised ? 'true' : 'false'}
+      >
+        {label}
+      </label>
+    </div>
+  )
+}
+
+function FloatingTextarea({
+  id,
+  name,
+  label,
+  value,
+  onChange,
+  maxLength,
+  required = false,
+}: FloatingTextareaProps) {
+  const [isFocused, setIsFocused] = useState(false)
+  const isRaised = isFocused || value.trim().length > 0
+  const floatingLabelClassName = isRaised
+    ? `pointer-events-none absolute left-3 top-0 z-[1] -translate-y-1/2 rounded-full bg-white px-2 text-[0.72rem] font-semibold leading-none whitespace-nowrap transition-all duration-200 ${
+        isFocused ? 'text-blue-600' : 'text-slate-900'
+      }`
+    : 'pointer-events-none absolute left-3 top-5 z-[1] -translate-y-1/2 rounded-full bg-transparent px-2 text-[0.84rem] font-semibold leading-none whitespace-nowrap text-slate-400 transition-all duration-200'
+
+  return (
+    <div className="relative" data-contact-floating-field="true">
+      <textarea
+        id={id}
+        name={name}
+        aria-label={label}
+        lang="ko"
+        placeholder=" "
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        className="min-h-[220px] w-full resize-y rounded-[18px] border border-slate-900/12 bg-white px-4 py-4 text-[0.92rem] leading-[1.68] text-slate-900 outline-none transition-[border-color,transform] duration-200 placeholder:text-transparent focus:-translate-y-px focus:border-blue-600"
+        data-contact-input="true"
+        data-contact-textarea="true"
+        maxLength={maxLength}
+        required={required}
+      />
+      <label
+        htmlFor={id}
+        className={floatingLabelClassName}
+        data-contact-floating-label="true"
+        data-contact-floating-raised={isRaised ? 'true' : 'false'}
+      >
+        {label}
+      </label>
+    </div>
+  )
+}
 
 function ContactMessageForm() {
   const [name, setName] = useState('')
@@ -43,7 +162,7 @@ function ContactMessageForm() {
       const payload = (await response.json().catch(() => null)) as { error?: string } | null
 
       if (!response.ok) {
-        throw new Error(payload?.error ?? '메시지 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
+        throw new Error(payload?.error ?? '메시지 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.')
       }
 
       setName('')
@@ -63,84 +182,67 @@ function ContactMessageForm() {
 
   const submitMessageClassName =
     submitState.type === 'success'
-      ? 'text-blue-600'
+      ? 'text-slate-700'
       : submitState.type === 'error'
         ? 'text-rose-600'
         : 'text-slate-500'
 
   return (
     <RevealOnScroll
-      className="rounded-[30px] border border-slate-900/8 bg-white/95 p-5 shadow-[0_24px_58px_rgba(15,23,42,0.07)] md:p-7"
+      className="rounded-[30px] border border-slate-900/8 bg-transparent p-5 shadow-[0_24px_58px_rgba(15,23,42,0.07)] md:p-7"
       data-contact-surface="true"
+      data-contact-form-surface="true"
     >
       <form className="grid gap-4" onSubmit={handleSubmit}>
         <div className="grid gap-4 md:grid-cols-2">
-          <input
+          <FloatingField
             id="contact-name"
             name="name"
-            aria-label="이름"
+            label="이름"
             autoComplete="name"
-            lang="ko"
-            type="text"
-            placeholder="이름을 입력해주세요"
             value={name}
-            onChange={(event) => setName(event.target.value)}
-            className={fieldClassName}
+            onChange={setName}
             maxLength={80}
             required
           />
-
-          <input
+          <FloatingField
             id="contact-email"
             name="email"
-            aria-label="이메일"
-            autoComplete="email"
-            lang="ko"
+            label="이메일"
             type="email"
-            placeholder="이메일을 입력해주세요"
+            autoComplete="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            className={fieldClassName}
+            onChange={setEmail}
             maxLength={160}
             required
           />
         </div>
 
-        <input
+        <FloatingField
           id="contact-affiliation"
           name="affiliation"
-          aria-label="소속"
+          label="소속"
           autoComplete="organization"
-          lang="ko"
-          type="text"
-          placeholder="소속을 입력해주세요"
           value={affiliation}
-          onChange={(event) => setAffiliation(event.target.value)}
-          className={fieldClassName}
+          onChange={setAffiliation}
           maxLength={120}
         />
 
-        <textarea
+        <FloatingTextarea
           id="contact-message"
           name="message"
-          aria-label="메시지"
-          lang="ko"
-          placeholder="메시지를 입력해주세요"
+          label="메시지"
           value={message}
-          onChange={(event) => setMessage(event.target.value)}
-          className="min-h-[220px] w-full resize-y rounded-[18px] border border-blue-600/24 bg-white px-4 py-4 text-[0.92rem] leading-[1.68] text-slate-900 outline-none transition-[border-color,box-shadow,transform] duration-200 placeholder:text-slate-400 focus:-translate-y-px focus:border-blue-600 focus:shadow-[0_0_0_4px_rgba(37,99,235,0.12)]"
+          onChange={setMessage}
           maxLength={4000}
           required
         />
 
-        <div className="flex flex-col gap-3 pt-1 md:flex-row md:items-center md:justify-between">
-          <p className="m-0 text-[0.8rem] leading-[1.6] text-slate-500" data-contact-muted="true">
-            전달달하고자 하는 내용을 작성해 보내주시면 입력하신 이메일로 회신드립니다.
-          </p>
+        <div className="flex flex-col gap-3 pt-1 items-end">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="min-h-[54px] rounded-full bg-[linear-gradient(135deg,#2563eb_0%,#0f62fe_100%)] px-6 text-[0.94rem] font-bold text-white transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-55"
+            className="min-h-[45px] rounded-full bg-[linear-gradient(135deg,#2563eb_0%,#0f62fe_100%)] px-6 text-[0.94rem] font-bold text-white transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-55"
           >
             {isSubmitting ? '전송 중...' : '메시지 보내기'}
           </button>

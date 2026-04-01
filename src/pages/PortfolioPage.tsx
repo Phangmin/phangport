@@ -11,30 +11,24 @@ function PortfolioPage() {
   const copy = portfolioPageCopyByLanguage[language]
 
   return (
-    <main
-      className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]"
-      style={{
-        background:
-          'radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%), linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
-      }}
-    >
+    <main className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
       <section className="mx-auto grid w-[min(1126px,calc(100%-24px))] gap-7 pb-[72px] pt-[calc(var(--navbar-offset)+20px)] md:w-[min(1126px,calc(100%-128px))] md:gap-9 md:pt-[calc(var(--navbar-offset)+28px)]">
         <RevealOnScroll className="grid gap-4 md:gap-5">
           <p className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.2em] text-blue-600">
             {copy.eyebrow}
           </p>
           <p
-            className="m-0 max-w-[760px] text-[0.92rem] leading-[1.78] text-slate-600 md:text-[1rem] md:leading-[1.9]"
+            className="m-0 text-[0.92rem] leading-[1.78] text-slate-600 md:text-[1rem] md:leading-[1.9]"
             data-portfolio-muted="true"
           >
             {copy.description}
           </p>
         </RevealOnScroll>
 
-        <div className="grid gap-4 xl:grid-cols-[minmax(0,1.24fr)_minmax(320px,0.76fr)] xl:items-start">
+        <div className="grid gap-4 xl:grid-cols-2 xl:items-stretch">
           <RevealOnScroll
             as="article"
-            className="grid gap-5 overflow-hidden rounded-[30px] border border-slate-900/8 bg-white/95 p-4 shadow-[0_28px_68px_rgba(15,23,42,0.08)] md:rounded-[34px] md:p-6"
+            className="flex h-full flex-col gap-5 overflow-hidden rounded-[30px] border border-slate-900/8 bg-white/95 p-4 shadow-[0_28px_68px_rgba(15,23,42,0.08)] md:rounded-[34px] md:p-6"
             data-portfolio-surface="featured"
           >
             <div className="grid gap-2">
@@ -65,7 +59,7 @@ function PortfolioPage() {
               />
             </div>
 
-            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div className="mt-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <p className="m-0 text-[0.82rem] font-medium text-slate-500 md:text-[0.88rem]" data-portfolio-muted="true">
                 {copy.featuredMeta}
               </p>
@@ -84,7 +78,7 @@ function PortfolioPage() {
           <RevealOnScroll
             as="article"
             delay={0.08}
-            className="grid gap-5 overflow-hidden rounded-[30px] border border-slate-900/8 bg-white/95 p-4 shadow-[0_24px_58px_rgba(15,23,42,0.07)] md:rounded-[34px] md:p-6"
+            className="flex h-full flex-col gap-5 overflow-hidden rounded-[30px] border border-slate-900/8 bg-white/95 p-4 shadow-[0_24px_58px_rgba(15,23,42,0.07)] md:rounded-[34px] md:p-6"
             data-portfolio-surface="secondary"
           >
             <div className="grid gap-2">
@@ -126,7 +120,7 @@ function PortfolioPage() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div className="mt-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <p className="m-0 text-[0.82rem] font-medium text-slate-500 md:text-[0.88rem]" data-portfolio-muted="true">
                 {copy.pdfMeta}
               </p>

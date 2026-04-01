@@ -1,0 +1,165 @@
+import { useEffect, useMemo, useState } from 'react'
+import useLanguage, { type LanguageCode } from '../../hooks/useLanguage'
+import { getResolvedTheme, type ThemeMode } from '../common/theme'
+
+type SectionNavigatorItem = {
+  id: string
+  label: string
+}
+
+const sectionNavigatorItemsByLanguage: Record<LanguageCode, SectionNavigatorItem[]> = {
+  ko: [
+    { id: 'home', label: 'Home' },
+    { id: 'portfolio', label: 'Projects' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'home-contact', label: 'Contact' },
+  ],
+  en: [
+    { id: 'home', label: 'Home' },
+    { id: 'portfolio', label: 'Projects' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'home-contact', label: 'Contact' },
+  ],
+}
+
+function HomeSectionNavigator() {
+  const language = useLanguage()
+  const items = sectionNavigatorItemsByLanguage[language]
+  const [activeSectionId, setActiveSectionId] = useState(items[0]?.id ?? 'home')
+  const [theme, setTheme] = useState<ThemeMode>(() => getResolvedTheme())
+
+  const resolvedItems = useMemo(() => items, [items])
+  const isDark = theme === 'dark'
+  const textTone = isDark ? 'text-white' : 'text-slate-950'
+  const mutedTone = isDark ? 'text-white/0' : 'text-slate-950/0'
+  const borderTone = isDark ? 'border-white/88' : 'border-slate-950/88'
+  const hoverBorderTone = isDark ? 'group-hover:border-white' : 'group-hover:border-slate-950'
+  const activeBorderTone = 'border-[3px] border-[#3182f6]'
+
+  useEffect(() => {
+    function handleThemeChange(event: Event) {
+      if (!(event instanceof CustomEvent)) {
+        return
+      }
+
+      setTheme(event.detail === 'dark' ? 'dark' : 'light')
+    }
+
+    window.addEventListener('phangport-theme-change', handleThemeChange)
+
+    return () => {
+      window.removeEventListener('phangport-theme-change', handleThemeChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    const scrollRoot = document.getElementById('root')
+
+    if (!scrollRoot || resolvedItems.length === 0) {
+      return undefined
+    }
+
+    let animationFrameId = 0
+
+    function updateActiveSection() {
+      animationFrameId = 0
+
+      const viewportCenter = window.innerHeight / 2
+      let nextActiveId = resolvedItems[0]?.id ?? 'home'
+      let closestDistance = Number.POSITIVE_INFINITY
+
+      for (const item of resolvedItems) {
+        const sectionElement = document.getElementById(item.id)
+
+        if (!sectionElement) {
+          continue
+        }
+
+        const rect = sectionElement.getBoundingClientRect()
+        const sectionCenter = rect.top + rect.height / 2
+        const distance = Math.abs(sectionCenter - viewportCenter)
+
+        if (distance < closestDistance) {
+          closestDistance = distance
+          nextActiveId = item.id
+        }
+      }
+
+      setActiveSectionId((current) => (current === nextActiveId ? current : nextActiveId))
+    }
+
+    function requestActiveSectionUpdate() {
+      if (animationFrameId) {
+        return
+      }
+
+      animationFrameId = window.requestAnimationFrame(updateActiveSection)
+    }
+
+    requestActiveSectionUpdate()
+    scrollRoot.addEventListener('scroll', requestActiveSectionUpdate, { passive: true })
+    window.addEventListener('resize', requestActiveSectionUpdate)
+
+    return () => {
+      if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId)
+      }
+
+      scrollRoot.removeEventListener('scroll', requestActiveSectionUpdate)
+      window.removeEventListener('resize', requestActiveSectionUpdate)
+    }
+  }, [resolvedItems])
+
+  function handleSectionMove(sectionId: string) {
+    const sectionElement = document.getElementById(sectionId)
+
+    if (!sectionElement) {
+      return
+    }
+
+    sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  return (
+    <nav
+      aria-label="Home section navigation"
+      className="pointer-events-none fixed right-8 top-1/2 z-[35] hidden -translate-y-1/2 lg:flex"
+    >
+      <div className="pointer-events-auto grid justify-items-end gap-3">
+        {resolvedItems.map((item) => {
+          const isActive = item.id === activeSectionId
+
+          return (
+            <button
+              key={item.id}
+              type="button"
+              aria-current={isActive ? 'true' : undefined}
+              aria-label={item.label}
+              onClick={() => handleSectionMove(item.id)}
+              className="group flex min-h-[16px] items-center justify-end gap-2 bg-transparent p-0 text-right focus-visible:outline-none"
+            >
+              <span
+                className={`text-[0.82rem] font-medium transition-all duration-200 ${textTone} ${
+                  isActive
+                    ? 'translate-x-0 opacity-100'
+                    : `translate-x-2 opacity-0 ${mutedTone}`
+                }`}
+              >
+                {item.label}
+              </span>
+              <span
+                className={`inline-flex h-3.5 w-3.5 items-center justify-center rounded-full transition-colors duration-200 ${
+                  isActive
+                    ? activeBorderTone
+                    : `border bg-transparent ${borderTone} ${hoverBorderTone}`
+                }`}
+              />
+            </button>
+          )
+        })}
+      </div>
+    </nav>
+  )
+}
+
+export default HomeSectionNavigator
