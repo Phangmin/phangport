@@ -4,7 +4,7 @@ import djangoIcon from '../../assets/skillsicons/django-icon.png'
 import electronIcon from '../../assets/skillsicons/electron-icon.png'
 import figmaIcon from '../../assets/skillsicons/firma-icon.svg'
 import gitIcon from '../../assets/skillsicons/git-icon.png'
-import githubIcon from '../../assets/skillsicons/github-icon.png'
+import githubIcon from '../../assets/icons/github-icon.png'
 import gitlabIcon from '../../assets/skillsicons/gitlab-icon.png'
 import html5Icon from '../../assets/skillsicons/html5-icon.png'
 import javascriptIcon from '../../assets/skillsicons/javascript-icon.png'
@@ -14,7 +14,7 @@ import mattermostIcon from '../../assets/skillsicons/mattermost-icon.webp'
 import microsoftTeamsIcon from '../../assets/skillsicons/microsoftteams-icon.png'
 import mysqlIcon from '../../assets/skillsicons/mysql-icon.png'
 import nextjsIcon from '../../assets/skillsicons/nextjs-icon.png'
-import notionIcon from '../../assets/skillsicons/notion-icon.webp'
+import notionIcon from '../../assets/icons/notion-icon.webp'
 import postmanIcon from '../../assets/skillsicons/postman-icon.svg'
 import pythonIcon from '../../assets/skillsicons/python-icon.png'
 import reactIcon from '../../assets/skillsicons/React-icon.png'
@@ -57,13 +57,17 @@ const SKILL_ICON_MAP: Record<string, string> = {
   Vercel: vercelIcon,
 }
 
+export function getSkillIconSrc(label: string) {
+  return SKILL_ICON_MAP[label]
+}
+
 type SkillBadgeProps = {
   label: string
   className?: string
 }
 
 function SkillBadge({ label, className = '' }: SkillBadgeProps) {
-  const iconSrc = SKILL_ICON_MAP[label]
+  const iconSrc = getSkillIconSrc(label)
 
   return (
     <span

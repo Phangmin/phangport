@@ -11,6 +11,16 @@ import airPassReportImage from '../assets/projects/detail-imeges/air-pass/Air-PA
 import hotelWellnessButlerCallImage from '../assets/projects/detail-imeges/hotelwellnessbutler/HotelWellnessButler-Call.png'
 import hotelWellnessButlerHomeImage from '../assets/projects/detail-imeges/hotelwellnessbutler/HotelWellnessButler-Home.png'
 import hotelWellnessButlerRoomImage from '../assets/projects/detail-imeges/hotelwellnessbutler/HotelWellnessButler-Room.png'
+import shinhanfriendsVideo from '../assets/projects/videos/shinhanfriends-vedio.mp4'
+import airplaneVideo from '../assets/projects/videos/airplane-video.mp4'
+import namuhVideo from '../assets/projects/videos/namuh-video.web.mp4'
+import cafeVideo from '../assets/projects/videos/cafe-video.mp4'
+import hotelroomVideo from '../assets/projects/videos/hotelroom-video.mp4'
+import libraryVideo from '../assets/projects/videos/library-video.mp4'
+import stockVideo from '../assets/projects/videos/stock-video.mp4'
+import calendarVideo from '../assets/projects/videos/calendar-video.mp4'
+
+const airPassDownloadUrl = new URL('../assets/projects/files/Air-PASS.exe', import.meta.url).href
 
 export type ProjectSortKey = 'latest' | 'oldest' | 'importance'
 export type ProjectType = 'individual' | 'team'
@@ -47,6 +57,7 @@ export type ProjectPageProject = {
   downloadUrl?: string
   isFeatured?: boolean
   imageSrc?: string
+  backgroundUrl?: string
   coverLabel: string
   coverGradientFrom: string
   coverGradientTo: string
@@ -180,7 +191,8 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       importance: 110,
       githubUrl: 'https://github.com/Phangmin/Air-PASS',
       websiteUrl: '',
-      downloadUrl: '',
+      downloadUrl: airPassDownloadUrl,
+      backgroundUrl: airplaneVideo,
       gallery: [
         {
           id: 'air-pass-flow',
@@ -238,6 +250,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       githubUrl: 'https://github.com/Phangmin/Stalk',
       websiteUrl: '',
       downloadUrl: '',
+      backgroundUrl: stockVideo,
       gallery: [
         {
           id: 'stalk-live-room',
@@ -290,6 +303,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       githubUrl: 'https://github.com/Phangmin/BookTemperature',
       websiteUrl: '',
       downloadUrl: '',
+      backgroundUrl: libraryVideo,
       coverLabel: 'RT',
       coverGradientFrom: '#fef3c7',
       coverGradientTo: '#f59e0b',
@@ -325,6 +339,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       imageSrc: linBookCoverImage,
+      backgroundUrl: shinhanfriendsVideo,
       coverLabel: 'LB',
       coverGradientFrom: '#e0e7ff',
       coverGradientTo: '#818cf8',
@@ -360,6 +375,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       githubUrl: 'https://github.com/Phangmin/Insite',
       websiteUrl: '',
       downloadUrl: '',
+      backgroundUrl: cafeVideo,
       imageSrc: insiteCoverImage,
       coverLabel: 'IN',
       coverGradientFrom: '#dcfce7',
@@ -396,6 +412,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       githubUrl: 'https://github.com/Phangmin/NAMUH',
       websiteUrl: '',
       downloadUrl: '',
+      backgroundUrl: namuhVideo,
       imageSrc: namuhCoverImage,
       coverLabel: 'NA',
       coverGradientFrom: '#fee2e2',
@@ -431,6 +448,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       githubUrl: '',
       websiteUrl: '',
       downloadUrl: '',
+      backgroundUrl: hotelroomVideo,
       gallery: [
         {
           id: 'hotel-wellness-butler-home',
@@ -486,6 +504,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       imageSrc: healthCalendarCoverImage,
+      backgroundUrl: calendarVideo,
       coverLabel: 'MH',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#38bdf8',
@@ -521,7 +540,8 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       importance: 110,
       githubUrl: '',
       websiteUrl: '',
-      downloadUrl: '',
+      downloadUrl: airPassDownloadUrl,
+      backgroundUrl: airplaneVideo,
       gallery: [
         {
           id: 'air-pass-flow',
@@ -579,6 +599,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       githubUrl: '',
       websiteUrl: '',
       downloadUrl: '',
+      backgroundUrl: stockVideo,
       gallery: [
         {
           id: 'stalk-live-room',
@@ -602,7 +623,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
     },
     {
       id: 'reading-temperature',
-      title: 'Reading Temperature',
+      title: 'Book Temperature',
       period: 'May 26, 2025 - May 31, 2025',
       startedAt: '2025-05-26',
       endedAt: '2025-05-31',
@@ -631,6 +652,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       githubUrl: '',
       websiteUrl: '',
       downloadUrl: '',
+      backgroundUrl: libraryVideo,
       coverLabel: 'RT',
       coverGradientFrom: '#fef3c7',
       coverGradientTo: '#f59e0b',
@@ -666,6 +688,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       imageSrc: linBookCoverImage,
+      backgroundUrl: shinhanfriendsVideo,
       coverLabel: 'LB',
       coverGradientFrom: '#e0e7ff',
       coverGradientTo: '#818cf8',
@@ -702,6 +725,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       imageSrc: insiteCoverImage,
+      backgroundUrl: cafeVideo,
       coverLabel: 'IN',
       coverGradientFrom: '#dcfce7',
       coverGradientTo: '#22c55e',
@@ -738,6 +762,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       imageSrc: namuhCoverImage,
+      backgroundUrl: namuhVideo,
       coverLabel: 'NA',
       coverGradientFrom: '#fee2e2',
       coverGradientTo: '#f87171',
@@ -793,6 +818,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
         },
       ],
       imageSrc: hotelWellnessButlerCoverImage,
+      backgroundUrl: hotelroomVideo,
       coverLabel: 'HW',
       coverGradientFrom: '#fae8ff',
       coverGradientTo: '#d946ef',
@@ -827,6 +853,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       imageSrc: healthCalendarCoverImage,
+      backgroundUrl: calendarVideo,
       coverLabel: 'MH',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#38bdf8',

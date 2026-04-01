@@ -35,18 +35,18 @@ function ScrollToTopButton() {
   }
 
   const isDark = theme === 'dark'
-  const buttonClasses = `inline-flex h-[42px] w-[42px] items-center justify-center rounded-full border bg-transparent p-0 transition-[border-color,transform,opacity] duration-200 focus-visible:outline-none ${
+  const buttonClasses = `inline-flex h-[42px] w-[42px] items-center justify-center rounded-full border p-0 transition-[background-color,border-color,transform,opacity] duration-200 focus-visible:outline-none ${
     isHighlighted ? '-translate-y-px opacity-95' : ''
   } ${
     isDark
       ? isHighlighted
-        ? 'border-[#78bdff]/50'
-        : 'border-white/18'
+        ? 'border-blue-500 bg-blue-600'
+        : 'border-white/18 bg-transparent'
       : isHighlighted
-        ? 'border-blue-600/40'
-        : 'border-slate-500/35'
+        ? 'border-blue-600 bg-blue-600'
+        : 'border-slate-500/35 bg-transparent'
   }`
-  const iconColor = isHighlighted ? '#78bdff' : isDark ? '#f8fafc' : '#64748b'
+  const iconColor = isHighlighted ? '#ffffff' : isDark ? '#f8fafc' : '#64748b'
 
   return (
     <button

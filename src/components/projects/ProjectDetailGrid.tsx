@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { SkillBadge } from '../common'
 import type { ProjectCopyLabels, ProjectPageProject } from '../../content/projects'
 import awardIcon from '../../assets/award-icon.png'
-import githubIcon from '../../assets/skillsicons/github-icon.png'
+import githubIcon from '../../assets/icons/github-icon.png'
 
 type ProjectDetailGridProps = {
   project: ProjectPageProject
@@ -18,16 +18,21 @@ type ProjectActionLink = {
 }
 
 function ProjectDetailGrid({ project, labels, projectTypeLabel, media }: ProjectDetailGridProps) {
-  const resultLabel = labels.result ?? (labels.period === 'Period' ? 'Outcome' : '결과')
+  const isEnglish = labels.period === 'Period'
+  const resultLabel = labels.result ?? (isEnglish ? 'Outcome' : '결과')
   const missionItems = Array.isArray(project.contribution) ? project.contribution : [project.contribution]
   const troubleshootingItems = Array.isArray(project.troubleshooting)
     ? project.troubleshooting
     : [project.troubleshooting]
   const resultItems = project.results ?? []
-  const actionLinks = [
-    { key: 'github', href: project.githubUrl?.trim(), label: labels.github },
-    { key: 'website', href: project.websiteUrl?.trim(), label: labels.website },
-    { key: 'download', href: project.downloadUrl?.trim(), label: labels.download },
+  const websiteActionLabel = isEnglish ? 'Visit This Website' : '웹사이트 이동하기'
+  const downloadActionLabel = isEnglish ? 'Desktop App DownLoad' : '데스크탑앱 다운로드'
+  const githubActionLink = project.githubUrl?.trim()
+    ? { key: 'github' as const, href: project.githubUrl.trim(), label: labels.github }
+    : null
+  const primaryActionLinks = [
+    { key: 'website', href: project.websiteUrl?.trim(), label: websiteActionLabel },
+    { key: 'download', href: project.downloadUrl?.trim(), label: downloadActionLabel },
   ].filter((link): link is ProjectActionLink => Boolean(link.href))
 
   function renderActionIcon(key: ProjectActionLink['key']) {
@@ -37,9 +42,15 @@ function ProjectDetailGrid({ project, labels, projectTypeLabel, media }: Project
 
     if (key === 'website') {
       return (
-        <span aria-hidden="true" className="text-[0.95rem] leading-none">
-          🌐
-        </span>
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none">
+          <path
+            d="M4 12h16M12 4c2.8 2.3 4.2 5 4.2 8S14.8 17.7 12 20c-2.8-2.3-4.2-5-4.2-8S9.2 6.3 12 4Z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       )
     }
 
@@ -64,7 +75,7 @@ function ProjectDetailGrid({ project, labels, projectTypeLabel, media }: Project
       <section className="grid gap-8 pb-6 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-stretch">
         <div className="min-w-0">{media}</div>
 
-        <div className="grid min-w-0 gap-5 xl:h-full xl:grid-rows-[auto_auto_minmax(0,1fr)]">
+        <div className="grid min-w-0 gap-4 xl:h-full xl:grid-rows-[auto_auto_minmax(0,1fr)]">
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={`inline-flex items-center rounded-full px-3 py-1 text-[0.74rem] font-semibold ${
@@ -81,7 +92,7 @@ function ProjectDetailGrid({ project, labels, projectTypeLabel, media }: Project
                 className="inline-flex items-center rounded-full border border-slate-900/8 bg-slate-900/4 px-3 py-1 text-[0.74rem] font-semibold text-slate-700"
                 data-projects-contribution-badge="true"
               >
-                {labels.team === '팀 프로젝트' ? `${project.teamSize}인 팀` : `${project.teamSize}-person team`}
+                {isEnglish ? `${project.teamSize}-person team` : `${project.teamSize}인 팀`}
               </span>
             ) : null}
             <span
@@ -90,21 +101,29 @@ function ProjectDetailGrid({ project, labels, projectTypeLabel, media }: Project
             >
               {labels.contribution} {project.contributionRate}%
             </span>
-            {actionLinks.map((link) => (
+            {githubActionLink ? (
               <a
-                key={`${project.id}-${link.key}`}
-                href={link.href}
-                target={link.key === 'download' ? undefined : '_blank'}
-                rel={link.key === 'download' ? undefined : 'noreferrer noopener'}
-                download={link.key === 'download' ? true : undefined}
-                aria-label={link.label}
-                title={link.label}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-900/10 bg-white text-slate-700 transition-colors duration-200 hover:border-blue-600/20 hover:text-blue-700 focus-visible:border-blue-600/20 focus-visible:text-blue-700 focus-visible:outline-none"
+                key={`${project.id}-${githubActionLink.key}`}
+                href={githubActionLink.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={githubActionLink.label}
+                title={githubActionLink.label}
+                className="group inline-flex h-8 w-8 items-center justify-center gap-0 overflow-hidden rounded-full border border-slate-900/10 bg-white text-slate-700 transition-all duration-300 ease-out hover:w-[104px] hover:justify-start hover:border-slate-950 hover:bg-slate-950 hover:px-3 hover:text-white focus-visible:w-[104px] focus-visible:justify-start focus-visible:border-slate-950 focus-visible:bg-slate-950 focus-visible:px-3 focus-visible:text-white focus-visible:outline-none"
                 data-projects-action="true"
               >
-                {renderActionIcon(link.key)}
+                <img
+                  src={githubIcon}
+                  alt=""
+                  aria-hidden="true"
+                  data-projects-action-icon="github"
+                  className="h-4 w-4 shrink-0 object-contain transition duration-300 group-hover:brightness-0 group-hover:invert group-focus-visible:brightness-0 group-focus-visible:invert"
+                />
+                <span className="max-w-0 overflow-hidden whitespace-nowrap text-[0.78rem] font-semibold opacity-0 transition-all duration-300 ease-out group-hover:ml-2 group-hover:max-w-16 group-hover:opacity-100 group-focus-visible:ml-2 group-focus-visible:max-w-16 group-focus-visible:opacity-100">
+                  {githubActionLink.label}
+                </span>
               </a>
-            ))}
+            ) : null}
           </div>
 
           <div className="grid gap-3">
@@ -127,34 +146,54 @@ function ProjectDetailGrid({ project, labels, projectTypeLabel, media }: Project
             </p>
           </div>
 
-          <div
-            className="grid h-full content-center gap-3 rounded-[24px] border border-slate-900/8 bg-slate-900/[0.02] p-4 md:p-5"
-            data-projects-featured-meta="true"
-          >
-            <div className="grid h-full items-center gap-3 sm:grid-cols-2">
-              <div className="grid gap-1">
-                <p
-                  className="m-0 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-400"
-                  data-projects-secondary="true"
-                >
-                  {labels.period}
-                </p>
-                <p className="m-0 text-[0.92rem] text-slate-800" data-projects-meta="true">
-                  {project.period}
-                </p>
-              </div>
-              <div className="grid gap-1">
-                <p
-                  className="m-0 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-400"
-                  data-projects-secondary="true"
-                >
-                  {labels.role}
-                </p>
-                <p className="m-0 text-[0.92rem] text-slate-800" data-projects-meta="true">
-                  {project.role}
-                </p>
+          <div className="grid h-full content-end gap-2">
+            <div
+              className="grid h-full content-center gap-2 rounded-[24px] border border-slate-900/8 bg-slate-900/[0.02] p-3 md:p-4"
+              data-projects-featured-meta="true"
+            >
+              <div className="grid h-full items-center gap-2 sm:grid-cols-2">
+                <div className="grid gap-1">
+                  <p
+                    className="m-0 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-400"
+                    data-projects-secondary="true"
+                  >
+                    {labels.period}
+                  </p>
+                  <p className="m-0 text-[0.92rem] text-slate-800" data-projects-meta="true">
+                    {project.period}
+                  </p>
+                </div>
+                <div className="grid gap-1">
+                  <p
+                    className="m-0 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-400"
+                    data-projects-secondary="true"
+                  >
+                    {labels.role}
+                  </p>
+                  <p className="m-0 text-[0.92rem] text-slate-800" data-projects-meta="true">
+                    {project.role}
+                  </p>
+                </div>
               </div>
             </div>
+            {primaryActionLinks.length ? (
+              <div className={`grid gap-2 ${primaryActionLinks.length > 1 ? 'sm:grid-cols-2' : 'sm:grid-cols-1'}`}>
+                {primaryActionLinks.map((link) => (
+                  <a
+                    key={`${project.id}-${link.key}`}
+                    href={link.href}
+                    target={link.key === 'download' ? undefined : '_blank'}
+                    rel={link.key === 'download' ? undefined : 'noreferrer noopener'}
+                    download={link.key === 'download' ? true : undefined}
+                    className="flex min-h-12 w-full items-center justify-center gap-2 self-stretch rounded-[18px] border border-slate-900/10 bg-white px-4 py-3 text-center text-[0.88rem] font-semibold text-slate-700 transition-colors duration-200 hover:border-slate-950 hover:bg-slate-950 hover:text-white focus-visible:border-slate-950 focus-visible:bg-slate-950 focus-visible:text-white focus-visible:outline-none"
+                    data-projects-action="primary"
+                  >
+                    {renderActionIcon(link.key)}
+                    <span>{link.label}</span>
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </section>

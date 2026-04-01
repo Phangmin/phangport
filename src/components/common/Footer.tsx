@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import githubIconAsset from '../../assets/skillsicons/github-icon.png'
-import instagramIconAsset from '../../assets/skillsicons/instagram-icon.png'
+import githubIconAsset from '../../assets/icons/github-icon.png'
+import instagramIconAsset from '../../assets/icons/instagram-icon.png'
 import phangportTextlogoBlack from '../../assets/phangporticon/phangport-textlogo-black.svg'
 import phangportTextlogoBlue from '../../assets/phangporticon/phangport-textlogo-blue.svg'
 import phangportTextlogoWhite from '../../assets/phangporticon/phangport-textlogo-white.svg'
-import linkedinIconAsset from '../../assets/skillsicons/linkedin-icon.png'
-import notionIconAsset from '../../assets/skillsicons/notion-icon.webp'
-import tistoryIconAsset from '../../assets/skillsicons/tistory-icon.svg'
+import linkedinIconAsset from '../../assets/icons/linkedin-icon.png'
+import notionIconAsset from '../../assets/icons/notion-icon.webp'
+import tistoryIconAsset from '../../assets/icons/tistory-icon.svg'
 import { getResolvedTheme, type ThemeMode } from './theme'
 
 const SOCIAL_ITEMS = [
-  { label: 'GitHub', src: githubIconAsset },
-  { label: 'Instagram', src: instagramIconAsset },
-  { label: 'LinkedIn', src: linkedinIconAsset },
-  { label: 'Tistory', src: tistoryIconAsset },
-  { label: 'Notion', src: notionIconAsset },
+  { label: 'GitHub', src: githubIconAsset, href: 'https://github.com/Phangmin/' },
+  { label: 'Instagram', src: instagramIconAsset, href: 'https://instagram.com/gwang._.min/' },
+  { label: 'LinkedIn', src: linkedinIconAsset, href: 'https://www.linkedin.com/in/phangmin' },
+  { label: 'Tistory', src: tistoryIconAsset, href: 'https://phangmin.tistory.com/' },
+  { label: 'Notion', src: notionIconAsset, href: 'https://phangmin.notion.site/' },
 ] as const
 
 function getSocialIconFilter(label: string, themeMode: ThemeMode, isActive: boolean) {
@@ -95,9 +95,11 @@ function Footer() {
           className="flex items-center justify-center gap-1.5 md:justify-end"
         >
           {SOCIAL_ITEMS.map((item) => (
-            <button
+            <a
               key={item.label}
-              type="button"
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
               aria-label={item.label}
               title={item.label}
               onMouseEnter={() => setActiveIcon(item.label)}
@@ -117,7 +119,7 @@ function Footer() {
                   }}
                 />
               </span>
-            </button>
+            </a>
           ))}
         </div>
       </div>

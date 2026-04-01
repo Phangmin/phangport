@@ -3,6 +3,7 @@ import tenacityCard from '../../assets/strengthcards/strengthcard-tenacity.png'
 import cooperationCard from '../../assets/strengthcards/strengthcard-cooperation.png'
 import dataCard from '../../assets/strengthcards/strengthcard-data.png'
 import solvingCard from '../../assets/strengthcards/strengthcard-solving.png'
+import { projectsByLanguage, type ProjectPageProject } from '../../content/projects'
 import type { LanguageCode } from '../../hooks/useLanguage'
 
 const ENGLISH_MONTHS = [
@@ -86,7 +87,7 @@ export const aboutProfileContent: Record<LanguageCode, AboutProfileContent> = {
     links: {
       githubUrl: 'https://github.com/Phangmin/',
       instagramUrl: 'https://instagram.com/gwang._.min/',
-      linkedinUrl: '',
+      linkedinUrl: 'https://www.linkedin.com/in/phangmin',
       tistoryUrl: 'https://phangmin.tistory.com/',
       notionUrl: 'https://phangmin.notion.site/',
     },
@@ -107,7 +108,7 @@ export const aboutProfileContent: Record<LanguageCode, AboutProfileContent> = {
     links: {
       githubUrl: 'https://github.com/Phangmin/',
       instagramUrl: 'https://instagram.com/gwang._.min/',
-      linkedinUrl: '',
+      linkedinUrl: 'https://www.linkedin.com/in/phangmin',
       tistoryUrl: 'https://phangmin.tistory.com/',
       notionUrl: 'https://phangmin.notion.site/',
     },
@@ -129,12 +130,18 @@ export type AboutAwardItem = {
 }
 
 export type AboutProjectItem = {
+  id?: string
   category: string
   title: string
   period: string
   role: string
-  skills: string
+  skills: string | string[]
   description: string
+  imageSrc?: string
+  backgroundUrl?: string
+  coverLabel?: string
+  coverGradientFrom?: string
+  coverGradientTo?: string
 }
 
 export type AboutSectionHeader = {
@@ -300,7 +307,7 @@ export const awardItemsByLanguage: Record<LanguageCode, AboutAwardItem[]> = {
   ],
 }
 
-export const projectItemsByLanguage: Record<LanguageCode, AboutProjectItem[]> = {
+const legacyProjectItemsByLanguage: Record<LanguageCode, AboutProjectItem[]> = {
   ko: [
     {
       category: 'Project',
@@ -417,6 +424,28 @@ export const projectItemsByLanguage: Record<LanguageCode, AboutProjectItem[]> = 
       description: 'An idea proposal for the Korea Health Information Service app "My Health Records"',
     },
   ],
+}
+
+function toAboutProjectItem(project: ProjectPageProject): AboutProjectItem {
+  return {
+    id: project.id,
+    category: 'Project',
+    title: project.title,
+    period: project.period,
+    role: project.role,
+    skills: project.stacks,
+    description: project.summary,
+    ...(project.imageSrc ? { imageSrc: project.imageSrc } : {}),
+    ...(project.backgroundUrl ? { backgroundUrl: project.backgroundUrl } : {}),
+    coverLabel: project.coverLabel,
+    coverGradientFrom: project.coverGradientFrom,
+    coverGradientTo: project.coverGradientTo,
+  }
+}
+
+export const projectItemsByLanguage: Record<LanguageCode, AboutProjectItem[]> = {
+  ko: projectsByLanguage.ko.map(toAboutProjectItem),
+  en: projectsByLanguage.en.map(toAboutProjectItem),
 }
 
 export const aboutSectionHeaders: Record<
