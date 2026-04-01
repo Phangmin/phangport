@@ -526,7 +526,7 @@ export const skillGroups = [
   },
   {
     title: 'Database',
-    items: ['SQLite3', 'MySQL'],
+    items: ['SQLite3', 'MySQL', 'NeonDB'],
   },
   {
     title: 'Mobile',

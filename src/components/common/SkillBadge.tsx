@@ -13,6 +13,7 @@ import kotlinIcon from '../../assets/skillsicons/kotlin-icon.png'
 import mattermostIcon from '../../assets/skillsicons/mattermost-icon.webp'
 import microsoftTeamsIcon from '../../assets/skillsicons/microsoftteams-icon.png'
 import mysqlIcon from '../../assets/skillsicons/mysql-icon.png'
+import neonIcon from '../../assets/skillsicons/neon-icon.webp'
 import nextjsIcon from '../../assets/skillsicons/nextjs-icon.png'
 import notionIcon from '../../assets/icons/notion-icon.webp'
 import postmanIcon from '../../assets/skillsicons/postman-icon.svg'
@@ -48,6 +49,7 @@ const SKILL_ICON_MAP: Record<string, string> = {
   GitLab: gitlabIcon,
   SQLite3: sqlite3Icon,
   MySQL: mysqlIcon,
+  NeonDB: neonIcon,
   'Android Studio': androidStudioIcon,
   Kotlin: kotlinIcon,
   Jira: jiraIcon,

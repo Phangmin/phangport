@@ -136,12 +136,6 @@ function ProjectsPage() {
                 Featured
               </p>
             </div>
-            <p
-              className="m-0 max-w-[720px] text-[0.88rem] leading-[1.72] text-slate-500 md:text-[0.94rem] md:leading-[1.8]"
-              data-projects-muted="true"
-            >
-              {copy.featuredDescription}
-            </p>
           </div>
 
           <ProjectDetailGrid
@@ -166,12 +160,6 @@ function ProjectsPage() {
                   {projects.length}
                 </p>
               </div>
-              <p
-                className="m-0 max-w-[760px] text-[0.88rem] leading-[1.72] text-slate-500 md:text-[0.94rem] md:leading-[1.8]"
-                data-projects-muted="true"
-              >
-                {copy.allProjectsDescription}
-              </p>
             </div>
 
             <div className="flex flex-wrap border border-slate-200 px-4 py-2 rounded-full items-center gap-2">

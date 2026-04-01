@@ -83,6 +83,28 @@ type HeroShowcaseMobileProfileCardProps = {
   >
 }
 
+type HeroShowcasePortraitProps = {
+  alt: string
+  className: string
+  imageClassName: string
+}
+
+function HeroShowcasePortrait({ alt, className, imageClassName }: HeroShowcasePortraitProps) {
+  return (
+    <div
+      className={`relative flex h-full min-h-0 items-end justify-center overflow-hidden ${className}`}
+    >
+      <div className="pointer-events-none absolute inset-x-[10%] top-[6%] h-[44%] rounded-full bg-white/28 blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-slate-900/10 via-transparent to-transparent" />
+      <img
+        src={gwangminPicture}
+        alt={alt}
+        className={`relative z-[1] block max-h-full max-w-full object-contain object-center ${imageClassName}`}
+      />
+    </div>
+  )
+}
+
 function HeroShowcaseMobileProfileCard({
   content,
   isProfileFlipped,
@@ -133,13 +155,11 @@ function HeroShowcaseMobileProfileCard({
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <div className={`grid h-full grid-rows-[minmax(0,1fr)_auto] rounded-[22px] p-3 ${tones.phoneSurfaceTone}`}>
-                <div className="h-full min-h-0 overflow-hidden rounded-[20px]">
-                  <img
-                    src={gwangminPicture}
-                    alt={content.portraitAlt}
-                    className="block h-full min-h-0 w-full rounded-[20px] object-cover object-center scale-[0.965]"
-                  />
-                </div>
+                <HeroShowcasePortrait
+                  alt={content.portraitAlt}
+                  className="rounded-[20px] bg-[linear-gradient(180deg,rgba(255,255,255,0.78)_0%,rgba(226,232,240,0.9)_100%)] px-2 pt-3"
+                  imageClassName="h-full w-full"
+                />
                 <div className={`mt-2.5 rounded-[18px] px-3 py-2.5 ${tones.phoneSummaryTone}`}>
                   <div className="grid justify-items-center gap-0.5 text-center">
                     <strong className={`block text-[0.96rem] font-semibold ${tones.titleTone}`}>{content.profileName}</strong>
@@ -261,13 +281,11 @@ function HeroShowcaseVisual({
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
                   <div className={`grid h-full grid-rows-[minmax(0,1fr)_auto] rounded-[30px] p-4 ${tones.phoneSurfaceTone}`}>
-                    <div className="h-full min-h-0 overflow-hidden rounded-[26px]">
-                      <img
-                        src={gwangminPicture}
-                        alt={content.portraitAlt}
-                        className="block h-full min-h-0 w-full rounded-[26px] object-cover object-center scale-[0.975]"
-                      />
-                    </div>
+                    <HeroShowcasePortrait
+                      alt={content.portraitAlt}
+                      className="rounded-[26px] bg-[linear-gradient(180deg,rgba(255,255,255,0.86)_0%,rgba(226,232,240,0.92)_100%)] px-3 pt-4"
+                      imageClassName="h-full w-full"
+                    />
                     <div className={`mt-4 rounded-[24px] p-4 ${tones.phoneSummaryTone}`}>
                       <div className="flex min-h-[44px] items-center justify-center">
                         <div className="grid justify-items-center gap-0.5 text-center">
