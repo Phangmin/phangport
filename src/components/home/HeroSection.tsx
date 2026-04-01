@@ -5,6 +5,7 @@ import tailwindIcon from '../../assets/skillsicons/tailwind-icon.png'
 import typescriptIcon from '../../assets/skillsicons/typescript-icon.png'
 import vercelIcon from '../../assets/skillsicons/vercel-icon.png'
 import viteIcon from '../../assets/skillsicons/vite-icon.png'
+import neonIcon from '../../assets/skillsicons/neon-icon.webp'
 import { experiencesPageContentByLanguage } from '../../content/experiences'
 import { projectsByLanguage } from '../../content/projects'
 import useLanguage, { type LanguageCode } from '../../hooks/useLanguage'
@@ -78,7 +79,8 @@ const orbitSkills: OrbitSkill[] = [
   { icon: nextjsIcon, label: 'Next.js', positionClass: 'right-[4%] top-[44%]' },
   { icon: tailwindIcon, label: 'Tailwind CSS', positionClass: 'right-[18%] bottom-[10%]' },
   { icon: viteIcon, label: 'Vite', positionClass: 'left-[16%] bottom-[9%]' },
-  { icon: vercelIcon, label: 'Vercel', positionClass: 'left-[2%] top-[50%]' },
+  { icon: neonIcon, label: 'NeonDB', positionClass: 'left-[2%] top-[50%]' },
+  { icon: vercelIcon, label: 'Vercel', positionClass: 'left-[22%] top-[2%]' },
 ]
 
 const showcaseContent: Record<LanguageCode, ShowcaseContent> = {
@@ -98,7 +100,7 @@ const showcaseContent: Record<LanguageCode, ShowcaseContent> = {
     profileBackTitle: '주로 사용하는 기술',
     profileStrengthTitle: '강점',
     capabilityLabel: '핵심 강점',
-    stack: ['React', 'Next.js', 'TypeScript', 'Zustand', 'Figma'],
+    stack: ['React', 'Next.js', 'TypeScript', 'Zustand', 'NeonDB', 'Figma'],
     metrics: [
       { value: 'Flow', label: '복잡한 흐름 단순화' },
       { value: 'PM×FE', label: '기획과 개발 연결' },
@@ -150,7 +152,7 @@ const showcaseContent: Record<LanguageCode, ShowcaseContent> = {
     profileBackTitle: 'Primary stack',
     profileStrengthTitle: 'Strengths',
     capabilityLabel: 'Core strengths',
-    stack: ['React', 'Next.js', 'TypeScript', 'Zustand', 'Figma'],
+    stack: ['React', 'Next.js', 'TypeScript', 'Zustand', 'NeonDB', 'Figma'],
     metrics: [
       { value: 'Flow', label: 'Complexity to clarity' },
       { value: 'PM×FE', label: 'Planning to implementation' },

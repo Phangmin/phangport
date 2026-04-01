@@ -87,9 +87,7 @@ type ProjectsPageCopy = {
   title: string
   description: string
   featuredLabel: string
-  featuredDescription: string
   allProjectsLabel: string
-  allProjectsDescription: string
   sortLabel: string
   sortOptions: Record<ProjectSortKey, string>
   labels: ProjectCopyLabels
@@ -102,10 +100,7 @@ export const projectsPageCopyByLanguage: Record<LanguageCode, ProjectsPageCopy> 
     description:
       '대표 프로젝트는 핵심 기능과 트러블슈팅까지 깊게 보여주고, 아래 전체 프로젝트는 정렬과 이후 모달 확장을 고려한 구조로 구성했습니다.',
     featuredLabel: 'Main Project',
-    featuredDescription: '대표 프로젝트의 주요 성과와 구현 포인트를 집중적으로 보여주는 영역입니다.',
     allProjectsLabel: 'All Projects',
-    allProjectsDescription:
-      '전체 프로젝트는 최신순, 오래된순, 중요도순으로 정렬할 수 있고, 모든 카드가 이후 모달 상세 보기를 고려한 동일한 데이터 구조를 가집니다.',
     sortLabel: '정렬',
     sortOptions: {
       latest: '최신순',
@@ -134,10 +129,7 @@ export const projectsPageCopyByLanguage: Record<LanguageCode, ProjectsPageCopy> 
     description:
       'The featured block goes deeper into product value and troubleshooting, while the full project list is structured for sorting now and modal expansion later.',
     featuredLabel: 'Main Project',
-    featuredDescription: 'A focused block for the project you want to emphasize the most.',
     allProjectsLabel: 'All Projects',
-    allProjectsDescription:
-      'The full list supports sorting by latest, oldest, and importance, and every card already carries the same detail structure needed for future modal views.',
     sortLabel: 'Sort',
     sortOptions: {
       latest: 'Latest',
@@ -186,7 +178,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
         '행정과태료 업무를 절차 중심으로 재구성한 서비스 흐름 초안을 만들었습니다.',
         '반복적인 실무 과정을 더 명확하게 처리할 수 있는 화면 구조 방향을 정리했습니다.',
       ],
-      stacks: ['Figma', 'Workflow Design', 'Service Planning'],
+      stacks: ['Electron', 'React', 'Tailwind CSS', 'NeonDB', 'Vite', 'Zustand'],
       contribution: '업무 흐름 분석과 화면 구조 설계 중심으로 프로젝트 방향을 구체화하고 있습니다.',
       contributionRate: 70,
       type: 'team',
@@ -254,23 +246,6 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       downloadUrl: '',
       backgroundUrl: stockVideo,
       imageSrc: stalkCoverImage,
-      gallery: [
-        {
-          id: 'stalk-live-room',
-          title: '실시간 상담 화면',
-          description: '상담사와 사용자가 같은 흐름 안에서 바로 대화와 확인을 이어갈 수 있도록 정리한 메인 화면입니다.',
-        },
-        {
-          id: 'stalk-chart-drawing',
-          title: '차트 드로잉 인터랙션',
-          description: '종목 차트 위에 바로 메모하고 강조할 수 있도록 상담 맥락 중심으로 인터랙션을 설계했습니다.',
-        },
-        {
-          id: 'stalk-guidance-flow',
-          title: '상담 맥락 유지 구조',
-          description: '영상, 차트, 안내 요소가 동시에 보여도 사용자가 현재 상태를 잃지 않도록 정보 계층을 재정리했습니다.',
-        },
-      ],
       coverLabel: 'ST',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#60a5fa',
@@ -537,7 +512,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
         'Defined a procedure-centered service flow for administrative penalty work.',
         'Established a clearer screen structure for handling repetitive operational tasks.',
       ],
-      stacks: ['Figma', 'Workflow Design', 'Service Planning'],
+      stacks: ['Electron', 'React', 'Tailwind CSS', 'NeonDB', 'Vite', 'Zustand'],
       contribution: 'I am shaping the project direction through workflow analysis and screen-structure planning.',
       contributionRate: 70,
       type: 'team',
@@ -605,23 +580,6 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       downloadUrl: '',
       backgroundUrl: stockVideo,
       imageSrc: stalkCoverImage,
-      gallery: [
-        {
-          id: 'stalk-live-room',
-          title: 'Live Consultation Screen',
-          description: 'The main view was structured so the advisor and user could move through the same context without losing pace.',
-        },
-        {
-          id: 'stalk-chart-drawing',
-          title: 'Chart Drawing Interaction',
-          description: 'The chart interface was designed so annotations and visual guidance could happen directly inside the consultation flow.',
-        },
-        {
-          id: 'stalk-guidance-flow',
-          title: 'Context-Preserving Flow',
-          description: 'I reorganized visual hierarchy so video, chart, and guidance elements could coexist without breaking the user’s focus.',
-        },
-      ],
       coverLabel: 'ST',
       coverGradientFrom: '#dbeafe',
       coverGradientTo: '#60a5fa',

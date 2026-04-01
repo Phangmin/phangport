@@ -36,6 +36,7 @@ function ProjectsMobileCarousel({
   focusedIndex,
   onFocusChange,
 }: ProjectsMobileCarouselProps) {
+  const cardSpacing = 118
   const [dragOffset, setDragOffset] = useState(0)
   const pointerStateRef = useRef<{ pointerId: number | null; startX: number }>({
     pointerId: null,
@@ -150,7 +151,7 @@ function ProjectsMobileCarousel({
         {projects.map((project, index) => {
           const offset = getCircularOffset(index, focusedIndex, projects.length)
           const distance = Math.abs(offset)
-          const xShift = offset * 106
+          const xShift = offset * cardSpacing
           const baseScale = offset === 0 ? 1 : 0.92
           const opacity = distance > 1 ? 0 : distance === 0 ? 1 : 0.42
           const zIndex = projects.length - distance
