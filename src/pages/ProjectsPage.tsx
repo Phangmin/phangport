@@ -37,7 +37,7 @@ function ProjectCardStacks({ stacks }: { stacks: string[] }) {
   const hasOverflow = stacks.length > 4
 
   return (
-    <div className="flex min-h-[74px] flex-wrap content-start gap-1.5">
+    <div className="flex flex-wrap content-start gap-1.5 md:min-h-[74px]">
       {visibleStacks.map((stack) => (
         <SkillBadge key={stack} label={stack} />
       ))}
@@ -111,7 +111,7 @@ function ProjectsPage() {
   return (
     <main className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
       <section className="mx-auto grid w-[min(1126px,calc(100%-24px))] gap-7 pb-[72px] pt-[calc(var(--navbar-offset)+20px)] md:w-[min(1126px,calc(100%-128px))] md:gap-9 md:pt-[calc(var(--navbar-offset)+28px)]">
-        <RevealOnScroll className="grid gap-2 md:gap-3">
+        <RevealOnScroll className="grid gap-2 max-md:px-4 md:gap-3">
           <p className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.2em] text-blue-600">
             {copy.eyebrow}
           </p>
@@ -124,7 +124,7 @@ function ProjectsPage() {
         </RevealOnScroll>
 
         <RevealOnScroll className="grid gap-4">
-          <div className="grid gap-1">
+          <div className="grid gap-1 max-md:pl-4">
             <div className="flex items-end gap-2">
               <h2 className="m-0 text-[1.2rem] font-bold text-[var(--text-h)] md:text-[1.38rem]">
                 {copy.featuredLabel}
@@ -148,7 +148,7 @@ function ProjectsPage() {
 
         <RevealOnScroll className="grid gap-4">
           <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-            <div className="grid gap-1">
+            <div className="grid gap-1 max-md:pl-4">
               <div className="flex items-end gap-2">
                 <h2 className="m-0 text-[1.2rem] font-bold text-[var(--text-h)] md:text-[1.38rem]">
                   {copy.allProjectsLabel}
@@ -209,8 +209,8 @@ function ProjectsPage() {
                     <ProjectCover project={project} />
                   </div>
 
-                  <div className="grid h-full gap-3 pt-3 [grid-template-rows:auto_auto_auto_auto_auto]">
-                    <div className="flex min-h-[38px] flex-wrap content-start items-start gap-2">
+                  <div className="grid gap-3 pt-3 md:h-full md:[grid-template-rows:auto_auto_auto_auto_auto]">
+                    <div className="flex flex-wrap content-start items-start gap-2 md:min-h-[38px]">
                       <span
                         className={`inline-flex items-center rounded-full px-3 py-1 text-[0.7rem] font-semibold ${
                           project.type === 'individual'
@@ -237,8 +237,8 @@ function ProjectsPage() {
                       </span>
                     </div>
 
-                    <div className="grid min-h-[64px] content-start gap-1">
-                      <h3 className="m-0 min-h-[40px] text-[1.08rem] font-bold leading-[1.08] tracking-[-0.04em] text-[var(--text-h)]">
+                    <div className="grid content-start gap-1 md:min-h-[64px]">
+                      <h3 className="m-0 text-[1.08rem] font-bold leading-[1.08] tracking-[-0.04em] text-[var(--text-h)] md:min-h-[40px]">
                         <span className="flex items-start gap-2">
                         {project.hasAward ? (
                           <img
@@ -254,14 +254,14 @@ function ProjectsPage() {
                         </span>
                       </h3>
                       <p
-                        className="m-0 min-h-[44px] overflow-hidden text-[0.82rem] leading-[1.7] text-slate-600 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]"
+                        className="m-0 overflow-hidden text-[0.82rem] leading-[1.7] text-slate-600 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] md:min-h-[44px]"
                         data-projects-muted="true"
                       >
                         {project.summary}
                       </p>
                     </div>
 
-                    <div className="grid min-h-[62px] content-start gap-1.5">
+                    <div className="grid content-start gap-1.5 md:min-h-[62px]">
                       <p className="m-0 text-[0.78rem] leading-[1.6] text-slate-700" data-projects-meta="true">
                         <strong>{copy.labels.period}</strong> {project.period}
                       </p>

@@ -4,6 +4,7 @@ import cooperationCard from '../../assets/strengthcards/strengthcard-cooperation
 import dataCard from '../../assets/strengthcards/strengthcard-data.png'
 import solvingCard from '../../assets/strengthcards/strengthcard-solving.png'
 import { projectsByLanguage, type ProjectPageProject } from '../../content/projects'
+import { aboutSkillGroups } from '../../content/skills'
 import type { LanguageCode } from '../../hooks/useLanguage'
 
 const ENGLISH_MONTHS = [
@@ -511,44 +512,7 @@ export const aboutSectionHeaders: Record<
   },
 }
 
-export const skillGroups = [
-  {
-    title: 'Frontend Core',
-    items: ['React', 'Vue.js', 'Next.js', 'Vite', 'HTML', 'JavaScript', 'TypeScript'],
-  },
-  {
-    title: 'State & Styling',
-    items: ['Zustand', 'Bootstrap CSS', 'Tailwind CSS', 'Figma'],
-  },
-  {
-    title: 'Backend & API',
-    items: ['Python', 'Django', 'REST API', 'Swagger', 'Postman'],
-  },
-  {
-    title: 'Database',
-    items: ['SQLite3', 'MySQL', 'NeonDB'],
-  },
-  {
-    title: 'Mobile',
-    items: ['Android Studio', 'Kotlin', 'React Native'],
-  },
-  {
-    title: 'Desktop App',
-    items: ['Electron'],
-  },
-  {
-    title: 'Version Control',
-    items: ['Git', 'GitHub', 'GitLab'],
-  },
-  {
-    title: 'Collaboration',
-    items: ['Jira', 'Notion', 'Mattermost', 'Microsoft Teams'],
-  },
-  {
-    title: 'Deployment',
-    items: ['Vercel'],
-  },
-]
+export const skillGroups = aboutSkillGroups
 
 export const strengthCards = [
   { image: customerCard, alt: 'Customer strength card' },

@@ -36,7 +36,7 @@ function renderBackgroundLayer(media: BackgroundMedia, opacityClassName: string)
       <div
         className={`absolute inset-0 ${
           media.isVideo
-            ? 'bg-black/20'
+            ? 'bg-black/30'
             : 'bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.14),transparent_32%),linear-gradient(180deg,rgba(8,17,32,0.82)_0%,rgba(15,23,42,0.86)_46%,rgba(17,24,39,0.92)_100%)]'
         }`}
       />

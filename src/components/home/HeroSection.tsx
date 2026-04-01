@@ -1,28 +1,17 @@
 import { useEffect, useState } from 'react'
-import nextjsIcon from '../../assets/skillsicons/nextjs-icon.png'
-import reactIcon from '../../assets/skillsicons/react-icon.webp'
-import tailwindIcon from '../../assets/skillsicons/tailwind-icon.png'
-import typescriptIcon from '../../assets/skillsicons/typescript-icon.png'
-import vercelIcon from '../../assets/skillsicons/vercel-icon.png'
-import viteIcon from '../../assets/skillsicons/vite-icon.png'
-import neonIcon from '../../assets/skillsicons/neon-icon.webp'
 import { experiencesPageContentByLanguage } from '../../content/experiences'
 import { projectsByLanguage } from '../../content/projects'
+import { heroOrbitSkills } from '../../content/skills'
 import useLanguage, { type LanguageCode } from '../../hooks/useLanguage'
 import { ScrollIndicator } from '../common'
 import { getResolvedTheme, type ThemeMode } from '../common/theme'
 import HeroShowcaseContent from './hero-showcase/HeroShowcaseContent'
 import HeroShowcaseVisual, { HeroShowcaseMobileProfileCard } from './hero-showcase/HeroShowcaseVisual'
-import { scrollToNextSection, wrapIndex } from './hero-showcase/utils'
+import { scrollToNextSection } from './hero-showcase/utils'
 
 type ShowcaseMetric = {
   value: string
   label: string
-}
-
-type ShowcaseFocus = {
-  label: string
-  detail: string
 }
 
 type ShowcaseContent = {
@@ -43,7 +32,10 @@ type ShowcaseContent = {
   capabilityLabel: string
   stack: string[]
   metrics: ShowcaseMetric[]
-  focus: ShowcaseFocus[]
+  focus: {
+    label: string
+    detail: string
+  }[]
   systemLabel: string
   systemTitle: string
   systemSummary: string
@@ -60,28 +52,12 @@ type ShowcaseContent = {
   dynamicBadge: string
 }
 
-type OrbitSkill = {
-  icon: string
-  label: string
-  positionClass: string
-}
-
 type ProfileBackFact = {
   emoji: string
   label: string
   value: string
   detail: string
 }
-
-const orbitSkills: OrbitSkill[] = [
-  { icon: reactIcon, label: 'React', positionClass: 'left-[8%] top-[17%]' },
-  { icon: typescriptIcon, label: 'TypeScript', positionClass: 'right-[10%] top-[12%]' },
-  { icon: nextjsIcon, label: 'Next.js', positionClass: 'right-[4%] top-[44%]' },
-  { icon: tailwindIcon, label: 'Tailwind CSS', positionClass: 'right-[18%] bottom-[10%]' },
-  { icon: viteIcon, label: 'Vite', positionClass: 'left-[16%] bottom-[9%]' },
-  { icon: neonIcon, label: 'NeonDB', positionClass: 'left-[2%] top-[50%]' },
-  { icon: vercelIcon, label: 'Vercel', positionClass: 'left-[22%] top-[2%]' },
-]
 
 const showcaseContent: Record<LanguageCode, ShowcaseContent> = {
   ko: {
@@ -193,7 +169,6 @@ function HeroSection() {
   const language = useLanguage()
   const content = showcaseContent[language]
   const [theme, setTheme] = useState<ThemeMode>(() => getResolvedTheme())
-  const [activeFocusIndex, setActiveFocusIndex] = useState(0)
   const [hoveredMetricIndex, setHoveredMetricIndex] = useState<number | null>(null)
   const [isProfileFlipped, setIsProfileFlipped] = useState(false)
   const [profileFlipDirection, setProfileFlipDirection] = useState<'left' | 'right'>('right')
@@ -228,7 +203,7 @@ function HeroSection() {
   const subtleTextTone = isDark ? 'text-slate-300' : 'text-slate-600'
   const minorTextTone = isDark ? 'text-slate-400' : 'text-slate-500'
   const titleTone = isDark ? 'text-white' : 'text-slate-950'
-  const accentLabelTone = isDark ? 'text-sky-200' : 'text-blue-700'
+  const accentLabelTone = 'text-[#3182f6]'
   const secondaryButtonTone = isDark
     ? 'border border-white/14 bg-white/[0.06] text-white hover:bg-white/[0.1]'
     : 'border border-slate-900/8 bg-white text-slate-800 hover:bg-slate-50'
@@ -251,8 +226,6 @@ function HeroSection() {
     ? 'bg-white text-slate-950 shadow-[0_18px_40px_rgba(2,6,23,0.18)]'
     : 'bg-slate-800 text-white shadow-[0_18px_40px_rgba(15,23,42,0.28)]'
 
-  const resolvedActiveFocusIndex = wrapIndex(activeFocusIndex, content.focus.length)
-  const activeFocus = content.focus[resolvedActiveFocusIndex] ?? content.focus[0]
   const experienceItems = experiencesPageContentByLanguage[language].items
   const educationItem = experienceItems.find((item) => item.category === 'education')
   const trainingItem = experienceItems.find((item) => item.category === 'training')
@@ -307,10 +280,6 @@ function HeroSection() {
     setProfileFlipDirection((current) => (current === 'right' ? 'left' : 'right'))
   }
 
-  if (!activeFocus) {
-    return null
-  }
-
   return (
     <section
       id="home"
@@ -352,7 +321,7 @@ function HeroSection() {
               }}
               isProfileFlipped={isProfileFlipped}
               onProfileCardFlip={handleProfileCardFlip}
-              orbitSkills={orbitSkills}
+              orbitSkills={heroOrbitSkills}
               profileBackFacts={profileBackFacts}
               profileBackRotation={profileBackRotation}
               profileFlipRotation={profileFlipRotation}
@@ -369,9 +338,7 @@ function HeroSection() {
               }}
             />
           }
-          activeFocusIndex={resolvedActiveFocusIndex}
           hoveredMetricIndex={hoveredMetricIndex}
-          onActiveFocusChange={setActiveFocusIndex}
           onHoveredMetricChange={setHoveredMetricIndex}
           tones={{
             titleTone,
@@ -388,13 +355,10 @@ function HeroSection() {
 
         <HeroShowcaseVisual
           content={content}
-          activeFocus={activeFocus}
-          activeFocusIndex={resolvedActiveFocusIndex}
           isDark={isDark}
           isProfileFlipped={isProfileFlipped}
-          onActiveFocusChange={setActiveFocusIndex}
           onProfileCardFlip={handleProfileCardFlip}
-          orbitSkills={orbitSkills}
+          orbitSkills={heroOrbitSkills}
           profileBackFacts={profileBackFacts}
           profileBackRotation={profileBackRotation}
           profileFlipRotation={profileFlipRotation}

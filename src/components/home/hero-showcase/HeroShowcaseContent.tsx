@@ -26,9 +26,7 @@ type HeroShowcaseContentProps = {
   content: HeroShowcaseContentData
   isDark: boolean
   mobileVisual?: ReactNode
-  activeFocusIndex: number
   hoveredMetricIndex: number | null
-  onActiveFocusChange: (index: number) => void
   onHoveredMetricChange: (index: number | null) => void
   tones: {
     titleTone: string
@@ -47,9 +45,7 @@ function HeroShowcaseContent({
   content,
   isDark,
   mobileVisual,
-  activeFocusIndex,
   hoveredMetricIndex,
-  onActiveFocusChange,
   onHoveredMetricChange,
   tones,
 }: HeroShowcaseContentProps) {
@@ -70,13 +66,10 @@ function HeroShowcaseContent({
 
       <HeroShowcaseMetrics
         content={content}
-        activeFocusIndex={activeFocusIndex}
         hoveredMetricIndex={hoveredMetricIndex}
-        onActiveFocusChange={onActiveFocusChange}
         onHoveredMetricChange={onHoveredMetricChange}
         tones={{
           panelTone: tones.panelTone,
-          strongPanelTone: tones.strongPanelTone,
           hoverPanelTone: tones.hoverPanelTone,
           titleTone: tones.titleTone,
           minorTextTone: tones.minorTextTone,

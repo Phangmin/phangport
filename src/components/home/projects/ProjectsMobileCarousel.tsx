@@ -36,7 +36,7 @@ function ProjectsMobileCarousel({
   focusedIndex,
   onFocusChange,
 }: ProjectsMobileCarouselProps) {
-  const cardSpacing = 118
+  const cardSpacing = 89
   const [dragOffset, setDragOffset] = useState(0)
   const pointerStateRef = useRef<{ pointerId: number | null; startX: number }>({
     pointerId: null,
@@ -146,7 +146,7 @@ function ProjectsMobileCarousel({
             moveFocus(1)
           }
         }}
-        className="relative h-[232px] touch-none overflow-hidden overscroll-contain outline-none"
+        className="relative h-[252px] touch-none overflow-hidden overscroll-contain outline-none"
       >
         {projects.map((project, index) => {
           const offset = getCircularOffset(index, focusedIndex, projects.length)
@@ -175,13 +175,13 @@ function ProjectsMobileCarousel({
                 onFocusChange(index)
               }}
               data-home-projects-mobile-card="true"
-              className={`absolute left-1/2 top-0 rounded-[24px] border border-white/10 text-left shadow-none ${
+              className={`absolute left-1/2 top-1/2 rounded-[24px] border border-white/10 text-left shadow-none ${
                 isDragging ? '' : 'transition-[transform,opacity] duration-300 ease-out'
-              } ${isActive ? 'h-[214px] w-[82%] max-w-[320px] overflow-hidden bg-transparent p-0' : 'grid h-[214px] w-[68%] max-w-[272px] bg-white/95 p-5'}`}
+              } ${isActive ? 'aspect-[16/9] w-[78%] max-w-[352px] overflow-hidden bg-transparent p-0' : 'grid aspect-[16/9] w-[68%] max-w-[272px] bg-white/95 p-5'}`}
               style={{
                 zIndex,
                 opacity,
-                transform: `translate3d(calc(-50% + ${xShift}% + ${dragOffset}px), 0, 0) scale(${baseScale})`,
+                transform: `translate3d(calc(-50% + ${xShift}% + ${dragOffset}px), -50%, 0) scale(${baseScale})`,
               }}
             >
               {isActive ? (

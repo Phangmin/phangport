@@ -327,7 +327,7 @@ function GuestbookPage() {
   return (
     <main className="flex min-h-screen flex-col text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
       <section className="mx-auto grid w-[min(1126px,calc(100%-24px))] flex-1 gap-5 pb-[60px] pt-[calc(var(--navbar-offset)+12px)] md:w-[min(1126px,calc(100%-128px))] md:gap-7 md:pt-[calc(var(--navbar-offset)+16px)]">
-        <RevealOnScroll className="px-1 py-1">
+        <RevealOnScroll className="px-1 py-1 max-md:px-4">
           <div className="grid gap-2">
             <p className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.2em] text-blue-600" data-guestbook-accent="true">
               {copy.eyebrow}
