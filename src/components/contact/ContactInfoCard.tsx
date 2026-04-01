@@ -46,17 +46,13 @@ function ContactInfoCard({
       ? 'text-[var(--text-h)]'
       : tone === 'kakao'
         ? 'text-[#191919]'
-        : tone === 'linkedin'
-          ? 'text-[#0a66c2] group-hover:text-white group-focus-visible:text-white'
-          : 'text-[#c13584] group-hover:text-white group-focus-visible:text-white'
+        : 'text-current group-hover:!text-white group-focus-visible:!text-white'
   const detailClass =
     tone === 'default'
       ? 'text-slate-600'
       : tone === 'kakao'
         ? 'text-[#191919]/80'
-        : tone === 'linkedin'
-          ? 'text-[#0a66c2]/80 group-hover:text-white group-focus-visible:text-white'
-          : 'text-[#c13584]/80 group-hover:text-white group-focus-visible:text-white'
+        : 'text-current/80'
 
   return (
     <a

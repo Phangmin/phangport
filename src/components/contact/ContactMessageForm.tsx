@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useLanguage, { type LanguageCode } from '../../hooks/useLanguage'
 import { RevealOnScroll } from '../common'
 
 const fieldClassName =
@@ -12,6 +13,7 @@ type FloatingFieldProps = {
   id: string
   name: string
   label: string
+  language: LanguageCode
   type?: 'text' | 'email'
   autoComplete?: string
   value: string
@@ -24,16 +26,52 @@ type FloatingTextareaProps = {
   id: string
   name: string
   label: string
+  language: LanguageCode
   value: string
   onChange: (value: string) => void
   maxLength: number
   required?: boolean
 }
 
+type ContactFormCopy = {
+  name: string
+  email: string
+  affiliation: string
+  message: string
+  submitIdle: string
+  submitPending: string
+  submitSuccess: string
+  submitError: string
+}
+
+const contactFormCopyByLanguage: Record<LanguageCode, ContactFormCopy> = {
+  ko: {
+    name: '이름',
+    email: '이메일',
+    affiliation: '소속',
+    message: '메시지',
+    submitIdle: '메시지 보내기',
+    submitPending: '전송 중...',
+    submitSuccess: '메시지를 전송했습니다. 확인 후 답변드리겠습니다.',
+    submitError: '메시지 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.',
+  },
+  en: {
+    name: 'Name',
+    email: 'Email',
+    affiliation: 'Affiliation',
+    message: 'Message',
+    submitIdle: 'Send Message',
+    submitPending: 'Sending...',
+    submitSuccess: 'Your message has been sent. I will reply after reviewing it.',
+    submitError: 'An error occurred while sending your message. Please try again shortly.',
+  },
+}
+
 function FloatingField({
   id,
   name,
   label,
+  language,
   type = 'text',
   autoComplete,
   value,
@@ -56,7 +94,7 @@ function FloatingField({
         name={name}
         aria-label={label}
         autoComplete={autoComplete}
-        lang="ko"
+        lang={language}
         type={type}
         placeholder=" "
         value={value}
@@ -84,6 +122,7 @@ function FloatingTextarea({
   id,
   name,
   label,
+  language,
   value,
   onChange,
   maxLength,
@@ -103,7 +142,7 @@ function FloatingTextarea({
         id={id}
         name={name}
         aria-label={label}
-        lang="ko"
+        lang={language}
         placeholder=" "
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -128,6 +167,8 @@ function FloatingTextarea({
 }
 
 function ContactMessageForm() {
+  const language = useLanguage()
+  const copy = contactFormCopyByLanguage[language]
   const [name, setName] = useState('')
   const [affiliation, setAffiliation] = useState('')
   const [email, setEmail] = useState('')
@@ -162,18 +203,18 @@ function ContactMessageForm() {
       const payload = (await response.json().catch(() => null)) as { error?: string } | null
 
       if (!response.ok) {
-        throw new Error(payload?.error ?? '메시지 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.')
+        throw new Error(payload?.error ?? copy.submitError)
       }
 
       setName('')
       setAffiliation('')
       setEmail('')
       setMessage('')
-      setSubmitState({ type: 'success', message: '메시지를 전송했습니다. 확인 후 답변드리겠습니다.' })
+      setSubmitState({ type: 'success', message: copy.submitSuccess })
     } catch (error) {
       setSubmitState({
         type: 'error',
-        message: error instanceof Error ? error.message : '메시지 전송 중 오류가 발생했습니다.',
+        message: error instanceof Error ? error.message : copy.submitError,
       })
     } finally {
       setIsSubmitting(false)
@@ -198,7 +239,8 @@ function ContactMessageForm() {
           <FloatingField
             id="contact-name"
             name="name"
-            label="이름"
+            label={copy.name}
+            language={language}
             autoComplete="name"
             value={name}
             onChange={setName}
@@ -208,7 +250,8 @@ function ContactMessageForm() {
           <FloatingField
             id="contact-email"
             name="email"
-            label="이메일"
+            label={copy.email}
+            language={language}
             type="email"
             autoComplete="email"
             value={email}
@@ -221,7 +264,8 @@ function ContactMessageForm() {
         <FloatingField
           id="contact-affiliation"
           name="affiliation"
-          label="소속"
+          label={copy.affiliation}
+          language={language}
           autoComplete="organization"
           value={affiliation}
           onChange={setAffiliation}
@@ -231,20 +275,21 @@ function ContactMessageForm() {
         <FloatingTextarea
           id="contact-message"
           name="message"
-          label="메시지"
+          label={copy.message}
+          language={language}
           value={message}
           onChange={setMessage}
           maxLength={4000}
           required
         />
 
-        <div className="flex flex-col gap-3 pt-1 items-end">
+        <div className="flex flex-col items-end gap-3 pt-1">
           <button
             type="submit"
             disabled={isSubmitting}
             className="min-h-[45px] rounded-full bg-[linear-gradient(135deg,#2563eb_0%,#0f62fe_100%)] px-6 text-[0.94rem] font-bold text-white transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-55"
           >
-            {isSubmitting ? '전송 중...' : '메시지 보내기'}
+            {isSubmitting ? copy.submitPending : copy.submitIdle}
           </button>
         </div>
 

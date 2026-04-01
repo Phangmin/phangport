@@ -12,11 +12,11 @@ import {
   aboutSectionHeaders,
   awardItemsByLanguage,
   projectItemsByLanguage,
-  skillGroups,
   strengthCards,
   trainingItemsByLanguage,
 } from '../components/about/aboutData'
 import { Footer } from '../components/common'
+import { aboutSkillGroups } from '../content/skills'
 import useLanguage from '../hooks/useLanguage'
 
 function AboutPage() {
@@ -46,7 +46,7 @@ function AboutPage() {
           <AboutEducationSection items={trainingItems} header={sectionHeaders.education} />
           <AboutAwardsSection items={awardItems} header={sectionHeaders.awards} />
           <AboutProjectsSection items={projectItems} header={sectionHeaders.projects} />
-          <AboutSkillsSection skillGroups={skillGroups} header={sectionHeaders.skills} />
+          <AboutSkillsSection skillGroups={aboutSkillGroups} header={sectionHeaders.skills} />
         </div>
       </section>
       <Footer />

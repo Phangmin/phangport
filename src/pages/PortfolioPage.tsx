@@ -13,7 +13,7 @@ function PortfolioPage() {
   return (
     <main className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
       <section className="mx-auto grid w-[min(1126px,calc(100%-24px))] gap-7 pb-[72px] pt-[calc(var(--navbar-offset)+20px)] md:w-[min(1126px,calc(100%-128px))] md:gap-9 md:pt-[calc(var(--navbar-offset)+28px)]">
-        <RevealOnScroll className="grid gap-4 md:gap-5">
+        <RevealOnScroll className="grid gap-4 max-md:px-4 md:gap-5">
           <p className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.2em] text-blue-600">
             {copy.eyebrow}
           </p>

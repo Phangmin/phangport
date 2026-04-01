@@ -36,11 +36,8 @@ type HeroShowcaseOrbitSkill = {
 
 type HeroShowcaseVisualProps = {
   content: HeroShowcaseVisualContent
-  activeFocus: HeroShowcaseFocus
-  activeFocusIndex: number
   isDark: boolean
   isProfileFlipped: boolean
-  onActiveFocusChange: (index: number) => void
   onProfileCardFlip: () => void
   orbitSkills: HeroShowcaseOrbitSkill[]
   profileBackFacts: HeroShowcaseProfileBackFact[]
@@ -94,8 +91,6 @@ function HeroShowcasePortrait({ alt, className, imageClassName }: HeroShowcasePo
     <div
       className={`relative flex h-full min-h-0 items-end justify-center overflow-hidden ${className}`}
     >
-      <div className="pointer-events-none absolute inset-x-[10%] top-[6%] h-[44%] rounded-full bg-white/28 blur-3xl" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-slate-900/10 via-transparent to-transparent" />
       <img
         src={gwangminPicture}
         alt={alt}
@@ -157,7 +152,7 @@ function HeroShowcaseMobileProfileCard({
               <div className={`grid h-full grid-rows-[minmax(0,1fr)_auto] rounded-[22px] p-3 ${tones.phoneSurfaceTone}`}>
                 <HeroShowcasePortrait
                   alt={content.portraitAlt}
-                  className="rounded-[20px] bg-[linear-gradient(180deg,rgba(255,255,255,0.78)_0%,rgba(226,232,240,0.9)_100%)] px-2 pt-3"
+                  className="rounded-[20px] px-2 pt-3"
                   imageClassName="h-full w-full"
                 />
                 <div className={`mt-2.5 rounded-[18px] px-3 py-2.5 ${tones.phoneSummaryTone}`}>
@@ -211,11 +206,8 @@ function HeroShowcaseMobileProfileCard({
 
 function HeroShowcaseVisual({
   content,
-  activeFocus,
-  activeFocusIndex,
   isDark,
   isProfileFlipped,
-  onActiveFocusChange,
   onProfileCardFlip,
   orbitSkills,
   profileBackFacts,
@@ -283,7 +275,7 @@ function HeroShowcaseVisual({
                   <div className={`grid h-full grid-rows-[minmax(0,1fr)_auto] rounded-[30px] p-4 ${tones.phoneSurfaceTone}`}>
                     <HeroShowcasePortrait
                       alt={content.portraitAlt}
-                      className="rounded-[26px] bg-[linear-gradient(180deg,rgba(255,255,255,0.86)_0%,rgba(226,232,240,0.92)_100%)] px-3 pt-4"
+                      className="rounded-[26px] px-3 pt-4"
                       imageClassName="h-full w-full"
                     />
                     <div className={`mt-4 rounded-[24px] p-4 ${tones.phoneSummaryTone}`}>

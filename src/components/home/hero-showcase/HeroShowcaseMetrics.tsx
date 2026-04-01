@@ -1,5 +1,3 @@
-import { wrapIndex } from './utils'
-
 type HeroShowcaseMetric = {
   value: string
   label: string
@@ -17,13 +15,10 @@ type HeroShowcaseMetricsContent = {
 
 type HeroShowcaseMetricsProps = {
   content: HeroShowcaseMetricsContent
-  activeFocusIndex: number
   hoveredMetricIndex: number | null
-  onActiveFocusChange: (index: number) => void
   onHoveredMetricChange: (index: number | null) => void
   tones: {
     panelTone: string
-    strongPanelTone: string
     hoverPanelTone: string
     titleTone: string
     minorTextTone: string
@@ -39,9 +34,7 @@ const metricLayouts = [
 
 function HeroShowcaseMetrics({
   content,
-  activeFocusIndex,
   hoveredMetricIndex,
-  onActiveFocusChange,
   onHoveredMetricChange,
   tones,
 }: HeroShowcaseMetricsProps) {
@@ -52,7 +45,6 @@ function HeroShowcaseMetrics({
         onMouseLeave={() => onHoveredMetricChange(null)}
       >
         {content.metrics.map((metric, index) => {
-          const isActive = index === wrapIndex(activeFocusIndex, content.metrics.length)
           const isExpanded = hoveredMetricIndex === index
           const layout = metricLayouts[index] ?? metricLayouts[0]!
 
@@ -60,17 +52,14 @@ function HeroShowcaseMetrics({
             <button
               key={metric.label}
               type="button"
-              onClick={() => onActiveFocusChange(wrapIndex(index, content.focus.length))}
               onMouseEnter={() => onHoveredMetricChange(index)}
               onFocus={() => onHoveredMetricChange(index)}
               onBlur={() => onHoveredMetricChange(null)}
-              data-home-showcase-card={isActive ? 'active' : 'inactive'}
+              data-home-showcase-card={isExpanded ? 'hovered' : 'default'}
               className={`absolute top-0 overflow-hidden rounded-[28px] px-5 py-4 text-left transition-[left,width,transform,box-shadow,border-color,background-color,opacity] duration-300 ${
                 isExpanded
                   ? `${tones.hoverPanelTone} -translate-y-0.5`
-                  : isActive
-                    ? `${tones.strongPanelTone} -translate-y-1`
-                    : `${tones.panelTone} hover:-translate-y-0.5`
+                  : `${tones.panelTone} hover:-translate-y-0.5`
               } ${isExpanded ? 'z-[8] h-[120px]' : hoveredMetricIndex !== null ? 'z-[3] h-[120px] opacity-60' : 'z-[4] h-[120px]'}`}
               style={{
                 left: isExpanded ? '0px' : layout.left,

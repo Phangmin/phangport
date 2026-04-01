@@ -32,10 +32,9 @@ function HomeSectionNavigator() {
   const shouldUseDarkTone = activeSectionId === 'portfolio' || theme === 'dark'
   const isDark = shouldUseDarkTone
   const textTone = isDark ? 'text-white' : 'text-slate-950'
-  const mutedTone = isDark ? 'text-white/0' : 'text-slate-950/0'
-  const borderTone = isDark ? 'border-white/88' : 'border-slate-950/88'
-  const hoverBorderTone = isDark ? 'group-hover:border-white' : 'group-hover:border-slate-950'
-  const activeBorderTone = 'border-[3px] border-[#3182f6]'
+  const borderTone = isDark ? 'border-white/38' : 'border-slate-300/90'
+  const fillTone = isDark ? 'bg-white/38' : 'bg-slate-300/90'
+  const activeTone = 'border-[#3182f6] bg-[#3182f6]'
 
   useEffect(() => {
     function handleThemeChange(event: Event) {
@@ -143,16 +142,16 @@ function HomeSectionNavigator() {
                 className={`text-[0.82rem] font-medium transition-all duration-200 ${textTone} ${
                   isActive
                     ? 'translate-x-0 opacity-100'
-                    : `translate-x-2 opacity-0 ${mutedTone}`
+                    : 'translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100'
                 }`}
               >
                 {item.label}
               </span>
               <span
-                className={`inline-flex items-center justify-center rounded-full transition-colors duration-200 ${
+                className={`inline-flex items-center justify-center rounded-[2px] border transition-colors duration-200 ${
                   isActive
-                    ? `h-[15px] w-[15px] ${activeBorderTone}`
-                    : `h-2 w-2 border bg-transparent ${borderTone} ${hoverBorderTone}`
+                    ? `h-[10px] w-5 ${activeTone}`
+                    : `h-[10px] w-[10px] ${borderTone} ${fillTone}`
                 }`}
               />
             </button>
