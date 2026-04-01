@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { FloatingControls, Navbar } from './components/common'
-import SkyScreen from './components/common/SkyScreen'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ExperiencesPage from './pages/ExperiencesPage'
@@ -12,20 +10,6 @@ import GuestbookPage from './pages/GuestbookPage'
 import { pageBackgroundStyle } from './styles/pageBackground'
 
 function App() {
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setLoading(false)
-    }, 1000)
-
-    return () => window.clearTimeout(timer)
-  }, [])
-
-  if (loading) {
-    return <SkyScreen />
-  }
-
   return (
     <BrowserRouter>
       <div className="relative min-h-full isolate">

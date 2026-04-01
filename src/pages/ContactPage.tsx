@@ -95,7 +95,7 @@ function ContactPage() {
 
   return (
     <main className="[--navbar-offset:104px] min-h-screen text-slate-900 max-md:[--navbar-offset:96px]">
-      <section className="mx-auto grid min-h-screen w-[min(1040px,calc(100%-24px))] content-start gap-7 pb-[72px] pt-[calc(var(--navbar-offset)+28px)] md:w-[min(1040px,calc(100%-128px))] md:gap-8">
+      <section className="mx-auto grid min-h-[calc(100svh-var(--navbar-offset))] w-[min(1040px,calc(100%-24px))] content-start gap-7 pb-[72px] pt-[calc(var(--navbar-offset)+28px)] md:w-[min(1040px,calc(100%-128px))] md:gap-8">
         <RevealOnScroll className="grid gap-3 text-center lg:text-left">
           <p
             className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.18em] text-blue-600"

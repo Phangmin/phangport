@@ -8,7 +8,6 @@ type ProjectsDetailsPanelProps = {
   allProjectsCta: string
   activeProject: ProjectItem
   focusedIndex: number
-  isDark: boolean
   onDetailOpen: () => void
 }
 
@@ -18,13 +17,10 @@ function ProjectsDetailsPanel({
   allProjectsCta,
   activeProject,
   focusedIndex,
-  isDark,
   onDetailOpen,
 }: ProjectsDetailsPanelProps) {
   const stacks = activeProject.stacks ?? []
-  const allProjectsLinkTone = isDark
-    ? 'text-sky-300 hover:text-sky-200'
-    : 'text-[#3182f6] hover:text-blue-700'
+  const allProjectsLinkTone = 'text-white hover:text-white'
 
   return (
     <>
@@ -95,7 +91,7 @@ function ProjectsDetailsPanel({
             className={`inline-flex items-center gap-1.5 text-[0.8rem] font-semibold no-underline transition-colors duration-200 ${allProjectsLinkTone}`}
           >
             <span>{allProjectsCta}</span>
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true">{'\u2192'}</span>
           </Link>
         </div>
       </div>
@@ -170,7 +166,7 @@ function ProjectsDetailsPanel({
             className={`inline-flex items-center gap-1.5 text-[0.9rem] font-semibold no-underline transition-colors duration-200 ${allProjectsLinkTone}`}
           >
             <span>{allProjectsCta}</span>
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true">{'\u2192'}</span>
           </Link>
         </div>
       </div>

@@ -29,7 +29,7 @@ function AboutPage() {
 
   return (
     <main className="min-h-screen text-left text-[var(--text-h)] [--navbar-offset:104px] max-md:[--navbar-offset:96px]">
-      <section className="mx-auto grid min-h-screen w-[min(1126px,calc(100%-24px))] gap-5 px-0 pb-[72px] pt-[calc(var(--navbar-offset)+20px)] md:w-[min(1126px,calc(100%-128px))] md:gap-6 md:pt-[calc(var(--navbar-offset)+24px)]">
+      <section className="mx-auto grid min-h-[calc(100svh-var(--navbar-offset))] w-[min(1126px,calc(100%-24px))] gap-5 px-0 pb-[72px] pt-[calc(var(--navbar-offset)+20px)] md:w-[min(1126px,calc(100%-128px))] md:gap-6 md:pt-[calc(var(--navbar-offset)+24px)]">
         <div className="grid gap-8 mb-2 lg:grid-cols-[minmax(280px,312px)_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[320px_minmax(0,1fr)] xl:gap-12">
           <AboutProfileCard imageSrc={gwangminPicture} content={profileContent} language={language} />
           <div className="box-border min-w-0 max-md:px-4">

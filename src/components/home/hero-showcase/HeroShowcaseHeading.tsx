@@ -31,6 +31,7 @@ function HeroShowcaseHeading({ content, isDark, mobileInsert, tones }: HeroShowc
     : content.title[1]
   const trailingTitle = hasSplitKoreanTitle ? koreanTitleSuffix : ''
   const highlightTone = isDark ? 'text-sky-300' : 'text-[#3182f6]'
+  const highlightWeight = 'font-[900]'
 
   return (
     <>
@@ -50,7 +51,8 @@ function HeroShowcaseHeading({ content, isDark, mobileInsert, tones }: HeroShowc
           {hasSplitKoreanTitle ? (
             <span className="inline-block whitespace-nowrap">
               <span
-                className={`text-[clamp(1.05rem,3.45vw,3.2rem)] font-[950] max-md:text-[clamp(1.12rem,6.35vw,2.54rem)] ${highlightTone}`}
+                data-home-hero-highlight="true"
+                className={`text-[clamp(1.05rem,3.45vw,3.2rem)] ${highlightWeight} max-md:text-[clamp(1.12rem,6.35vw,2.54rem)] ${highlightTone}`}
               >
                 {highlightedTitle}
               </span>
@@ -58,7 +60,8 @@ function HeroShowcaseHeading({ content, isDark, mobileInsert, tones }: HeroShowc
             </span>
           ) : (
             <span
-              className={`inline-block whitespace-nowrap text-[clamp(1.05rem,3.45vw,3.2rem)] max-md:text-[clamp(1.12rem,6.35vw,2.54rem)] ${highlightTone}`}
+              data-home-hero-highlight="true"
+              className={`inline-block whitespace-nowrap text-[clamp(1.05rem,3.45vw,3.2rem)] ${highlightWeight} max-md:text-[clamp(1.12rem,6.35vw,2.54rem)] ${highlightTone}`}
             >
               {content.title[1]}
             </span>

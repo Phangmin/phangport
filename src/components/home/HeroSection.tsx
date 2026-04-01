@@ -245,7 +245,9 @@ function HeroSection() {
   const orbitBadgeTone = isDark
     ? 'border border-white/10 bg-slate-950/32 shadow-[0_18px_44px_rgba(2,6,23,0.16)]'
     : 'border border-white/70 bg-white/56 shadow-[0_18px_44px_rgba(148,163,184,0.16)]'
-  const profileHintTooltipTone = 'bg-slate-800 text-white shadow-[0_18px_40px_rgba(15,23,42,0.28)]'
+  const profileHintTooltipTone = isDark
+    ? 'bg-white text-slate-950 shadow-[0_18px_40px_rgba(2,6,23,0.18)]'
+    : 'bg-slate-800 text-white shadow-[0_18px_40px_rgba(15,23,42,0.28)]'
 
   const resolvedActiveFocusIndex = wrapIndex(activeFocusIndex, content.focus.length)
   const activeFocus = content.focus[resolvedActiveFocusIndex] ?? content.focus[0]
@@ -310,7 +312,7 @@ function HeroSection() {
   return (
     <section
       id="home"
-      className={`relative z-[1] min-h-[100svh] overflow-visible lg:h-[100vh] lg:snap-start lg:snap-always lg:overflow-hidden ${sectionTone}`}
+      className={`relative z-[1] min-h-[100svh] overflow-visible lg:min-h-[100svh] lg:snap-start lg:snap-always lg:overflow-hidden ${sectionTone}`}
       data-home-hero-section="true"
       data-home-showcase="true"
     >
@@ -334,7 +336,7 @@ function HeroSection() {
         }`}
       />
 
-      <div className="relative z-[1] mx-auto grid w-[min(1180px,calc(100%-48px))] items-center gap-12 py-[calc(var(--navbar-offset,104px)+34px)] max-md:w-[min(calc(100%-32px),1180px)] max-md:gap-8 max-md:pb-[calc(var(--navbar-offset,96px)+5px)] max-md:pt-[calc(var(--navbar-offset,96px)+20px)] lg:h-full lg:grid-cols-[minmax(0,1fr)_minmax(460px,0.94fr)]">
+      <div className="relative z-[1] mx-auto grid w-[min(1180px,calc(100%-48px))] items-center gap-12 py-[calc(var(--navbar-offset,104px)+34px)] max-md:w-[min(calc(100%-32px),1180px)] max-md:gap-8 max-md:pb-[calc(var(--navbar-offset,96px)+5px)] max-md:pt-[calc(var(--navbar-offset,96px)+20px)] lg:min-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.94fr)]">
         <HeroShowcaseContent
           content={content}
           isDark={isDark}

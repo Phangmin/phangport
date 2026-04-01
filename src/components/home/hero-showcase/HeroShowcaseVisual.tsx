@@ -209,10 +209,10 @@ function HeroShowcaseVisual({
     <>
       <div className="hidden lg:hidden" />
 
-      <div className="relative mx-auto hidden h-[640px] w-full max-w-[560px] overflow-visible lg:block">
+      <div className="relative mx-auto hidden h-[clamp(540px,58vw,640px)] w-full max-w-[clamp(380px,40vw,560px)] overflow-visible lg:block">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 z-[1] h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-[1] h-[clamp(420px,46vw,520px)] w-[clamp(420px,46vw,520px)] -translate-x-1/2 -translate-y-1/2"
         >
           <div className={`absolute inset-[8%] rounded-full border ${tones.orbitRingTone}`} />
           <div
@@ -221,25 +221,27 @@ function HeroShowcaseVisual({
             {orbitSkills.map((skill) => (
               <div key={skill.label} className={`absolute ${skill.positionClass}`}>
                 <div
-                  className={`flex h-16 w-16 items-center justify-center rounded-[22px] backdrop-blur-[10px] opacity-55 ${tones.orbitBadgeTone}`}
+                  className={`flex h-[clamp(52px,5vw,64px)] w-[clamp(52px,5vw,64px)] items-center justify-center rounded-[22px] backdrop-blur-[10px] opacity-55 ${tones.orbitBadgeTone}`}
                 >
-                  <img src={skill.icon} alt="" className="h-8 w-8 object-contain" />
+                  <img src={skill.icon} alt="" className="h-[clamp(24px,2.4vw,32px)] w-[clamp(24px,2.4vw,32px)] object-contain" />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="absolute left-1/2 top-1/2 z-[6] w-[58%] -translate-x-1/2 -translate-y-1/2 overflow-visible">
+        <div className="absolute left-1/2 top-1/2 z-[6] w-[min(58%,340px)] min-w-[clamp(300px,28vw,340px)] -translate-x-1/2 -translate-y-1/2 overflow-visible">
           <div
-            className={`pointer-events-none absolute left-[calc(100%+28px)] top-1 z-[10] w-[240px] rounded-[18px] px-4 py-2.5 text-[0.72rem] font-semibold leading-[1.5] transition-opacity duration-300 ${tones.profileHintTooltipTone} ${
+            className={`pointer-events-none absolute left-[calc(100%+28px)] top-1 z-[10] w-[clamp(188px,18vw,240px)] rounded-[18px] px-4 py-2.5 text-[0.72rem] font-semibold leading-[1.5] transition-opacity duration-300 ${tones.profileHintTooltipTone} ${
               isProfileFlipped ? 'opacity-0' : 'opacity-100'
             }`}
           >
             {content.profileHint}
             <span
               aria-hidden="true"
-              className="absolute -left-1 top-4 h-3 w-3 rotate-45 rounded-[2px] bg-slate-800"
+              className={`absolute -left-1 top-4 h-3 w-3 rotate-45 rounded-[2px] ${
+                isDark ? 'bg-white' : 'bg-slate-800'
+              }`}
             />
           </div>
 
@@ -251,7 +253,7 @@ function HeroShowcaseVisual({
               className="block w-full bg-transparent p-0 text-left"
             >
               <div
-                className="relative min-h-[518px] w-full transition-transform duration-700"
+                className="relative min-h-[clamp(430px,46vw,518px)] w-full transition-transform duration-700"
                 style={{ transform: profileFlipRotation, transformStyle: 'preserve-3d' }}
               >
                 <div
