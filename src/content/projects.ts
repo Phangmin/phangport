@@ -1,10 +1,12 @@
 import type { LanguageCode } from '../hooks/useLanguage'
 import airPassCoverImage from '../assets/projects/cover-imeges/Air-PASS-coverimage.png'
+import bookTemperatureCoverImage from '../assets/projects/cover-imeges/BookTemperature-coverimage.png'
 import healthCalendarCoverImage from '../assets/projects/cover-imeges/Health-Calendar-coverimage.png'
 import hotelWellnessButlerCoverImage from '../assets/projects/cover-imeges/HotelWellnessButler-coverimage.png'
 import linBookCoverImage from '../assets/projects/cover-imeges/LinBook-coverimage.png'
 import insiteCoverImage from '../assets/projects/cover-imeges/Insite-coveriamge.png'
 import namuhCoverImage from '../assets/projects/cover-imeges/NAMUH-coverimage.png'
+import stalkCoverImage from '../assets/projects/cover-imeges/stalk-coverimage.png'
 import airPassHomeImage from '../assets/projects/detail-imeges/air-pass/Air-PASS-Home.png'
 import airPassManagementImage from '../assets/projects/detail-imeges/air-pass/Air-PASS-Managemanet.png'
 import airPassReportImage from '../assets/projects/detail-imeges/air-pass/Air-PASS-Report.png'
@@ -251,6 +253,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       backgroundUrl: stockVideo,
+      imageSrc: stalkCoverImage,
       gallery: [
         {
           id: 'stalk-live-room',
@@ -304,6 +307,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       backgroundUrl: libraryVideo,
+      imageSrc: bookTemperatureCoverImage,
       coverLabel: 'RT',
       coverGradientFrom: '#fef3c7',
       coverGradientTo: '#f59e0b',
@@ -600,6 +604,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       backgroundUrl: stockVideo,
+      imageSrc: stalkCoverImage,
       gallery: [
         {
           id: 'stalk-live-room',
@@ -653,6 +658,7 @@ export const projectsByLanguage: Record<LanguageCode, ProjectPageProject[]> = {
       websiteUrl: '',
       downloadUrl: '',
       backgroundUrl: libraryVideo,
+      imageSrc: bookTemperatureCoverImage,
       coverLabel: 'RT',
       coverGradientFrom: '#fef3c7',
       coverGradientTo: '#f59e0b',

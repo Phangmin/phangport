@@ -4,7 +4,6 @@ import { projectsByLanguage, projectsPageCopyByLanguage } from '../../content/pr
 import useLanguage from '../../hooks/useLanguage'
 import FeaturedProjectCarousel from '../projects/FeaturedProjectCarousel'
 import ProjectDetailGrid from '../projects/ProjectDetailGrid'
-import { getResolvedTheme, type ThemeMode } from '../common/theme'
 import ProjectsBackgroundMedia from './projects/ProjectsBackgroundMedia'
 import ProjectsDesktopArc from './projects/ProjectsDesktopArc'
 import ProjectsDetailsPanel from './projects/ProjectsDetailsPanel'
@@ -14,7 +13,6 @@ function ProjectsSection() {
   const language = useLanguage()
   const content = projectsContent[language]
   const projects = content.projects
-  const [theme, setTheme] = useState<ThemeMode>(() => getResolvedTheme())
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
 
@@ -24,23 +22,6 @@ function ProjectsSection() {
   const projectCopy = projectsPageCopyByLanguage[language]
   const selectedProject = detailProjects.find((project) => project.id === selectedProjectId) ?? null
   const backgroundUrl = activeProject.backgroundUrl
-  const isDark = theme === 'dark'
-
-  useEffect(() => {
-    function handleThemeChange(event: Event) {
-      if (!(event instanceof CustomEvent)) {
-        return
-      }
-
-      setTheme(event.detail === 'dark' ? 'dark' : 'light')
-    }
-
-    window.addEventListener('phangport-theme-change', handleThemeChange)
-
-    return () => {
-      window.removeEventListener('phangport-theme-change', handleThemeChange)
-    }
-  }, [])
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -87,12 +68,12 @@ function ProjectsSection() {
     <>
       <section
         id="portfolio"
-        className="relative h-screen w-full overflow-hidden bg-transparent"
+        className="relative min-h-[100svh] w-full overflow-hidden bg-transparent"
         data-home-projects-section="true"
       >
         <ProjectsBackgroundMedia backgroundUrl={backgroundUrl} />
 
-        <div className="relative z-[1] mx-auto grid h-screen w-[min(1126px,calc(100%-48px))] content-center gap-7 px-0 pb-[72px] pt-[calc(var(--navbar-offset,104px)+12px)] max-md:content-start max-md:gap-4 max-md:pb-2.5 max-md:pt-[calc(var(--navbar-offset,96px)+5px)] md:w-[min(1126px,calc(100%-128px))] lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:items-center lg:gap-[42px]">
+        <div className="relative z-[1] mx-auto grid min-h-[100svh] w-[min(1126px,calc(100%-48px))] content-center gap-7 px-0 pb-[72px] pt-[calc(var(--navbar-offset,104px)+12px)] max-md:content-start max-md:gap-4 max-md:pb-2.5 max-md:pt-[calc(var(--navbar-offset,96px)+5px)] md:w-[min(1126px,calc(100%-128px))] lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:items-center lg:gap-[42px]">
           <div className="grid gap-2 text-center lg:hidden">
             <p data-home-projects-label="true" className="m-0 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-blue-200">
               {content.sectionLabel}
@@ -122,7 +103,6 @@ function ProjectsSection() {
             allProjectsCta={content.allProjectsCta}
             activeProject={activeProject}
             focusedIndex={focusedIndex}
-            isDark={isDark}
             onDetailOpen={handleDetailOpen}
           />
         </div>

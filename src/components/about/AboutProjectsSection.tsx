@@ -188,20 +188,59 @@ function AboutProjectsSection(props) {
 
   return (
     <>
-      <section className="grid min-w-0 overflow-x-clip px-0 py-1 md:px-1 md:py-2">
+      <section className="grid min-w-0 px-0 py-1 md:px-1 md:py-2">
       <RevealOnScroll
         delay={0.1}
-        className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-end gap-3"
+        className="grid w-full min-w-0 gap-3"
       >
         <div className="grid gap-2 text-left">
-          <div className="flex items-end gap-2">
-            <h2 className="m-0 text-[1.18rem] font-bold text-[var(--text-h)] md:text-[1.32rem]">{header.primary}</h2>
-            <p
-              className="m-0 leading-none text-[0.78rem] text-gray-400 md:text-sm"
-              data-about-section-secondary="true"
-            >
-              {header.secondary}
-            </p>
+          <div className="flex items-end justify-between gap-3">
+            <div className="flex min-w-0 items-end gap-2">
+              <h2 className="m-0 text-[1.18rem] font-bold text-[var(--text-h)] md:text-[1.32rem]">{header.primary}</h2>
+              <p
+                className="m-0 leading-none text-[0.78rem] text-gray-400 md:text-sm"
+                data-about-section-secondary="true"
+              >
+                {header.secondary}
+              </p>
+            </div>
+
+            <div className="flex shrink-0 items-center justify-end gap-2 self-end">
+              <button
+                type="button"
+                aria-label="Scroll projects left"
+                onClick={handlePrev}
+                data-about-project-nav="true"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-900/10 bg-white/80 text-slate-700 transition-colors duration-200 hover:border-blue-600/30 hover:text-blue-700 focus-visible:border-blue-600/30 focus-visible:text-blue-700 focus-visible:outline-none md:h-9 md:w-9"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none">
+                  <path
+                    d="m14.5 5.5-6 6 6 6"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                type="button"
+                aria-label="Scroll projects right"
+                onClick={handleNext}
+                data-about-project-nav="true"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-900/10 bg-white/80 text-slate-700 transition-colors duration-200 hover:border-blue-600/30 hover:text-blue-700 focus-visible:border-blue-600/30 focus-visible:text-blue-700 focus-visible:outline-none md:h-9 md:w-9"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none">
+                  <path
+                    d="m9.5 5.5 6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
           <p
             className="m-0 text-[0.9rem] leading-[1.72] text-slate-500 md:text-sm md:leading-7"
@@ -210,48 +249,11 @@ function AboutProjectsSection(props) {
             {header.description}
           </p>
         </div>
-
-        <div className="flex items-center justify-end gap-2 self-start">
-          <button
-            type="button"
-            aria-label="Scroll projects left"
-            onClick={handlePrev}
-            data-about-project-nav="true"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-900/10 bg-white/80 text-slate-700 transition-colors duration-200 hover:border-blue-600/30 hover:text-blue-700 focus-visible:border-blue-600/30 focus-visible:text-blue-700 focus-visible:outline-none md:h-10 md:w-10"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none">
-              <path
-                d="m14.5 5.5-6 6 6 6"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <button
-            type="button"
-            aria-label="Scroll projects right"
-            onClick={handleNext}
-            data-about-project-nav="true"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-900/10 bg-white/80 text-slate-700 transition-colors duration-200 hover:border-blue-600/30 hover:text-blue-700 focus-visible:border-blue-600/30 focus-visible:text-blue-700 focus-visible:outline-none md:h-10 md:w-10"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none">
-              <path
-                d="m9.5 5.5 6 6-6 6"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
       </RevealOnScroll>
 
       <RevealOnScroll
         delay={0.18}
-        className="mt-1 w-full min-w-0"
+        className="relative mt-1 w-full min-w-0 max-md:left-1/2 max-md:w-[calc(100%+32px)] max-md:-translate-x-1/2"
         onMouseEnter={() => {
           pauseRef.current = true
         }}
@@ -377,7 +379,7 @@ function AboutProjectsSection(props) {
                             <SkillBadge
                               key={`${item.title}-${skill}`}
                               label={skill}
-                              className="h-6 bg-blue-600/8 px-2 text-[0.62rem] font-semibold text-blue-700 transition-colors duration-300 group-hover:bg-[#dbeeff]/14 group-hover:text-[#dbeeff] group-focus-visible:bg-[#dbeeff]/14 group-focus-visible:text-[#dbeeff] md:h-6 md:px-2.5 md:text-[0.66rem]"
+                              className="h-5 bg-blue-600/8 px-1.5 text-[0.56rem] font-semibold text-blue-700 transition-colors duration-300 group-hover:bg-[#dbeeff]/14 group-hover:text-[#dbeeff] group-focus-visible:bg-[#dbeeff]/14 group-focus-visible:text-[#dbeeff] md:h-5 md:px-2 md:text-[0.6rem] [&_img]:h-3 [&_img]:w-3 md:[&_img]:h-3 md:[&_img]:w-3"
                             />
                           ))}
                         </div>

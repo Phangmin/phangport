@@ -188,12 +188,12 @@ function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative min-h-screen overflow-hidden bg-transparent text-slate-950 dark:text-white"
+      className="relative min-h-[100svh] overflow-hidden bg-transparent text-slate-950 dark:text-white"
       data-home-skills-section="true"
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:88px_88px] opacity-[0.16] dark:opacity-[0.08]" />
 
-      <div className="relative z-[1] mx-auto grid min-h-screen w-[min(1126px,calc(100%-48px))] content-center gap-8 py-[calc(var(--navbar-offset,104px)+28px)] max-md:w-[min(calc(100%-32px),1126px)] max-md:content-start max-md:gap-6 max-md:py-[calc(var(--navbar-offset,96px)+18px)] md:w-[min(1126px,calc(100%-128px))]">
+      <div className="relative z-[1] mx-auto grid min-h-[100svh] w-[min(1126px,calc(100%-48px))] content-center gap-8 py-[calc(var(--navbar-offset,104px)+28px)] max-md:w-[min(calc(100%-32px),1126px)] max-md:content-start max-md:gap-6 max-md:py-[calc(var(--navbar-offset,96px)+18px)] md:w-[min(1126px,calc(100%-128px))]">
         <div className="grid justify-items-center gap-3 text-center max-md:gap-2">
           <p className="m-0 text-[0.76rem] font-semibold uppercase tracking-[0.22em] text-blue-700 dark:text-sky-200">
             {copy.sectionLabel}
@@ -206,7 +206,7 @@ function SkillsSection() {
           </p>
         </div>
 
-        <div className="grid gap-4 rounded-[32px] border border-slate-900/8 bg-transparent p-4 shadow-[0_26px_80px_rgba(148,163,184,0.16)] backdrop-blur-[14px] dark:border-white/10 dark:bg-transparent dark:shadow-[0_26px_80px_rgba(2,6,23,0.3)] md:grid-cols-[180px_minmax(0,1fr)] md:gap-0 md:p-0">
+        <div className="grid gap-4 rounded-[32px] border border-slate-900/8 bg-transparent p-4 shadow-[0_26px_80px_rgba(148,163,184,0.16)] backdrop-blur-[14px] dark:border-white/10 dark:bg-transparent dark:shadow-[0_26px_80px_rgba(2,6,23,0.3)] md:grid-cols-[minmax(164px,0.34fr)_minmax(0,1fr)] md:gap-0 md:p-0">
           <div className="grid content-start gap-1 border-b border-slate-900/8 pb-3 md:border-b-0 md:border-r md:border-slate-900/8 md:p-5 dark:border-white/10">
             {copy.tabs.map((tab) => {
               const isActive = tab.id === activeTab.id

@@ -29,7 +29,8 @@ function HomeSectionNavigator() {
   const [theme, setTheme] = useState<ThemeMode>(() => getResolvedTheme())
 
   const resolvedItems = useMemo(() => items, [items])
-  const isDark = theme === 'dark'
+  const shouldUseDarkTone = activeSectionId === 'portfolio' || theme === 'dark'
+  const isDark = shouldUseDarkTone
   const textTone = isDark ? 'text-white' : 'text-slate-950'
   const mutedTone = isDark ? 'text-white/0' : 'text-slate-950/0'
   const borderTone = isDark ? 'border-white/88' : 'border-slate-950/88'
@@ -148,10 +149,10 @@ function HomeSectionNavigator() {
                 {item.label}
               </span>
               <span
-                className={`inline-flex h-3.5 w-3.5 items-center justify-center rounded-full transition-colors duration-200 ${
+                className={`inline-flex items-center justify-center rounded-full transition-colors duration-200 ${
                   isActive
-                    ? activeBorderTone
-                    : `border bg-transparent ${borderTone} ${hoverBorderTone}`
+                    ? `h-[15px] w-[15px] ${activeBorderTone}`
+                    : `h-2 w-2 border bg-transparent ${borderTone} ${hoverBorderTone}`
                 }`}
               />
             </button>

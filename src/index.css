@@ -368,6 +368,14 @@ code {
   color: #60a5fa !important;
 }
 
+:root [data-home-hero-highlight='true'] {
+  color: #3182f6 !important;
+}
+
+:root[data-theme='dark'] [data-home-hero-highlight='true'] {
+  color: #7dd3fc !important;
+}
+
 :root[data-theme='dark'] [data-home-muted-text='true'] {
   color: #94a3b8 !important;
 }
@@ -527,8 +535,9 @@ code {
 }
 
 :root[data-theme='dark'] [data-home-projects-cta='true'] {
-  background: #ffffff !important;
-  color: #0f172a !important;
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  color: #ffffff !important;
 }
 
 :root[data-theme='dark'] [data-projects-surface='card'] {

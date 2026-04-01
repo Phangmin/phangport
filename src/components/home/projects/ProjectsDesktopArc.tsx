@@ -245,7 +245,7 @@ function ProjectsDesktopArc({
     stepDirection === 0 ? displayFocusedIndex : wrapIndex(displayFocusedIndex + stepDirection, projects.length)
 
   return (
-    <div className="relative hidden min-h-[660px] lg:block">
+    <div className="relative hidden min-h-[clamp(560px,58vw,660px)] lg:block">
       <div className="absolute inset-y-0 left-0 right-[144px]">
         <div className="pointer-events-none absolute inset-x-[2%] bottom-[5%] h-[500px] rounded-[999px] border border-white/8 opacity-40 [mask-image:linear-gradient(to_top,black_56%,transparent_100%)]" />
         {slotAssignments.map(({ projectIndex, slotIndex }) => {
@@ -281,8 +281,8 @@ function ProjectsDesktopArc({
                   isGhost ? 'duration-500 ease-out' : 'duration-500 ease-out'
                 } hover:shadow-[0_28px_62px_rgba(2,6,23,0.3)] ${
                   isActive
-                    ? 'relative aspect-[16/9] w-[408px] overflow-hidden p-0'
-                    : 'grid aspect-[16/9] w-[264px] content-start gap-[10px] p-4'
+                    ? 'relative aspect-[16/9] w-[clamp(320px,30vw,408px)] overflow-hidden p-0'
+                    : 'grid aspect-[16/9] w-[clamp(216px,19vw,264px)] content-start gap-[10px] p-4'
                 } ${
                   isActive ? 'bg-white/95 opacity-100 ring-2 ring-blue-500/40' : 'bg-white/72 opacity-58'
                 }`}
