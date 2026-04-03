@@ -69,7 +69,7 @@ function ProjectDetailGrid({ project, labels, projectTypeLabel, media }: Project
 
   return (
     <div
-      className="grid overflow-hidden rounded-[30px] border border-slate-900/8 bg-white/95 p-4 shadow-[0_28px_68px_rgba(15,23,42,0.08)] md:gap-6 md:rounded-[34px] md:p-6"
+      className="grid overflow-hidden rounded-[30px] border border-slate-900/8 bg-white/95 p-4 text-left shadow-[0_28px_68px_rgba(15,23,42,0.08)] md:gap-6 md:rounded-[34px] md:p-6"
       data-projects-surface="featured"
     >
       <section className="grid gap-8 pb-6 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-stretch">

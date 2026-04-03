@@ -1,5 +1,5 @@
 import type { LanguageCode } from '../hooks/useLanguage'
-import { projectItemsByLanguage } from '../components/about/aboutData'
+import { projectsByLanguage, type ProjectPageProject } from './projects'
 
 type HeroContent = {
   eyebrow: string
@@ -35,14 +35,14 @@ export type ProjectsContent = {
   projects: ProjectItem[]
 }
 
-function toHomeProjectItem(project: (typeof projectItemsByLanguage)['ko'][number]): ProjectItem {
+function toHomeProjectItem(project: ProjectPageProject): ProjectItem {
   return {
     ...(project.id ? { id: project.id } : {}),
     title: project.title,
     period: project.period,
     role: project.role,
-    description: project.description,
-    ...(project.skills ? { stacks: Array.isArray(project.skills) ? project.skills : [project.skills] } : {}),
+    description: project.summary,
+    ...(project.stacks ? { stacks: project.stacks } : {}),
     ...(project.imageSrc ? { imageSrc: project.imageSrc } : {}),
     ...(project.backgroundUrl ? { backgroundUrl: project.backgroundUrl } : {}),
     ...(project.coverLabel ? { coverLabel: project.coverLabel } : {}),
@@ -51,12 +51,16 @@ function toHomeProjectItem(project: (typeof projectItemsByLanguage)['ko'][number
   }
 }
 
+function getLatestFirstProjects(projects: ProjectPageProject[]) {
+  return [...projects].sort((left, right) => right.endedAt.localeCompare(left.endedAt))
+}
+
 export const heroContent: Record<LanguageCode, HeroContent> = {
   ko: {
     eyebrow: '보이지 않는 비효율을 찾아 서비스의 가치를 만듭니다',
     title: ["Gwangmin's", 'Workspace'],
     description: [
-      '복잡한 과정을 단순한 화면 구조로 개선하고, 서비스 기획과 개발을 연결하는 프론트엔드를 지향합니다.',
+      '복잡한 과정을 단순한 화면 구조로 개선하고, 서비스 기획과 개발을 연결하는 서비스를 지향합니다.',
       '단순한 기능 추가를 넘어서 현장의 문제를 근본적으로 해결하는 직관적인 경험을 만드는 데 집중합니다.',
     ],
     primaryCta: '프로젝트 보기',
@@ -86,7 +90,7 @@ export const projectsContent: Record<LanguageCode, ProjectsContent> = {
     detailCta: '자세히 보기',
     allProjectsCta: '전체 프로젝트 보기',
     swipeHint: '좌우로 드래그하거나 스크롤해 카드 넘기기',
-    projects: projectItemsByLanguage.ko.map(toHomeProjectItem),
+    projects: getLatestFirstProjects(projectsByLanguage.ko).map(toHomeProjectItem),
   },
   en: {
     sectionLabel: 'Projects',
@@ -95,6 +99,6 @@ export const projectsContent: Record<LanguageCode, ProjectsContent> = {
     detailCta: 'See Details',
     allProjectsCta: 'View All Projects',
     swipeHint: 'Drag or scroll sideways to move one card at a time',
-    projects: projectItemsByLanguage.en.map(toHomeProjectItem),
+    projects: getLatestFirstProjects(projectsByLanguage.en).map(toHomeProjectItem),
   },
 }

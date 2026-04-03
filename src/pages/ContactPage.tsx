@@ -35,9 +35,9 @@ function createContactItems(emailTitle: string, phoneTitle: string): ContactInfo
     },
     {
       title: phoneTitle,
-      value: '+82 10 2025 0041',
+      value: '+82 2370 0028',
       ariaLabel: 'Phone',
-      href: 'tel:+821020250041',
+      href: 'tel:+8223700028',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path

@@ -50,6 +50,10 @@ function ProjectsPage() {
   const language = useLanguage()
   const copy = projectsPageCopyByLanguage[language]
   const projects = projectsByLanguage[language]
+  const pageDescription =
+    language === 'ko'
+      ? '이 페이지에서는 주요 프로젝트의 배경과 핵심 문제 해결 과정을 먼저 보여드리고, 아래에서 전체 프로젝트를 차례로 살펴보실 수 있습니다.'
+      : 'This page first highlights the context and problem-solving behind the main project, then lets visitors browse the full project archive below.'
   const [sortKey, setSortKey] = useState<ProjectSortKey>('latest')
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
 
@@ -119,7 +123,7 @@ function ProjectsPage() {
             className="m-0 text-[0.92rem] leading-[1.78] text-slate-600 md:text-[1rem] md:leading-[1.9]"
             data-projects-muted="true"
           >
-            {copy.description}
+            {pageDescription}
           </p>
         </RevealOnScroll>
 
