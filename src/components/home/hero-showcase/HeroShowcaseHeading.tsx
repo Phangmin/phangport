@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { scrollToNextSection } from './utils'
 
 type HeroShowcaseHeadingContent = {
   eyebrow: string
@@ -79,13 +78,12 @@ function HeroShowcaseHeading({ content, isDark, mobileInsert, tones }: HeroShowc
       </div>
 
       <div className="flex flex-wrap gap-3 opacity-0 motion-safe:animate-[rise-in_1.02s_ease-out_0.34s_forwards] motion-reduce:opacity-100 max-lg:justify-center max-md:w-full max-md:flex-col">
-        <button
-          type="button"
-          onClick={scrollToNextSection}
+        <Link
+          to="/projects"
           className={`inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 max-md:min-h-[48px] max-md:w-full ${tones.primaryButtonTone}`}
         >
           {content.primaryCta}
-        </button>
+        </Link>
         <Link
           to="/contact"
           className={`inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 max-md:min-h-[48px] max-md:w-full ${tones.secondaryButtonTone}`}

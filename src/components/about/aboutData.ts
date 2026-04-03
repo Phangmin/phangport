@@ -78,7 +78,7 @@ export const aboutProfileContent: Record<LanguageCode, AboutProfileContent> = {
     schoolLabel: '동아대학교 전자공학과',
     schoolDetail: '2022. 02. 23. 졸업',
     email: 'phangmin03@gmail.com',
-    phone: '+82 10-2025-0041',
+    phone: '+82 2370 0028',
     location: '부산, 대한민국',
     headingLines: ['사용자 경험의 출발점부터', '서비스 구조와 구현까지 설계합니다.'],
     introductionDescription:
@@ -99,7 +99,7 @@ export const aboutProfileContent: Record<LanguageCode, AboutProfileContent> = {
     schoolLabel: 'Dong-A University, Electronic Engineering',
     schoolDetail: `Graduated on ${formatEnglishDate('2022.02.23')}`,
     email: 'phangmin03@gmail.com',
-    phone: '+82 10-2025-0041',
+    phone: '+82 2370 0028',
     location: 'Busan, Republic of Korea',
     headingLines: ['From user experience foundations', 'to service structure and implementation.'],
     introductionDescription:

@@ -40,8 +40,31 @@ function HeroShowcaseMetrics({
 }: HeroShowcaseMetricsProps) {
   return (
     <>
+      <div className="hidden gap-3 opacity-0 motion-safe:animate-[rise-in_1.06s_ease-out_0.5s_forwards] motion-reduce:opacity-100 md:grid md:grid-cols-3 lg:hidden">
+        {content.metrics.map((metric, index) => (
+          <div
+            key={`compact-${metric.label}`}
+            className={`grid min-w-0 gap-2 rounded-[24px] px-4 py-4 text-left ${tones.panelTone}`}
+            data-home-showcase-card="compact"
+          >
+            <strong className={`block text-[1.5rem] font-semibold leading-none tracking-[-0.05em] ${tones.titleTone}`}>
+              {metric.value}
+            </strong>
+            <span
+              data-home-showcase-muted="true"
+              className={`block text-[0.74rem] font-medium uppercase tracking-[0.12em] ${tones.minorTextTone}`}
+            >
+              {metric.label}
+            </span>
+            <p className={`m-0 text-[0.8rem] leading-[1.55] ${tones.subtleTextTone}`}>
+              {content.focus[index]?.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
       <div
-        className="relative hidden h-[182px] opacity-0 motion-safe:animate-[rise-in_1.06s_ease-out_0.5s_forwards] motion-reduce:opacity-100 md:block"
+        className="relative hidden h-[182px] opacity-0 motion-safe:animate-[rise-in_1.06s_ease-out_0.5s_forwards] motion-reduce:opacity-100 lg:block"
         onMouseLeave={() => onHoveredMetricChange(null)}
       >
         {content.metrics.map((metric, index) => {

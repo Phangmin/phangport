@@ -63,7 +63,7 @@ const showcaseContent: Record<LanguageCode, ShowcaseContent> = {
   ko: {
     eyebrow: '보이지 않는 비효율을 찾아 서비스의 가치를 만듭니다',
     title: ['복잡한 흐름을', '직관적인 경험으로 바꿉니다'],
-    description: '복잡한 흐름을 단순한 화면으로 정리하고, 기획과 개발을 연결해 실제 문제를 해결하는 프론트엔드를 만듭니다.',
+    description: '복잡한 흐름을 단순한 화면으로 정리하고, 기획과 개발을 연결해 실제 문제를 해결하는 서비스를 만듭니다.',
     primaryCta: '전체 프로젝트',
     secondaryCta: '연락하기',
     scrollLabel: '다음 섹션으로 이동',
