@@ -292,7 +292,7 @@ function ProjectsPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedProjectId(null)}
-                  className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-transparent text-slate-400 transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 focus-visible:border-blue-600 focus-visible:text-blue-600 focus-visible:outline-none"
+                  className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-400 transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 focus-visible:border-blue-600 focus-visible:text-blue-600 focus-visible:outline-none"
                   data-projects-modal-close="true"
                   aria-label="Close project detail modal"
                 >
