@@ -16,6 +16,7 @@ import mysqlIcon from '../assets/skillsicons/mysql-icon.png'
 import neonIcon from '../assets/skillsicons/neon-icon.webp'
 import nextjsIcon from '../assets/skillsicons/nextjs-icon.png'
 import notionIcon from '../assets/icons/notion-icon.webp'
+import piniaIcon from '../assets/skillsicons/pinia-icon.svg'
 import postmanIcon from '../assets/skillsicons/postman-icon.svg'
 import pythonIcon from '../assets/skillsicons/python-icon.png'
 import reactIcon from '../assets/skillsicons/React-icon.png'
@@ -69,6 +70,7 @@ const SKILL_ICON_MAP: Record<string, string> = {
   'Vue.js': vueIcon,
   'Next.js': nextjsIcon,
   Vite: viteIcon,
+  Pinia: piniaIcon,
   HTML: html5Icon,
   JavaScript: javascriptIcon,
   TypeScript: typescriptIcon,
