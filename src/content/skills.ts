@@ -1,5 +1,6 @@
 import androidStudioIcon from '../assets/skillsicons/andriod-studio-icon.png'
 import bootstrapIcon from '../assets/skillsicons/bootstrap-icon.png'
+import chartIcon from '../assets/skillsicons/chart-icon.png'
 import djangoIcon from '../assets/skillsicons/django-icon.png'
 import electronIcon from '../assets/skillsicons/electron-icon.png'
 import figmaIcon from '../assets/skillsicons/firma-icon.svg'
@@ -9,13 +10,17 @@ import gitlabIcon from '../assets/skillsicons/gitlab-icon.png'
 import html5Icon from '../assets/skillsicons/html5-icon.png'
 import javascriptIcon from '../assets/skillsicons/javascript-icon.png'
 import jiraIcon from '../assets/skillsicons/jira-icon.png'
+import kisIcon from '../assets/skillsicons/kis-icon.png'
+import konvaIcon from '../assets/skillsicons/konva-icon.png'
 import kotlinIcon from '../assets/skillsicons/kotlin-icon.png'
+import krxIcon from '../assets/skillsicons/krx-icon.svg'
 import mattermostIcon from '../assets/skillsicons/mattermost-icon.webp'
 import microsoftTeamsIcon from '../assets/skillsicons/microsoftteams-icon.png'
 import mysqlIcon from '../assets/skillsicons/mysql-icon.png'
 import neonIcon from '../assets/skillsicons/neon-icon.webp'
 import nextjsIcon from '../assets/skillsicons/nextjs-icon.png'
 import notionIcon from '../assets/icons/notion-icon.webp'
+import openviduIcon from '../assets/skillsicons/openvidu-icon.png'
 import piniaIcon from '../assets/skillsicons/pinia-icon.svg'
 import postmanIcon from '../assets/skillsicons/postman-icon.svg'
 import pythonIcon from '../assets/skillsicons/python-icon.png'
@@ -27,6 +32,7 @@ import typescriptIcon from '../assets/skillsicons/typescript-icon.png'
 import vercelIcon from '../assets/skillsicons/vercel-icon.png'
 import viteIcon from '../assets/skillsicons/vite-icon.png'
 import vueIcon from '../assets/skillsicons/vue-icon.png'
+import zustandIcon from '../assets/skillsicons/zustand-icon.png'
 import type { LanguageCode } from '../hooks/useLanguage'
 
 export type SkillLabel = string
@@ -71,6 +77,12 @@ const SKILL_ICON_MAP: Record<string, string> = {
   'Next.js': nextjsIcon,
   Vite: viteIcon,
   Pinia: piniaIcon,
+  Zustand: zustandIcon,
+  OpenVidu: openviduIcon,
+  'Chart.js': chartIcon,
+  'Konva.js': konvaIcon,
+  'KRX API': krxIcon,
+  'KIS API': kisIcon,
   HTML: html5Icon,
   JavaScript: javascriptIcon,
   TypeScript: typescriptIcon,
